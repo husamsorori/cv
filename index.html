@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة السيرة الذاتية الإلكترونية</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        h2 {
+            padding: 10px;
+            background-color: var(--light-color);
+            border-right: 5px solid var(--secondary-color);
+            margin-top: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item input, .radio-item input {
+            margin-left: 8px;
+        }
+        
+        .inline-fields {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .inline-fields .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: right;
+        }
+        
+        th {
+            background-color: var(--light-color);
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-add {
+            background-color: var(--success-color);
+            margin-top: 10px;
+        }
+        
+        .btn-add:hover {
+            background-color: #219653;
+        }
+        
+        .btn-submit {
+            background-color: var(--primary-color);
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px;
+            font-size: 18px;
+        }
+        
+        .btn-submit:hover {
+            background-color: #1a252f;
+        }
+        
+        .specializations {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .specialization-group {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .specialization-group h4 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        /* أنماط السيرة الذاتية */
+        .cv-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        
+        .cv-header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .cv-name {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .cv-title {
+            font-size: 20px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .cv-contact {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .cv-section {
+            margin-bottom: 25px;
+        }
+        
+        .cv-section-title {
+            font-size: 22px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .cv-item {
+            margin-bottom: 15px;
+        }
+        
+        .cv-item-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--dark-color);
+        }
+        
+        .cv-item-subtitle {
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+        
+        .cv-item-date {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .cv-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .cv-skill {
+            background: var(--light-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .inline-fields {
+                flex-direction: column;
+            }
+            
+            .inline-fields .form-group {
+                min-width: 100%;
+            }
+            
+            table {
+                font-size: 14px;
+            }
+            
+            .cv-contact {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>استمارة السيرة الذاتية الإلكترونية - النسخة النهائية الكاملة</h1>
+        
+        <div class="alert alert-info">
+            <strong>ملاحظة:</strong> سيتم التصنيف التلقائي بناءً على البيانات المدخلة لتحديد الكلية الرئيسية، التخصص الدقيق، والمكاتب المستهدفة.
+        </div>
+        
+        <form id="cvForm">
+            <!-- القسم 1: المعلومات الشخصية الأساسية -->
+            <div class="section">
+                <h2>1. المعلومات الشخصية الأساسية</h2>
+                
+                <div class="form-group">
+                    <h3>البيانات الشخصية:</h3>
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label>الجنس:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="male" name="gender" value="ذكر">
+                                    <label for="male">ذكر</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="female" name="gender" value="أنثى">
+                                    <label for="female">أنثى</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>الحالة الاجتماعية:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="single" name="maritalStatus" value="أعزب">
+                                    <label for="single">أعزب</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="married" name="maritalStatus" value="متزوج">
+                                    <label for="married">متزوج</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="widowed" name="maritalStatus" value="أرمل">
+                                    <label for="widowed">أرمل</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="divorced" name="maritalStatus" value="مطلق">
+                                    <label for="divorced">مطلق</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label for="nationality">الجنسية:</label>
+                            <input type="text" id="nationality" name="nationality">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthDate">تاريخ الميلاد:</label>
+                            <input type="date" id="birthDate" name="birthDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="idNumber">رقم الهوية/الإقامة:</label>
+                            <input type="text" id="idNumber" name="idNumber">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3>معلومات الاتصال:</h3>
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label for="phone">رقم الجوال:</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="relativePhone">رقم جوال أحد الأقارب:</label>
+                            <input type="tel" id="relativePhone" name="relativePhone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                    </div>
+                    
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label for="city">المدينة:</label>
+                            <input type="text" id="city" name="city">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="district">الحي:</label>
+                            <input type="text" id="district" name="district">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم 2: المؤهلات العلمية التفصيلية -->
+            <div class="section">
+                <h2>2. المؤهلات العلمية التفصيلية</h2>
+                <p>يرجى ذكر جميع المؤهلات العلمية حسب التسلسل الزمني:</p>
+                
+                <table id="qualificationsTable">
+                    <thead>
+                        <tr>
+                            <th>المؤهل</th>
+                            <th>البلد</th>
+                            <th>الجامعة/المعهد</th>
+                            <th>التخصص الرئيسي</th>
+                            <th>القسم</th>
+                            <th>سنة التخرج</th>
+                            <th>المعدل/التقدير</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select name="qualificationType" class="qualification-type">
+                                    <option value="">اختر المؤهل</option>
+                                    <option value="ثانوية عامة">ثانوية عامة</option>
+                                    <option value="دبلوم">دبلوم</option>
+                                    <option value="بكالوريوس">بكالوريوس</option>
+                                    <option value="ماجستير">ماجستير</option>
+                                    <option value="دكتوراه">دكتوراه</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="country"></td>
+                            <td><input type="text" name="institution"></td>
+                            <td>
+                                <select name="mainSpecialization" class="main-specialization-select">
+                                    <option value="">اختر التخصص الرئيسي</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="subSpecialization" class="sub-specialization-select">
+                                    <option value="">اختر القسم</option>
+                                </select>
+                            </td>
+                            <td><input type="number" name="graduationYear" min="1950" max="2030"></td>
+                            <td><input type="text" name="grade"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button type="button" class="btn btn-add" id="addQualification">+ إضافة مؤهل</button>
+            </div>
+            
+            <!-- القسم 3: الخبرات العملية التفصيلية -->
+            <div class="section">
+                <h2>3. الخبرات العملية التفصيلية</h2>
+                <p>يرجى ذكر جميع الخبرات مع الربط بالتخصصات أعلاه:</p>
+                
+                <table id="experienceTable">
+                    <thead>
+                        <tr>
+                            <th>جهة العمل</th>
+                            <th>المسمى الوظيفي</th>
+                            <th>المجال</th>
+                            <th>المدة</th>
+                            <th>المهام الرئيسية</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="employer"></td>
+                            <td><input type="text" name="jobTitle"></td>
+                            <td>
+                                <select name="experienceSpecialization" class="sub-specialization-select">
+                                    <option value="">اختر المجال</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="inline-fields">
+                                    <div>من <input type="date" name="fromDate"></div>
+                                    <div>إلى <input type="date" name="toDate"></div>
+                                </div>
+                            </td>
+                            <td><textarea name="tasks" rows="2"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button type="button" class="btn btn-add" id="addExperience">+ إضافة خبرة</button>
+            </div>
+            
+            <!-- القسم 4: المهارات التقنية -->
+            <div class="section">
+                <h2>4. المهارات التقنية</h2>
+                
+                <p>يرجى ذكر جميع المهارات مع الربط بالتخصصات:</p>
+                
+                <table id="skillsTable">
+                    <thead>
+                        <tr>
+                            <th>المهارة</th>
+                            <th>المجال</th>
+                            <th>المدة</th>
+                            <th>المهام الرئيسية</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" name="skill">
+                            </td>
+                            <td>
+                                <select name="skillSpecialization" class="sub-specialization-select">
+                                    <option value="">اختر المجال</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="inline-fields">
+                                    <div>من <input type="date" name="skillFromDate"></div>
+                                    <div>إلى <input type="date" name="skillToDate"></div>
+                                </div>
+                            </td>
+                            <td><textarea name="skillTasks" rows="2"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button type="button" class="btn btn-add" id="addSkill">+ إضافة مهارة</button>
+            </div>
+            
+            <!-- القسم 5: الشهادات المهنية والدورات -->
+            <div class="section">
+                <h2>5. الشهادات المهنية والدورات</h2>
+                <p>يرجى ذكر جميع الشهادات والدورات:</p>
+                
+                <table id="certificationsTable">
+                    <thead>
+                        <tr>
+                            <th>اسم الشهادة/الدورة</th>
+                            <th>الجهة المانحة</th>
+                            <th>البلد</th>
+                            <th>سنة الحصول</th>
+                            <th>التصنيف</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="certificationName"></td>
+                            <td><input type="text" name="issuingAuthority"></td>
+                            <td><input type="text" name="certCountry"></td>
+                            <td><input type="number" name="certYear" min="1950" max="2030"></td>
+                            <td>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" name="certType" value="شهادة مهنية">
+                                        <label>شهادة مهنية</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" name="certType" value="دورة تدريبية">
+                                        <label>دورة تدريبية</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button type="button" class="btn btn-add" id="addCertification">+ إضافة شهادة/دورة</button>
+            </div>
+            
+            <!-- القسم 6: المشاريع السابقة والإنجازات -->
+            <div class="section">
+                <h2>6. المشاريع السابقة والإنجازات</h2>
+                <p>يرجى ذكر أهم المشاريع مع الربط بالتخصصات:</p>
+                
+                <table id="projectsTable">
+                    <thead>
+                        <tr>
+                            <th>اسم المشروع</th>
+                            <th>جهة العمل</th>
+                            <th>التخصص الدقيق (من القائمة)</th>
+                            <th>المدة</th>
+                            <th>القيمة التقريبية</th>
+                            <th>الدور</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="projectName"></td>
+                            <td><input type="text" name="projectEmployer"></td>
+                            <td>
+                                <select name="projectSpecialization" class="sub-specialization-select">
+                                    <option value="">اختر التخصص</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="projectDuration"></td>
+                            <td><input type="text" name="projectValue"></td>
+                            <td><textarea name="projectRole" rows="2"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button type="button" class="btn btn-add" id="addProject">+ إضافة مشروع</button>
+            </div>
+            
+            <!-- القسم 7: اللغات والإمكانيات -->
+            <div class="section">
+                <h2>7. اللغات والإمكانيات</h2>
+                
+                <div class="form-group">
+                    <h3>اللغة العربية:</h3>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="arabicNative" name="arabicNative">
+                        <label for="arabicNative">اللغة الأم</label>
+                    </div>
+                    
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label>الكتابة:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="arabicWriting" value="ممتاز">
+                                    <label>ممتاز</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="arabicWriting" value="جيد جداً">
+                                    <label>جيد جداً</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>المحادثة:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="arabicSpeaking" value="ممتاز">
+                                    <label>ممتاز</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="arabicSpeaking" value="جيد جداً">
+                                    <label>جيد جداً</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3>اللغة الإنجليزية:</h3>
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label>الكتابة:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="englishWriting" value="ممتاز">
+                                    <label>ممتاز</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="englishWriting" value="جيد جداً">
+                                    <label>جيد جداً</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>المحادثة:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="englishSpeaking" value="ممتاز">
+                                    <label>ممتاز</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="englishSpeaking" value="جيد جداً">
+                                    <label>جيد جداً</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3>لغات أخرى:</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="french" name="otherLanguages" value="فرنسي">
+                            <label for="french">فرنسي</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="otherLanguage">أخرى:</label>
+                        <input type="text" id="otherLanguage" name="otherLanguage">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم 8: المعلومات الإضافية -->
+            <div class="section">
+                <h2>8. المعلومات الإضافية</h2>
+                
+                <div class="form-group">
+                    <h3>الجوازات والسفر:</h3>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="saudiPassport" name="passport" value="جواز سعودي">
+                            <label for="saudiPassport">جواز سعودي</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3>رخصة القيادة:</h3>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="validLicense" name="drivingLicense" value="سارية">
+                            <label for="validLicense">سارية</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3>الحالة الصحية:</h3>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="medicallyFit" name="healthStatus" value="لائق طبياً">
+                            <label for="medicallyFit">لائق طبياً</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-submit">إرسال الاستمارة</button>
+        </form>
+    </div>
+
+    <script>
+        // كود JavaScript لإضافة التفاعلية وإنشاء السيرة الذاتية
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة صفوف جديدة للجداول
+            document.getElementById('addQualification').addEventListener('click', function() {
+                addTableRow('qualificationsTable');
+            });
+            
+            document.getElementById('addExperience').addEventListener('click', function() {
+                addTableRow('experienceTable');
+            });
+            
+            document.getElementById('addSkill').addEventListener('click', function() {
+                addTableRow('skillsTable');
+            });
+            
+            document.getElementById('addCertification').addEventListener('click', function() {
+                addTableRow('certificationsTable');
+            });
+            
+            document.getElementById('addProject').addEventListener('click', function() {
+                addTableRow('projectsTable');
+            });
+            
+            // وظيفة إضافة صف جديد للجدول
+            function addTableRow(tableId) {
+                const table = document.getElementById(tableId);
+                const tbody = table.getElementsByTagName('tbody')[0];
+                const newRow = tbody.insertRow();
+                
+                // نسخ خلايا الصف الأول
+                const firstRow = tbody.rows[0];
+                for (let i = 0; i < firstRow.cells.length; i++) {
+                    const newCell = newRow.insertCell();
+                    newCell.innerHTML = firstRow.cells[i].innerHTML;
+                    
+                    // إعادة ربط الأحداث للعناصر الجديدة
+                    const mainSpecSelect = newCell.querySelector('.main-specialization-select');
+                    const subSpecSelect = newCell.querySelector('.sub-specialization-select');
+                    const qualificationType = newCell.querySelector('.qualification-type');
+                    
+                    if (qualificationType) {
+                        qualificationType.addEventListener('change', function() {
+                            handleQualificationTypeChange(this);
+                        });
+                    }
+                    
+                    if (mainSpecSelect) {
+                        mainSpecSelect.addEventListener('change', function() {
+                            updateSubSpecializations(this);
+                        });
+                    }
+                    
+                    // ملء حقول الاختيار الفرعية في الصف الجديد
+                    if (subSpecSelect) {
+                        populateSubSpecializations(subSpecSelect);
+                    }
+                }
+            }
+            
+            // تحميل قوائم التخصصات ديناميكياً
+            const specializations = {
+                'كلية الهندسة': {
+                    'الهندسة المدنية': ['هندسة مدنية عامة', 'هندسة إنشائية', 'هندسة المساحة', 'هندسة الطرق والمواصلات'],
+                    'الهندسة المعمارية': ['تصميم المباني', 'التصميم الداخلي والديكور', 'التخطيط العمراني']
+                },
+                'كلية الشريعة والقانون': {
+                    'القانون المدني': ['العقود والالتزامات', 'الملكية العقارية', 'المسؤولية المدنية والتعويضات'],
+                    'القانون التجاري': ['الشركات', 'المعاملات التجارية', 'الملكية الفكرية']
+                },
+                'كلية الإدارة والعلوم المالية': {
+                    'المحاسبة': ['التقارير المالية', 'الرقابة المالية'],
+                    'الموارد البشرية': ['شؤون الموظفين']
+                },
+                'كلية الإعلام والاتصال': {
+                    'التصميم الجرافيكي': ['الهويات البصرية'],
+                    'المونتاج': ['إنتاج الفيديو']
+                },
+                'كلية الطب والعلوم الصحية': {
+                    'التحاليل': ['مختبرات عامة'],
+                    'العيادات': ['طب عام']
+                }
+            };
+            
+            // جمع جميع الأقسام الفرعية في قائمة واحدة
+            let allSubSpecializations = [];
+            for (const college in specializations) {
+                for (const major in specializations[college]) {
+                    allSubSpecializations = allSubSpecializations.concat(specializations[college][major]);
+                }
+            }
+            
+            // تعبئة التخصصات الرئيسية عند تحميل الصفحة
+            function populateMainSpecializations(selectElement) {
+                // مسح الخيارات الحالية
+                selectElement.innerHTML = '<option value="">اختر التخصص الرئيسي</option>';
+                
+                // إضافة الخيارات المناسبة بناءً على نوع المؤهل
+                for (const college in specializations) {
+                    for (const major in specializations[college]) {
+                        const option = document.createElement('option');
+                        option.value = major;
+                        option.textContent = `${college} - ${major}`;
+                        option.dataset.college = college;
+                        selectElement.appendChild(option);
+                    }
+                }
+            }
+            
+            // تعبئة الأقسام الفرعية في جميع الحقول
+            function populateSubSpecializations(selectElement) {
+                // مسح الخيارات الحالية
+                selectElement.innerHTML = '<option value="">اختر القسم</option>';
+                
+                // إضافة جميع الأقسام الفرعية
+                allSubSpecializations.forEach(subSpec => {
+                    const option = document.createElement('option');
+                    option.value = subSpec;
+                    option.textContent = subSpec;
+                    selectElement.appendChild(option);
+                });
+            }
+            
+            // تحديث الأقسام الفرعية بناءً على التخصص الرئيسي المختار
+            function updateSubSpecializations(mainSpecSelect) {
+                const selectedOption = mainSpecSelect.options[mainSpecSelect.selectedIndex];
+                const college = selectedOption.dataset.college;
+                const mainSpecialization = selectedOption.value;
+                const subSpecSelect = mainSpecSelect.closest('tr').querySelector('.sub-specialization-select');
+                
+                // مسح الخيارات الحالية
+                subSpecSelect.innerHTML = '<option value="">اختر القسم</option>';
+                
+                // إضافة الخيارات المناسبة
+                if (college && mainSpecialization && specializations[college] && specializations[college][mainSpecialization]) {
+                    specializations[college][mainSpecialization].forEach(subSpec => {
+                        const option = document.createElement('option');
+                        option.value = subSpec;
+                        option.textContent = subSpec;
+                        subSpecSelect.appendChild(option);
+                    });
+                }
+            }
+            
+            // التعامل مع تغيير نوع المؤهل
+            function handleQualificationTypeChange(qualificationTypeSelect) {
+                const qualificationType = qualificationTypeSelect.value;
+                const row = qualificationTypeSelect.closest('tr');
+                const mainSpecSelect = row.querySelector('.main-specialization-select');
+                const subSpecSelect = row.querySelector('.sub-specialization-select');
+                
+                // مسح الخيارات الحالية
+                mainSpecSelect.innerHTML = '<option value="">اختر التخصص الرئيسي</option>';
+                subSpecSelect.innerHTML = '<option value="">اختر القسم</option>';
+                
+                // إضافة الخيارات المناسبة بناءً على نوع المؤهل
+                if (qualificationType === 'بكالوريوس' || qualificationType === 'ماجستير' || qualificationType === 'دكتوراه') {
+                    populateMainSpecializations(mainSpecSelect);
+                }
+            }
+            
+            // تهيئة الصفحة
+            document.querySelectorAll('.qualification-type').forEach(select => {
+                select.addEventListener('change', function() {
+                    handleQualificationTypeChange(this);
+                });
+            });
+            
+            document.querySelectorAll('.main-specialization-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    updateSubSpecializations(this);
+                });
+            });
+            
+            // ملء جميع حقول الاختيار الفرعية عند تحميل الصفحة
+            document.querySelectorAll('.sub-specialization-select').forEach(select => {
+                populateSubSpecializations(select);
+            });
+            
+            // إنشاء السيرة الذاتية عند الضغط على زر الإرسال
+            document.getElementById('cvForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // جمع البيانات من النموذج
+                const formData = new FormData(this);
+                const data = {};
+                for (const [key, value] of formData.entries()) {
+                    if (data[key]) {
+                        if (Array.isArray(data[key])) {
+                            data[key].push(value);
+                        } else {
+                            data[key] = [data[key], value];
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                }
+                
+                // إنشاء السيرة الذاتية
+                generateCV(data);
+            });
+            
+            // وظيفة إنشاء السيرة الذاتية
+            function generateCV(data) {
+                // إنشاء نافذة جديدة لعرض السيرة الذاتية
+                const cvWindow = window.open('', '_blank', 'width=1000,height=800,scrollbars=yes');
+                
+                // محتوى السيرة الذاتية
+                const cvContent = `
+                <!DOCTYPE html>
+                <html lang="ar" dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>السيرة الذاتية</title>
+                    <style>
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            line-height: 1.6;
+                            color: #333;
+                            margin: 0;
+                            padding: 20px;
+                            background-color: #f5f7fa;
+                        }
+                        .cv-container {
+                            max-width: 1000px;
+                            margin: 0 auto;
+                            background: white;
+                            padding: 40px;
+                            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                            border-radius: 10px;
+                        }
+                        .cv-header {
+                            text-align: center;
+                            border-bottom: 3px solid #2c3e50;
+                            padding-bottom: 20px;
+                            margin-bottom: 30px;
+                        }
+                        .cv-name {
+                            font-size: 32px;
+                            color: #2c3e50;
+                            margin-bottom: 10px;
+                        }
+                        .cv-title {
+                            font-size: 20px;
+                            color: #3498db;
+                            margin-bottom: 15px;
+                        }
+                        .cv-contact {
+                            display: flex;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                            gap: 20px;
+                            margin-bottom: 10px;
+                        }
+                        .cv-section {
+                            margin-bottom: 25px;
+                        }
+                        .cv-section-title {
+                            font-size: 22px;
+                            color: #2c3e50;
+                            border-bottom: 2px solid #3498db;
+                            padding-bottom: 8px;
+                            margin-bottom: 15px;
+                        }
+                        .cv-item {
+                            margin-bottom: 15px;
+                        }
+                        .cv-item-title {
+                            font-weight: bold;
+                            font-size: 18px;
+                            color: #2c3e50;
+                        }
+                        .cv-item-subtitle {
+                            color: #3498db;
+                            font-style: italic;
+                        }
+                        .cv-item-date {
+                            color: #777;
+                            font-size: 14px;
+                        }
+                        .cv-skills {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 10px;
+                        }
+                        .cv-skill {
+                            background: #ecf0f1;
+                            padding: 5px 15px;
+                            border-radius: 20px;
+                            font-size: 14px;
+                        }
+                        @media print {
+                            body {
+                                background: white;
+                            }
+                            .cv-container {
+                                box-shadow: none;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="cv-container">
+                        <div class="cv-header">
+                            <h1 class="cv-name">${data.fullName || 'الاسم الكامل'}</h1>
+                            <div class="cv-title">${data.mainSpecialization || 'التخصص الرئيسي'}</div>
+                            <div class="cv-contact">
+                                <div>${data.phone || 'رقم الجوال'}</div>
+                                <div>${data.email || 'البريد الإلكتروني'}</div>
+                                <div>${data.city || 'المدينة'}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">المعلومات الشخصية</h2>
+                            <div class="cv-item">
+                                <div><strong>الجنسية:</strong> ${data.nationality || ''}</div>
+                                <div><strong>تاريخ الميلاد:</strong> ${data.birthDate || ''}</div>
+                                <div><strong>الحالة الاجتماعية:</strong> ${data.maritalStatus || ''}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">المؤهلات العلمية</h2>
+                            ${data.qualificationType ? (Array.isArray(data.qualificationType) ? data.qualificationType.map((qual, index) => `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${qual}</div>
+                                    <div class="cv-item-subtitle">${data.mainSpecialization ? (Array.isArray(data.mainSpecialization) ? data.mainSpecialization[index] : data.mainSpecialization) : ''}</div>
+                                    <div>${data.institution ? (Array.isArray(data.institution) ? data.institution[index] : data.institution) : ''}</div>
+                                    <div class="cv-item-date">${data.graduationYear ? (Array.isArray(data.graduationYear) ? data.graduationYear[index] : data.graduationYear) : ''}</div>
+                                </div>
+                            `).join('') : `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${data.qualificationType}</div>
+                                    <div class="cv-item-subtitle">${data.mainSpecialization || ''}</div>
+                                    <div>${data.institution || ''}</div>
+                                    <div class="cv-item-date">${data.graduationYear || ''}</div>
+                                </div>
+                            `) : '<div>لم يتم إضافة مؤهلات علمية</div>'}
+                        </div>
+                        
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">الخبرات العملية</h2>
+                            ${data.employer ? (Array.isArray(data.employer) ? data.employer.map((emp, index) => `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${data.jobTitle ? (Array.isArray(data.jobTitle) ? data.jobTitle[index] : data.jobTitle) : ''}</div>
+                                    <div class="cv-item-subtitle">${emp}</div>
+                                    <div class="cv-item-date">${data.fromDate ? (Array.isArray(data.fromDate) ? data.fromDate[index] : data.fromDate) : ''} - ${data.toDate ? (Array.isArray(data.toDate) ? data.toDate[index] : data.toDate) : ''}</div>
+                                    <div>${data.tasks ? (Array.isArray(data.tasks) ? data.tasks[index] : data.tasks) : ''}</div>
+                                </div>
+                            `).join('') : `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${data.jobTitle || ''}</div>
+                                    <div class="cv-item-subtitle">${data.employer}</div>
+                                    <div class="cv-item-date">${data.fromDate || ''} - ${data.toDate || ''}</div>
+                                    <div>${data.tasks || ''}</div>
+                                </div>
+                            `) : '<div>لم يتم إضافة خبرات عمل</div>'}
+                        </div>
+                        
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">المهارات</h2>
+                            <div class="cv-skills">
+                                ${data.skill ? (Array.isArray(data.skill) ? data.skill.map(skill => `
+                                    <div class="cv-skill">${skill}</div>
+                                `).join('') : `<div class="cv-skill">${data.skill}</div>`) : '<div>لم يتم إضافة مهارات</div>'}
+                            </div>
+                        </div>
+                        
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">الشهادات والدورات</h2>
+                            ${data.certificationName ? (Array.isArray(data.certificationName) ? data.certificationName.map((cert, index) => `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${cert}</div>
+                                    <div class="cv-item-subtitle">${data.issuingAuthority ? (Array.isArray(data.issuingAuthority) ? data.issuingAuthority[index] : data.issuingAuthority) : ''}</div>
+                                    <div class="cv-item-date">${data.certYear ? (Array.isArray(data.certYear) ? data.certYear[index] : data.certYear) : ''}</div>
+                                </div>
+                            `).join('') : `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${data.certificationName}</div>
+                                    <div class="cv-item-subtitle">${data.issuingAuthority || ''}</div>
+                                    <div class="cv-item-date">${data.certYear || ''}</div>
+                                </div>
+                            `) : '<div>لم يتم إضافة شهادات أو دورات</div>'}
+                        </div>
+                        
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">المشاريع</h2>
+                            ${data.projectName ? (Array.isArray(data.projectName) ? data.projectName.map((project, index) => `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${project}</div>
+                                    <div class="cv-item-subtitle">${data.projectEmployer ? (Array.isArray(data.projectEmployer) ? data.projectEmployer[index] : data.projectEmployer) : ''}</div>
+                                    <div class="cv-item-date">${data.projectDuration ? (Array.isArray(data.projectDuration) ? data.projectDuration[index] : data.projectDuration) : ''}</div>
+                                    <div>${data.projectRole ? (Array.isArray(data.projectRole) ? data.projectRole[index] : data.projectRole) : ''}</div>
+                                </div>
+                            `).join('') : `
+                                <div class="cv-item">
+                                    <div class="cv-item-title">${data.projectName}</div>
+                                    <div class="cv-item-subtitle">${data.projectEmployer || ''}</div>
+                                    <div class="cv-item-date">${data.projectDuration || ''}</div>
+                                    <div>${data.projectRole || ''}</div>
+                                </div>
+                            `) : '<div>لم يتم إضافة مشاريع</div>'}
+                        </div>
+                        
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">اللغات</h2>
+                            <div class="cv-skills">
+                                ${data.arabicNative ? '<div class="cv-skill">العربية (لغة أم)</div>' : ''}
+                                ${data.englishWriting ? '<div class="cv-skill">الإنجليزية</div>' : ''}
+                                ${data.otherLanguages ? (Array.isArray(data.otherLanguages) ? data.otherLanguages.map(lang => `<div class="cv-skill">${lang}</div>`).join('') : `<div class="cv-skill">${data.otherLanguages}</div>`) : ''}
+                                ${data.otherLanguage ? `<div class="cv-skill">${data.otherLanguage}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                        };
+                    <\/script>
+                </body>
+                </html>
+                `;
+                
+                // كتابة محتوى السيرة الذاتية في النافذة الجديدة
+                cvWindow.document.open();
+                cvWindow.document.write(cvContent);
+                cvWindow.document.close();
+            }
+        });
+    </script>
+</body>
+</html>
