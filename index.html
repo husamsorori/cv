@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>السيرة الذاتية</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 <style>
     body {
         background-color: #f5f6fa;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        direction: rtl; /* اتجاه الصفحة عربي */
+        direction: rtl;
         text-align: right;
     }
     .section-header {
@@ -20,12 +22,10 @@
         border-radius: 8px;
         margin-bottom: 5px;
         transition: background-color 0.3s;
-        font-size: 1.3rem; /* تكبير العنوان */
+        font-size: 1.3rem;
         font-weight: bold;
     }
-    .section-header:hover {
-        background-color: #0b5ed7;
-    }
+    .section-header:hover { background-color: #0b5ed7; }
     .section-content {
         display: none;
         padding: 15px 20px;
@@ -35,15 +35,43 @@
         margin-bottom: 15px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-    .add-btn {
+    .add-btn { margin-top: 10px; }
+    .item-box {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px 15px;
         margin-top: 10px;
+        border: 1px solid #ddd;
+        position: relative;
     }
-    input.form-control {
+    .action-btns {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    .action-btns button { margin-left: 5px; }
+
+    /* تصميم عرض السيرة الذاتية */
+    #cv-preview {
+        display: none;
+        background: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    #cv-preview h2 {
+        color: #0d6efd;
+        border-bottom: 2px solid #0d6efd;
+        padding-bottom: 8px;
+        margin-top: 25px;
+    }
+    .info p { margin: 0; line-height: 1.8; }
+    .item-box-preview {
+        background: #f9f9f9;
+        padding: 10px 15px;
+        border-radius: 8px;
         margin-bottom: 10px;
-    }
-    h2 {
-        font-weight: bold;
-        margin-bottom: 30px;
+        border: 1px solid #ddd;
     }
 </style>
 </head>
@@ -51,192 +79,466 @@
 <div class="container my-5">
     <h2 class="text-center mb-4">إنشاء السيرة الذاتية</h2>
 
-    <!-- المعلومات الشخصية الأساسية -->
-    <div class="section">
-        <div class="section-header" onclick="toggleSection('personal')">المعلومات الشخصية الأساسية</div>
-        <div class="section-content" id="personal">
-            <h5 class="mb-3">البيانات الشخصية</h5>
-            <input type="text" class="form-control" placeholder="الجنس">
-            <input type="text" class="form-control" placeholder="الجنسية">
-            <input type="text" class="form-control" placeholder="الحالة الاجتماعية">
-            <input type="date" class="form-control" placeholder="تاريخ الميلاد">
-
-            <h5 class="mb-3 mt-3">بيانات التواصل</h5>
-            <input type="email" class="form-control" placeholder="البريد الإلكتروني">
-            <input type="text" class="form-control" placeholder="رقم الجوال">
-            <input type="text" class="form-control" placeholder="رقم جوال أحد الأقارب">
-        </div>
-    </div>
-
-    <!-- المهارات -->
-    <div class="section">
-        <div class="section-header" onclick="toggleSection('skills')">المهارات التقنية</div>
-        <div class="section-content" id="skills">
-            <div id="skills-list">
-                <input type="text" class="form-control" placeholder="أدخل المهارة">
-                <input type="text" class="form-control" placeholder="المجال">
-                <input type="date" class="form-control" placeholder=" من تاريخ">
-                <input type="date" class="form-control" placeholder=" الى تاريخ">
-                <input type="text" class="form-control" placeholder="وصف">
+    <div id="cv-form">
+        <!-- الأقسام الأصلية -->
+        <!-- المعلومات الشخصية -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('personal')">المعلومات الشخصية الأساسية</div>
+            <div class="section-content" id="personal">
+                <input type="text" class="form-control" placeholder="الجنس">
+                <input type="text" class="form-control" placeholder="الجنسية">
+                <input type="text" class="form-control" placeholder="الحالة الاجتماعية">
+                <input type="date" class="form-control" placeholder="تاريخ الميلاد">
+                <h5 class="mt-3">بيانات التواصل</h5>
+                <input type="email" class="form-control" placeholder="البريد الإلكتروني">
+                <input type="text" class="form-control" placeholder="رقم الجوال">
+                <input type="text" class="form-control" placeholder="رقم جوال أحد الأقارب">
+                <input type="text" class="form-control" placeholder="   صلة القرابة">
             </div>
-            <button class="btn btn-outline-primary add-btn" onclick="addSkill()">إضافة مهارة</button>
         </div>
-    </div>
 
-    <!-- الخبرات -->
-    <div class="section">
-        <div class="section-header" onclick="toggleSection('experience')">الخبرات العملية</div>
-        <div class="section-content" id="experience">
-            <div id="experience-list">
-                <input type="text" class="form-control" placeholder="جهة العمل">
-                <input type="text" class="form-control" placeholder="المسمى الوظيفي">
-                <input type="text" class="form-control" placeholder=" المجال">
-                <input type="date" class="form-control" placeholder=" من تاريخ">
-                <input type="date" class="form-control" placeholder=" الى تاريخ">
-                <input type="text" class="form-control" placeholder=" المهام الرئيسية ">
-            </div>
-            <button class="btn btn-outline-primary add-btn" onclick="addExperience()">إضافة خبرة</button>
-        </div>
-    </div>
+        
 
-   <!-- قسم المؤهلات العلمية -->
+        <!-- الخبرات -->
+     <!-- الخبرات -->
 <div class="section">
-    <div class="section-header" onclick="toggleSection('education')">المؤهلات العلمية</div>
-    <div class="section-content" id="education">
-        <p class="mb-3"><strong>يرجى ذكر جميع المؤهلات العلمية حسب التسلسل الزمني:</strong></p>
-        <div id="education-list">
-            <div class="edu-item mb-3">
-                <input type="text" class="form-control" placeholder="البلد">
-                <input type="text" class="form-control" placeholder="الجامعة / المعهد">
-                <input type="text" class="form-control" placeholder="التخصص الرئيسي">
-                <input type="text" class="form-control" placeholder="القسم">
-                <input type="number" class="form-control" placeholder="سنة التخرج">
-                <input type="text" class="form-control" placeholder="المعدل / التقدير">
+    <div class="section-header" onclick="toggleSection('experience')">الخبرات العملية</div>
+    <div class="section-content" id="experience">
+       
+       
+        
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-4">
+                <input type="text" id="expCompany" class="form-control" placeholder="جهة العمل">
+            </div>
+        
+            <div class="col-md-4">
+                <input type="text" id="expTitle" class="form-control" placeholder="المسمى الوظيفي">
+            </div>
+        
+            <div class="col-md-4 d-flex align-items-center mt-3 mt-md-0">
+                <input type="text" id="expField" class="form-control" placeholder="المجال">
             </div>
         </div>
-        <button class="btn btn-outline-primary add-btn" onclick="addEducation()">إضافة مؤهل</button>
+
+
+
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-4">
+                <label for="expFrom" class="form-label">من</label>
+                <input type="date" id="expFrom" class="form-control">
+            </div>
+        
+            <div class="col-md-4">
+                <label for="expTo" class="form-label">إلى</label>
+                <input type="date" id="expTo" class="form-control">
+            </div>
+        
+            <div class="col-md-4 d-flex align-items-center mt-3 mt-md-0">
+                <input type="checkbox" id="stillWorking" class="form-check-input me-2" onchange="toggleExpTo()">
+                <label for="stillWorking" class="form-check-label">ما زلت أعمل حالياً</label>
+            </div>
+        </div>
+        
+        <script>
+            function toggleExpTo() {
+                const checkbox = document.getElementById("stillWorking");
+                const expTo = document.getElementById("expTo");
+        
+                // تعطيل أو تمكين حقل "إلى" حسب حالة التشك بوكس
+                if (checkbox.checked) {
+                    expTo.disabled = true;
+                    expTo.value = "";
+                } else {
+                    expTo.disabled = false;
+                }
+            }
+        </script>
+        
+        <div class="mb-3">
+            <label for="expTasks" class="form-label">المهام الرئيسية</label>
+            <textarea id="expTasks" class="form-control" rows="3" placeholder="أدخل المهام هنا، واضغط Enter للانتقال إلى سطر جديد"></textarea>
+            <small class="text-muted">
+                يرجى إدخال كل مهمة في سطر منفصل (اضغط Enter للانتقال إلى المهمة التالية)
+            </small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">المهام الرئيسية</label>
+            <div id="tasks-container">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" placeholder="أدخل مهمة">
+                    <button class="btn btn-outline-primary" type="button" onclick="addTaskField()">
+                        <i class="bi bi-plus-lg"></i> <!-- أيقونة الإضافة -->
+                    </button>
+                </div>
+            </div>
+            <small class="text-muted">اضغط على زر الإضافة لإدخال مهمة جديدة</small>
+        </div>
+        
+        <!-- إضافة مكتبة الأيقونات (Bootstrap Icons) إن لم تكن مضافة مسبقًا -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        
+        <script>
+            function addTaskField() {
+                const container = document.getElementById('tasks-container');
+                const div = document.createElement('div');
+                div.classList.add('input-group', 'mb-2');
+        
+                div.innerHTML = `
+                    <input type="text" class="form-control" placeholder="أدخل مهمة">
+                    <button class="btn btn-outline-danger" type="button" onclick="removeTaskField(this)">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                `;
+        
+                container.appendChild(div);
+            }
+        
+            function removeTaskField(button) {
+                button.parentElement.remove();
+            }
+        </script>
+        
+                <button class="btn btn-outline-primary add-btn" onclick="addExperience()">إضافة خبرة</button>
+        <div id="experience-list"></div>
+
+        <!-- جدول المسؤولين -->
+        <h5 class="mt-4 mb-3 text-primary fw-bold">جدول المسؤولين</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle text-center shadow-sm" id="managers-table">
+                <thead class="table-primary">
+                    <tr>
+                        <th>الاسم</th>
+                        <th>الرقم</th>
+                        <th>الدرجة الوظيفية</th>
+                        <th>
+                            <button class="btn btn-sm btn-success" onclick="addManagerRow()" title="إضافة مسؤول">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="manager-msg" class="text-success fw-bold mt-2" style="display:none;"></div>
     </div>
 </div>
 
- <!-- قسم المؤهلات العلمية -->
- <div class="section">
-    <div class="section-header" onclick="toggleSection('educat')"> 5. الشهادات المهنية والدورات    </div>
-    <div class="section-content" id="educat">
-        <p class="mb-3"><strong>يرجى ذكر جميع الشهادات والدورات:  </strong></p>
-        <div id="educat-list">
-            <div class="edu-item mb-3">
-                <input type="text" class="form-control" placeholder="البلد">
-                <input type="text" class="form-control" placeholder="اسم الشهادة/الدورة">
-                <input type="text" class="form-control" placeholder="الجهة المانحة	">
-                <input type="text" class="form-control" placeholder="سنة التخرج">
-                <input type="text" class="form-control" placeholder="التصنيف">
+
+        <!-- المؤهلات -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('education')">المؤهلات العلمية</div>
+            <div class="section-content" id="education">
+                <select id="eduDegree" class="form-control">
+                    <option value="">اختر المؤهل</option>
+                    <option>ثانوية عامة</option>
+                    <option>دبلوم</option>
+                    <option>بكالوريوس</option>
+                    <option>ماجستير</option>
+                    <option>دكتوراه</option>
+                    <option>بروفيسور</option>
+                </select>
+                
+                <input type="text" id="eduCountry" class="form-control" placeholder="البلد">
+                <input type="text" id="eduUniv" class="form-control" placeholder="الجامعة / المعهد">
+                <input type="text" id="eduMajor" class="form-control" placeholder="التخصص ">
+                <input type="text" id="eduDept" class="form-control" placeholder="القسم">
+                <input type="text" id="eduYear" class="form-control" placeholder="سنة التخرج">
+                <input type="text" id="eduGrade" class="form-control" placeholder="المعدل / التقدير">
+                <button class="btn btn-outline-primary add-btn" onclick="addEducation()">إضافة مؤهل</button>
+                <div id="education-list"></div>
             </div>
         </div>
-        <button class="btn btn-outline-primary add-btn" onclick="addEducaton()">إضافة شهادة/دورة</button>
-    </div>
-</div>
 
- <!-- قسم المؤهلات العلمية -->
- <div class="section">
-    <div class="section-header" onclick="toggleSection('project')"> المشاريع السابقة والإنجازات   </div>
-    <div class="section-content" id="project">
-        <p class="mb-3"><strong>يرجى ذكر جميع الشهادات والدورات:  </strong></p>
-        <div id="project-list">
-            <div class="edu-item mb-3">
-                <input type="text" class="form-control" placeholder="اسم المشروع">
-                <input type="text" class="form-control" placeholder=" جهة العمل	">
-                <input type="text" class="form-control" placeholder=" المجال	">
-                <input type="date" class="form-control" placeholder="  تاريخ البدء">
-                <input type="date" class="form-control" placeholder="  تاريخ الانتهاء">
-                <input type="text" class="form-control" placeholder=" القيمة التقريبية">
-                <input type="text" class="form-control" placeholder="الدور">
+        <!-- الشهادات -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('cert')">الشهادات المهنية والدورات</div>
+            <div class="section-content" id="cert">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <select id="type" class="form-control">
+                            <option value="">اختر النوع</option>
+                            <option>برامج إلكترونية وأنظمة حاسوب</option>
+                            <option>أجهزة وأدوات ومعدات</option>
+                            <option>دورات تدريبية</option>
+                        </select>
+                    </div>
+                
+                    <div class="col-md-4">
+                        <select id="almgal" class="form-control">
+                            <option value="">اختر المجال</option>
+                            <option>الهندسة المدنية</option>
+                            <option>نظم المعلومات</option>
+                            <option>الإعلام</option>
+                            <option>إدارة الأعمال</option>
+                            <option>المالية والمحاسبة</option>
+                            <option>البرمجة</option>
+                            <option>الشبكات</option>
+                            <option>التصميم الجرافيكي</option>
+                        </select>
+                    </div>
+                
+                    <div class="col-md-4">
+                        <select id="depart" class="form-control">
+                            <option value="">اختر القسم</option>
+                            <option>قسم الإنشاء</option>
+                            <option>قسم الصحافة</option>
+                            <option>قسم الإنشاءات</option>
+                            <option>قسم التسويق</option>
+                            <option>قسم الموارد البشرية</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <input type="text" id="certCountry" class="form-control" placeholder="البلد">
+                <input type="text" id="certName" class="form-control" placeholder=" (اسم البرنامج/الدورة/الجهاز)">
+                <input type="text" id="certOrg" class="form-control" placeholder="الجهة المانحة">
+                <input type="text" id="certYear" class="form-control" placeholder="سنة الحصول">
+                <input type="text" id="certType" class="form-control" placeholder="التصنيف">
+                <button class="btn btn-outline-primary add-btn" onclick="addCert()">إضافة شهادة / دورة</button>
+                <div id="cert-list"></div>
             </div>
         </div>
-        <button class="btn btn-outline-primary add-btn" onclick="addproject()">إضافة مشروع</button>
-    </div>
-</div>
+
+        <!-- المشاريع -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('project')">المشاريع السابقة والإنجازات</div>
+            <div class="section-content" id="project">
+                <input type="text" id="projName" class="form-control" placeholder="اسم المشروع">
+                <input type="text" id="projCompany" class="form-control" placeholder="جهة العمل">
+                <input type="text" id="projField" class="form-control" placeholder="المجال">
+                <input type="date" id="projFrom" class="form-control">
+                <input type="date" id="projTo" class="form-control">
+                <input type="text" id="projValue" class="form-control" placeholder="القيمة التقريبية">
+                <input type="text" id="projRole" class="form-control" placeholder="الدور">
+                <button class="btn btn-outline-primary add-btn" onclick="addProject()">إضافة مشروع</button>
+                <div id="project-list"></div>
+            </div>
+        </div>
 
 
-    <div class="text-center mt-4">
-        <button class="btn btn-success">حفظ السيرة الذاتية</button>
+        <!-- المهارات -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('skills')">المهارات التقنية</div>
+            <div class="section-content" id="skills">
+                <input type="text" id="skillName" class="form-control" placeholder="أدخل المهارة">
+                <input type="text" id="skillField" class="form-control" placeholder="المجال">
+                <input type="date" id="skillFrom" class="form-control">
+                <input type="date" id="skillTo" class="form-control">
+                <input type="text" id="skillDesc" class="form-control" placeholder="الوصف">
+                <button class="btn btn-outline-primary add-btn" onclick="addSkill()">إضافة مهارة</button>
+                <div id="skills-list"></div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-success" onclick="generateCV()">حفظ السيرة الذاتية</button>
+        </div>
     </div>
+
+    <!-- عرض السيرة الذاتية -->
+    <div id="cv-preview"></div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function toggleSection(id) {
-        const sections = document.querySelectorAll('.section-content');
-        sections.forEach(sec => {
-            if(sec.id === id) {
-                $(sec).slideToggle();
-            } else {
-                $(sec).slideUp();
-            }
-        });
-    }
+    // إدارة جدول المسؤولين
+function addManagerRow() {
+    const tbody = $('#managers-table tbody');
+    const newRow = $(`
+        <tr>
+            <td contenteditable="true" class="editable"></td>
+            <td contenteditable="true" class="editable"></td>
+            <td contenteditable="true" class="editable"></td>
+            <td>
+                <button class="btn btn-sm btn-outline-primary me-1" onclick="editManagerRow(this)" title="تعديل">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteManagerRow(this)" title="حذف">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `);
+    tbody.append(newRow);
+    showMessage("تمت إضافة صف جديد ✅");
+}
 
-    function addSkill() {
-        const container = document.getElementById('skills-list');
-        const input = document.createElement('input');
-        input.type = "text";
-        input.className = "form-control";
-        input.placeholder = "أدخل المهارة";
-        container.appendChild(input);
-    }
+function editManagerRow(btn) {
+    const row = $(btn).closest('tr');
+    row.addClass("table-warning");
+    showMessage("يمكنك تعديل البيانات مباشرة في الخلايا، ثم اضغط خارجها للحفظ.");
 
-    function addExperience() {
-        const container = document.getElementById('experience-list');
-        const input = document.createElement('input');
-        input.type = "text";
-        input.className = "form-control";
-        input.placeholder = "أدخل الخبرة";
-        container.appendChild(input);
-    }
+    // عند الانتهاء من التعديل
+    row.find('td.editable').off('blur').on('blur', function () {
+        row.removeClass("table-warning");
+        showMessage("تم التعديل بنجاح ✅");
+    });
+}
 
-    function addEducation() {
-    const container = document.getElementById('education-list');
-    const div = document.createElement('div');
-    div.className = "edu-item mb-3";
-    div.innerHTML = `
-        <input type="text" class="form-control" placeholder="البلد">
-        <input type="text" class="form-control" placeholder="الجامعة / المعهد">
-        <input type="text" class="form-control" placeholder="التخصص الرئيسي">
-        <input type="text" class="form-control" placeholder="القسم">
-        <input type="text" class="form-control" placeholder="سنة التخرج">
-        <input type="text" class="form-control" placeholder="المعدل / التقدير">
-    `;
-    container.appendChild(div);
+function deleteManagerRow(btn) {
+    $(btn).closest('tr').remove();
+    showMessage("تم حذف المسؤول ❌");
+}
+
+function showMessage(msg) {
+    const message = $('#manager-msg');
+    message.text(msg).fadeIn(200);
+    setTimeout(() => message.fadeOut(600), 2000);
+}
+
+function toggleSection(id) {
+    const sections = document.querySelectorAll('.section-content');
+    sections.forEach(sec => {
+        if (sec.id === id) $(sec).slideToggle();
+        else $(sec).slideUp();
+    });
+}
+
+function createItemBox(content, editCallback) {
+    const box = $(`
+        <div class="item-box">
+            <div>${content}</div>
+            <div class="action-btns">
+                <button class="btn btn-sm btn-outline-primary">تعديل</button>
+                <button class="btn btn-sm btn-outline-danger">حذف</button>
+            </div>
+        </div>
+    `);
+    box.find('.btn-outline-primary').click(editCallback);
+    box.find('.btn-outline-danger').click(() => box.remove());
+    return box;
+}
+
+function addSkill() {
+    const name = $('#skillName').val(), field = $('#skillField').val(), from = $('#skillFrom').val(), to = $('#skillTo').val(), desc = $('#skillDesc').val();
+    if (!name) return alert("يرجى إدخال اسم المهارة.");
+    const content = `<strong>${name}</strong> (${field})<br><small>${from} - ${to}</small><br>${desc}`;
+    const box = createItemBox(content, () => {
+        $('#skillName').val(name); $('#skillField').val(field);
+        $('#skillFrom').val(from); $('#skillTo').val(to);
+        $('#skillDesc').val(desc); box.remove();
+    });
+    $('#skills-list').append(box); $('#skills input').val('');
+}
+
+function addExperience() {
+    const company = $('#expCompany').val(), title = $('#expTitle').val(), field = $('#expField').val(), from = $('#expFrom').val(), to = $('#expTo').val(), tasks = $('#expTasks').val();
+    if (!company) return alert("يرجى إدخال جهة العمل.");
+    const content = `<strong>${title}</strong> - ${company}<br><small>${field} (${from} - ${to})</small><br>${tasks}`;
+    const box = createItemBox(content, () => {
+        $('#expCompany').val(company); $('#expTitle').val(title);
+        $('#expField').val(field); $('#expFrom').val(from);
+        $('#expTo').val(to); $('#expTasks').val(tasks); box.remove();
+    });
+    $('#experience-list').append(box); $('#experience input').val('');
 }
 
 function addEducation() {
-    const container = document.getElementById('educat-list');
-    const div = document.createElement('div');
-    div.className = "edu-item mb-3";
-    div.innerHTML = `
-        <input type="text" class="form-control" placeholder="البلد">
-        <input type="text" class="form-control" placeholder="الجامعة / المعهد">
-        <input type="text" class="form-control" placeholder="التخصص الرئيسي">
-        <input type="text" class="form-control" placeholder="القسم">
-        <input type="text" class="form-control" placeholder="سنة التخرج">
-        <input type="text" class="form-control" placeholder="المعدل / التقدير">
-    `;
-    container.appendChild(div);
-}
-function addEducation() {
-    const container = document.getElementById('project-list');
-    const div = document.createElement('div');
-    div.className = "edu-item mb-3";
-    div.innerHTML = `
-        <input type="text" class="form-control" placeholder="البلد">
-        <input type="text" class="form-control" placeholder="الجامعة / المعهد">
-        <input type="text" class="form-control" placeholder="التخصص الرئيسي">
-        <input type="text" class="form-control" placeholder="القسم">
-        <input type="text" class="form-control" placeholder="سنة التخرج">
-        <input type="text" class="form-control" placeholder="المعدل / التقدير">
-    `;
-    container.appendChild(div);
+    const degree = $('#eduDegree').val();
+    const country = $('#eduCountry').val(), univ = $('#eduUniv').val(),
+          major = $('#eduMajor').val(), dept = $('#eduDept').val(),
+          year = $('#eduYear').val(), grade = $('#eduGrade').val();
+
+    if (!univ) return alert("يرجى إدخال اسم الجامعة.");
+    const content = `<strong>${degree} - ${major}</strong> - ${univ}, ${country}<br><small>${dept} | سنة ${year}</small><br>التقدير: ${grade}`;
+    const box = createItemBox(content, () => {
+        $('#eduDegree').val(degree); $('#eduCountry').val(country);
+        $('#eduUniv').val(univ); $('#eduMajor').val(major);
+        $('#eduDept').val(dept); $('#eduYear').val(year);
+        $('#eduGrade').val(grade); box.remove();
+    });
+    $('#education-list').append(box); $('#education input, #education select').val('');
 }
 
+
+function addCert() {
+    const type = $('#type').val(), field = $('#almgal').val(), dept = $('#depart').val();
+    const country = $('#certCountry').val(), name = $('#certName').val(),
+          org = $('#certOrg').val(), year = $('#certYear').val(),
+          certType = $('#certType').val();
+
+    if (!name) return alert("يرجى إدخال اسم الشهادة أو الدورة.");
+
+    const content = `
+        <strong>${name}</strong> - ${org} (${country})<br>
+        <small>${type} | ${field} | ${dept}</small><br>
+        <small>سنة: ${year} | التصنيف: ${certType}</small>
+    `;
+    const box = createItemBox(content, () => {
+        $('#type').val(type); $('#almgal').val(field); $('#depart').val(dept);
+        $('#certCountry').val(country); $('#certName').val(name);
+        $('#certOrg').val(org); $('#certYear').val(year); $('#certType').val(certType);
+        box.remove();
+    });
+
+    $('#cert-list').append(box);
+    $('#cert input, #cert select').val('');
+}
+
+
+function addProject() {
+    const name = $('#projName').val(), company = $('#projCompany').val(), field = $('#projField').val(), from = $('#projFrom').val(), to = $('#projTo').val(), value = $('#projValue').val(), role = $('#projRole').val();
+    if (!name) return alert("يرجى إدخال اسم المشروع.");
+    const content = `<strong>${name}</strong> - ${company}<br><small>${field} (${from} - ${to})</small><br>القيمة: ${value} | الدور: ${role}`;
+    const box = createItemBox(content, () => {
+        $('#projName').val(name); $('#projCompany').val(company);
+        $('#projField').val(field); $('#projFrom').val(from);
+        $('#projTo').val(to); $('#projValue').val(value);
+        $('#projRole').val(role); box.remove();
+    });
+    $('#project-list').append(box); $('#project input').val('');
+}
+
+/* إنشاء السيرة الذاتية داخل نفس الصفحة */
+function generateCV() {
+    const skills = $('#skills-list').html();
+    const experiences = $('#experience-list').html();
+    const educations = $('#education-list').html();
+    const certs = $('#cert-list').html();
+    const projects = $('#project-list').html();
+
+    const gender = $('input[placeholder="الجنس"]').val();
+    const nationality = $('input[placeholder="الجنسية"]').val();
+    const status = $('input[placeholder="الحالة الاجتماعية"]').val();
+    const birth = $('input[placeholder="تاريخ الميلاد"]').val();
+    const email = $('input[placeholder="البريد الإلكتروني"]').val();
+    const phone = $('input[placeholder="رقم الجوال"]').val();
+    const relative = $('input[placeholder="رقم جوال أحد الأقارب"]').val();
+
+    const cvHtml = `
+        <h1 class="text-center text-primary mb-4">السيرة الذاتية</h1>
+        <div class="section">
+            <h2>المعلومات الشخصية</h2>
+            <div class="info">
+                <p><strong>الجنس:</strong> ${gender || '-'} </p>
+                <p><strong>الجنسية:</strong> ${nationality || '-'} </p>
+                <p><strong>الحالة الاجتماعية:</strong> ${status || '-'} </p>
+                <p><strong>تاريخ الميلاد:</strong> ${birth || '-'} </p>
+                <p><strong>البريد الإلكتروني:</strong> ${email || '-'} </p>
+                <p><strong>رقم الجوال:</strong> ${phone || '-'} </p>
+                <p><strong>رقم قريب:</strong> ${relative || '-'} </p>
+            </div>
+        </div>
+        ${skills ? `<div class="section"><h2>المهارات التقنية</h2>${skills.replaceAll('item-box','item-box-preview')}</div>` : ''}
+        ${experiences ? `<div class="section"><h2>الخبرات العملية</h2>${experiences.replaceAll('item-box','item-box-preview')}</div>` : ''}
+        ${educations ? `<div class="section"><h2>المؤهلات العلمية</h2>${educations.replaceAll('item-box','item-box-preview')}</div>` : ''}
+        ${certs ? `<div class="section"><h2>الشهادات والدورات</h2>${certs.replaceAll('item-box','item-box-preview')}</div>` : ''}
+        ${projects ? `<div class="section"><h2>المشاريع السابقة والإنجازات</h2>${projects.replaceAll('item-box','item-box-preview')}</div>` : ''}
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-primary" onclick="window.print()">طباعة</button>
+            <button class="btn btn-secondary" onclick="editCV()">تعديل السيرة الذاتية</button>
+        </div>
+    `;
+
+    $('#cv-preview').html(cvHtml).fadeIn();
+    $('#cv-form').hide();
+}
+
+function editCV() {
+    $('#cv-preview').hide();
+    $('#cv-form').fadeIn();
+}
 </script>
 </body>
 </html>
