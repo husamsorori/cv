@@ -192,30 +192,31 @@
                 button.parentElement.remove();
             }
         </script>
+          <h5 class="mt-4 mb-3 text-primary fw-bold">جدول المسؤولين</h5>
+          <div class="table-responsive">
+              <table class="table table-bordered align-middle text-center shadow-sm" id="managers-table">
+                  <thead class="table-primary">
+                      <tr>
+                          <th>الاسم</th>
+                          <th>الرقم</th>
+                          <th>الدرجة الوظيفية</th>
+                          <th>
+                              <button class="btn btn-sm btn-success" onclick="addManagerRow()" title="إضافة مسؤول">
+                                  <i class="bi bi-plus-lg"></i>
+                              </button>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody></tbody>
+              </table>
+          </div>
+          <div id="manager-msg" class="text-success fw-bold mt-2" style="display:none;"></div>
         
                 <button class="btn btn-outline-primary add-btn" onclick="addExperience()">إضافة خبرة</button>
         <div id="experience-list"></div>
 
         <!-- جدول المسؤولين -->
-        <h5 class="mt-4 mb-3 text-primary fw-bold">جدول المسؤولين</h5>
-        <div class="table-responsive">
-            <table class="table table-bordered align-middle text-center shadow-sm" id="managers-table">
-                <thead class="table-primary">
-                    <tr>
-                        <th>الاسم</th>
-                        <th>الرقم</th>
-                        <th>الدرجة الوظيفية</th>
-                        <th>
-                            <button class="btn btn-sm btn-success" onclick="addManagerRow()" title="إضافة مسؤول">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div id="manager-msg" class="text-success fw-bold mt-2" style="display:none;"></div>
+      
     </div>
 </div>
 
@@ -285,11 +286,10 @@
                     </div>
                 </div>
                 
-                <input type="text" id="certCountry" class="form-control" placeholder="البلد">
+              
                 <input type="text" id="certName" class="form-control" placeholder=" (اسم البرنامج/الدورة/الجهاز)">
                 <input type="text" id="certOrg" class="form-control" placeholder="الجهة المانحة">
-                <input type="text" id="certYear" class="form-control" placeholder="سنة الحصول">
-                <input type="text" id="certType" class="form-control" placeholder="التصنيف">
+                
                 <button class="btn btn-outline-primary add-btn" onclick="addCert()">إضافة شهادة / دورة</button>
                 <div id="cert-list"></div>
             </div>
