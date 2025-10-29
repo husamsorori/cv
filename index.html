@@ -325,6 +325,37 @@
                 <div id="skills-list"></div>
             </div>
         </div>
+        <!-- اللغات -->
+<div class="section">
+    <div class="section-header" onclick="toggleSection('languages')">اللغات</div>
+    <div class="section-content" id="languages">
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="langArabic" onchange="toggleMotherLanguage()">
+            <label class="form-check-label fw-bold" for="langArabic">العربية</label>
+            <div class="form-check ms-3 mt-1" id="motherLangOption" style="display:none;">
+                <input class="form-check-input" type="checkbox" id="langMother">
+                <label class="form-check-label text-muted" for="langMother">اللغة الأم</label>
+            </div>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="langEnglish">
+            <label class="form-check-label fw-bold" for="langEnglish">الإنجليزية</label>
+        </div>
+
+        <div id="extra-langs" class="mt-3"></div>
+
+        <div class="input-group mt-2">
+            <input type="text" id="newLang" class="form-control" placeholder="أدخل لغة أخرى">
+            <button class="btn btn-outline-primary" type="button" onclick="addLanguage()">
+                <i class="bi bi-plus-lg"></i> إضافة
+            </button>
+        </div>
+
+        <small class="text-muted d-block mt-2">قم بتحديد اللغات التي تجيدها، أو أضف لغات أخرى.</small>
+    </div>
+</div>
+
         <div class="text-center mt-4">
             <button class="btn btn-success" onclick="generateCV()">حفظ السيرة الذاتية</button>
         </div>
@@ -359,6 +390,35 @@ function addManagerRow() {
     tbody.append(newRow);
     showMessage("تمت إضافة صف جديد ✅");
 }
+function toggleMotherLanguage() {
+    const arabicCheckbox = document.getElementById('langArabic');
+    const motherLangOption = document.getElementById('motherLangOption');
+    motherLangOption.style.display = arabicCheckbox.checked ? 'block' : 'none';
+}
+
+function addLanguage() {
+    const langName = document.getElementById('newLang').value.trim();
+    if (!langName) return alert("يرجى إدخال اسم اللغة.");
+
+    const container = document.getElementById('extra-langs');
+    const id = "lang_" + Math.random().toString(36).substr(2, 9);
+
+    const div = document.createElement('div');
+    div.classList.add('form-check', 'mb-2');
+    div.innerHTML = `
+        <input class="form-check-input" type="checkbox" id="${id}">
+        <label class="form-check-label fw-bold" for="${id}">${langName}</label>
+        <button class="btn btn-sm btn-outline-danger ms-2" type="button" onclick="this.parentElement.remove()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    `;
+    container.appendChild(div);
+    document.getElementById('newLang').value = '';
+}
+
+
+
+
 
 function editManagerRow(btn) {
     const row = $(btn).closest('tr');
