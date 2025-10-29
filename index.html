@@ -155,13 +155,7 @@
             }
         </script>
         
-        <div class="mb-3">
-            <label for="expTasks" class="form-label">المهام الرئيسية</label>
-            <textarea id="expTasks" class="form-control" rows="3" placeholder="أدخل المهام هنا، واضغط Enter للانتقال إلى سطر جديد"></textarea>
-            <small class="text-muted">
-                يرجى إدخال كل مهمة في سطر منفصل (اضغط Enter للانتقال إلى المهمة التالية)
-            </small>
-        </div>
+       
         <div class="mb-3">
             <label class="form-label">المهام الرئيسية</label>
             <div id="tasks-container">
@@ -334,11 +328,13 @@
         <div class="text-center mt-4">
             <button class="btn btn-success" onclick="generateCV()">حفظ السيرة الذاتية</button>
         </div>
+        <a class="btn btn-success" href="alm.html"> المجالات</a>
     </div>
 
     <!-- عرض السيرة الذاتية -->
     <div id="cv-preview"></div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
@@ -451,31 +447,32 @@ function addEducation() {
     $('#education-list').append(box); $('#education input, #education select').val('');
 }
 
-
 function addCert() {
-    const type = $('#type').val(), field = $('#almgal').val(), dept = $('#depart').val();
-    const country = $('#certCountry').val(), name = $('#certName').val(),
-          org = $('#certOrg').val(), year = $('#certYear').val(),
-          certType = $('#certType').val();
+    const type = $('#type').val(),
+          field = $('#almgal').val(),
+          dept = $('#depart').val(),
+          name = $('#certName').val(),
+          org = $('#certOrg').val();
 
     if (!name) return alert("يرجى إدخال اسم الشهادة أو الدورة.");
 
     const content = `
-        <strong>${name}</strong> - ${org} (${country})<br>
-        <small>${type} | ${field} | ${dept}</small><br>
-        <small>سنة: ${year} | التصنيف: ${certType}</small>
+        <strong>${name}</strong> - ${org}<br>
+        <small>${type} | ${field} | ${dept}</small>
     `;
+
     const box = createItemBox(content, () => {
-        $('#type').val(type); $('#almgal').val(field); $('#depart').val(dept);
-        $('#certCountry').val(country); $('#certName').val(name);
-        $('#certOrg').val(org); $('#certYear').val(year); $('#certType').val(certType);
+        $('#type').val(type);
+        $('#almgal').val(field);
+        $('#depart').val(dept);
+        $('#certName').val(name);
+        $('#certOrg').val(org);
         box.remove();
     });
 
     $('#cert-list').append(box);
     $('#cert input, #cert select').val('');
 }
-
 
 function addProject() {
     const name = $('#projName').val(), company = $('#projCompany').val(), field = $('#projField').val(), from = $('#projFrom').val(), to = $('#projTo').val(), value = $('#projValue').val(), role = $('#projRole').val();
