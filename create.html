@@ -122,17 +122,17 @@
                     </select>
                 </div>
 
-                <div class="col-md">
-                    <h5>نوع القطعة المراد مسحها</h5>
-                    <select id="typePieceSelect" class="form-select">
-                        <option value="">-- اختر نوع القطعة --</option>
-                        <option value="ارض">أرض</option>
-                        <option value="رهق">رهق</option>
-                        <option value="ارض مع رهق">أرض مع رهق</option>
-                        <option value="مبنى">مبنى</option>
-                    </select>
-                </div>
-                
+                    <div class="col-md">
+                        <h5>نوع القطعة المراد مسحها</h5>
+                        <select id="typePieceSelect" class="form-select">
+                            <option value="">-- اختر نوع القطعة --</option>
+                            <option value="ارض">أرض</option>
+                            <option value="رهق">رهق</option>
+                            <option value="ارض مع رهق">أرض مع رهق</option>
+                            <option value="مبنى">مبنى</option>
+                        </select>
+                    </div>
+                    
                 
               
                 
@@ -329,283 +329,323 @@
         
 
 
-
-
 <!-- حدود الأرض -->
 <div class="section-divider"></div>
-<!-- العنوان مع ID فريد -->
-<div class="form-title mb-2" id="earthBordersTitleUnique123">حدود الأرض</div>
 
-<div class="input-label-en mb-1">حدود الأرض المذكورة في الوثيقة</div>
-<table class="table table-bordered mb-2" id="earthBordersTitleUnique123">
-    <thead>
-        <tr>
-            <th style="width:40px">#</th>
-            <th style="width:150px">نوع الحد</th>
-            <th>الحد كما في الوثيقة</th>
-            <th style="width:120px">غير مطابق للواقع</th>
-
-            <th>الفرق</th>
-            <th style="width:50px">إجراءات</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>
-                <div class="border-type-cell" data-index="0">
-                    <span class="selected-border">شمال</span>
-                    <select class="form-select border-type" name="earthBorders[0].BorderType" style="display:none;">
-                        <option value="شمال">شمال</option>
-                        <option value="جنوب">جنوب</option>
-                        <option value="شرق">شرق</option>
-                        <option value="غرب">غرب</option>
-                        <option value="شمال شرقي">شمال شرقي</option>
-                        <option value="شمال غربي">شمال غربي</option>
-                        <option value="جنوب شرقي">جنوب شرقي</option>
-                        <option value="جنوب غربي">جنوب غربي</option>
-                    </select>
-                </div>
-            </td>
-            <td>
-                <input type="text" class="form-control" name="earthBorders[0].BorderDescription" />
-            </td>
-            <td class="text-center">
-                <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
-                <input type="checkbox" class="form-check-input"
-                       name="earthBorders[3].IdenticalOrDifferent" value="1" />
-            </td>
-
-            <td>
-                <input type="text" class="form-control" name="earthBorders[0].Difference" />
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm remove-border">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>
-                <div class="border-type-cell" data-index="0">
-                    <span class="selected-border">جنوب</span>
-                    <select class="form-select border-type" name="earthBorders[1].BorderType" style="display:none;">
-
-                        <option value="جنوب">جنوب</option>
-                        <option value="شرق">شرق</option>
-                        <option value="غرب">غرب</option>
-                        <option value="شمال شرقي">شمال شرقي</option>
-                        <option value="شمال غربي">شمال غربي</option>
-                        <option value="جنوب شرقي">جنوب شرقي</option>
-                        <option value="جنوب غربي">جنوب غربي</option>
-                    </select>
-                </div>
-            </td>
-            <td>
-                <input type="text" class="form-control" name="earthBorders[1].BorderDescription" />
-            </td>
-            <td class="text-center">
-                <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
-                <input type="checkbox" class="form-check-input"
-                       name="earthBorders[3].IdenticalOrDifferent" value="1" />
-            </td>
-
-
-            <td>
-                <input type="text" class="form-control" name="earthBorders[1].Difference" />
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm remove-border">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>
-                <div class="border-type-cell" data-index="0">
-                    <span class="selected-border">شرق</span>
-                    <select class="form-select border-type" name="earthBorders[2].BorderType" style="display:none;">
-
-                        <option value="شرق">شرق</option>
-                        <option value="غرب">غرب</option>
-                        <option value="شمال شرقي">شمال شرقي</option>
-                        <option value="شمال غربي">شمال غربي</option>
-                        <option value="جنوب شرقي">جنوب شرقي</option>
-                        <option value="جنوب غربي">جنوب غربي</option>
-                    </select>
-                </div>
-            </td>
-            <td>
-                <input type="text" class="form-control" name="earthBorders[2].BorderDescription" />
-            </td>
-            <td class="text-center">
-                <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
-                <input type="checkbox" class="form-check-input"
-                       name="earthBorders[3].IdenticalOrDifferent" value="1" />
-            </td>
-
-
-            <td>
-<input type="text" class="form-control" name="earthBorders[0].Difference" readonly />
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm remove-border">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>
-                <div class="border-type-cell" data-index="0">
-                    <span class="selected-border">غرب</span>
-                    <select class="form-select border-type" name="earthBorders[3].BorderType" style="display:none;">
-
-                        <option value="غرب">غرب</option>
-                        <option value="شمال شرقي">شمال شرقي</option>
-                        <option value="شمال غربي">شمال غربي</option>
-                        <option value="جنوب شرقي">جنوب شرقي</option>
-                        <option value="جنوب غربي">جنوب غربي</option>
-                    </select>
-                </div>
-            </td>
-            <td>
-                <input type="text" class="form-control" name="earthBorders[3].BorderDescription" />
-            </td>
-            <td class="text-center">
-                <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
-                <input type="checkbox" class="form-check-input"
-                       name="earthBorders[3].IdenticalOrDifferent" value="1" />
-            </td>
-
-
-            <td>
-                <input type="text" class="form-control" name="earthBorders[3].Difference" />
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm remove-border">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<button type="button" class="btn btn-outline-primary add-row-btn mb-3" id="addBorderRow">
-    <i class="fas fa-plus me-1"></i> إضافة حد جديد
-</button>
-
-
-
+<div id="earthBordersSection">
+    <div class="form-title mb-2">حدود الأرض</div>
+    <div class="input-label-en mb-1">حدود الأرض المذكورة في الوثيقة</div>
+    <table class="table table-bordered mb-2">
+        <thead>
+            <tr>
+                <th style="width:40px">#</th>
+                <th style="width:150px">نوع الحد</th>
+                <th>الحد كما في الوثيقة</th>
+                <th style="width:120px">غير مطابق للواقع</th>
+                <th>الفرق</th>
+                <th style="width:50px">إجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- الصفوف كما هي -->
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">شمال</span>
+                            <select class="form-select border-type" name="earthBorders[0].BorderType" style="display:none;">
+                                <option value="شمال">شمال</option>
+                                <option value="جنوب">جنوب</option>
+                                <option value="شرق">شرق</option>
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[0].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
     
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[0].Difference" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">جنوب</span>
+                            <select class="form-select border-type" name="earthBorders[1].BorderType" style="display:none;">
+    
+                                <option value="جنوب">جنوب</option>
+                                <option value="شرق">شرق</option>
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[1].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
+    
+    
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[1].Difference" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">شرق</span>
+                            <select class="form-select border-type" name="earthBorders[2].BorderType" style="display:none;">
+    
+                                <option value="شرق">شرق</option>
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[2].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
+    
+    
+                    <td>
+        <input type="text" class="form-control" name="earthBorders[0].Difference" readonly />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">غرب</span>
+                            <select class="form-select border-type" name="earthBorders[3].BorderType" style="display:none;">
+    
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[3].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
+    
+    
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[3].Difference" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-primary add-row-btn mb-3" id="addBorderRow">
+        <i class="fas fa-plus me-1"></i> إضافة حد جديد
+    </button>
+</div>
 
-<!-- جدول خاص بالرهق مخفي افتراضيًا -->
-<div id="rahaqTableSection" style="display:none; margin-top:20px;">
-    <div class="form-title mb-2">حدود الرهق</div>
+
+
+
+
+<!-- جدول المبنى مخفي افتراضيًا -->
+<div id="buildingTableSection" style="display:none; margin-top:20px;">
+    <div class="form-title mb-2">بيانات المبنى</div>
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>عدد الطوابق</th>
                 <th>الوصف</th>
-                <th>لم يذكر  الرهق</th>
-                <th>الحد</th>
+                <th>المكان</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td> شمال</td>
-                <td class="align-middle text-center">
-                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
-                </td>
-                <td>
-                    <input type="text" class="form-control" disabled placeholder="أدخل الحد من الشمال" />
-                </td>
-            </tr>
-            <tr>
-                <td> شرق</td>
-                <td class="align-middle text-center">
-                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
-                </td>
-                <td>
-                    <input type="text" class="form-control" disabled placeholder="أدخل الحد من الجنوب" />
-                </td>
-            </tr>
-            <tr>
-                <td> غرب</td>
-                <td class="align-middle text-center">
-                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
-                </td>
-                <td>
-                    <input type="text" class="form-control" disabled placeholder="أدخل الحد من الغرب" />
-                </td>
-            </tr>
-            <tr>
-                <td> جنوب</td>
-                <td class="align-middle text-center">
-                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
-                </td>
-                <td>
-                    <input type="text" class="form-control" disabled placeholder="أدخل الحد من الجنوب" />
-                </td>
+                <td><input type="number" class="form-control" placeholder="أدخل عدد الطوابق" /></td>
+                <td><input type="text" class="form-control" placeholder="أدخل الوصف" /></td>
+                <td><input type="text" class="form-control" placeholder="أدخل المكان" /></td>
             </tr>
         </tbody>
     </table>
-
-            <div class="col-md">
-                <div class="input-label-en">نوع الحيازة </div>
-                <select asp-for="tanjezOrder.AccessRoadType"
-                        asp-items="ViewBag.AccessRoadTypes ?? new List<SelectListItem>()"
-                        class="form-select add-option-enabled"
-                        data-controller="AccessRoadTypes">
-                    <option value="">تحت حيازتي</option>
-               
-                    <option value="add">+ إضافة</option>
-                </select>
-            </div>
+    <button type="button" class="btn btn-outline-primary add-row-btn mb-3" id="addBuildingRow">
+        <i class="fas fa-plus me-1"></i> إضافة صف جديد
+    </button>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const select = document.getElementById('typePieceSelect');
-        const earthTitle = document.getElementById('earthBordersTitleUnique123');
-        const rahaqSection = document.getElementById('rahaqTableSection');
-    
-        // تغيير العنوان الأساسي حسب النوع
-        select.addEventListener('change', function() {
-            const value = this.value;
-            earthTitle.textContent = value ? "حدود " + value : "حدود الأرض";
-    
-            // إظهار أو إخفاء جدول الرهق حسب الخيار
-            rahaqSection.style.display = (value === "رهق" || value === "ارض مع رهق") ? 'block' : 'none';
-    
-            // عند ظهور الجدول لأول مرة، اجعل جميع الحقول النصية نشطة
-            rahaqSection.querySelectorAll('input[type="text"]').forEach(inputField => {
-                inputField.disabled = false;
-            });
-    
-            // إعادة ضبط checkboxes عند تغيير النوع
-            rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
-                if (checkbox.checked) {
-                    inputField.disabled = true;
-                } else {
-                    inputField.disabled = false;
-                }
-            });
-        });
-    
-        // التعامل مع checkboxes داخل جدول الرهق
+
+
+        
+
+    <!-- جدول خاص بالرهق مخفي افتراضيًا -->
+    <div id="rahaqTableSection" style="display:none; margin-top:20px;">
+        <div class="form-title mb-2">حدود الرهق</div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>الوصف</th>
+                    <th>لم يذكر  الرهق</th>
+                    <th>الحد</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> شمال</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الشمال" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> شرق</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الجنوب" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> غرب</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الغرب" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> جنوب</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الجنوب" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+                <div class="col-md">
+                    <div class="input-label-en">نوع الحيازة </div>
+                    <select asp-for="tanjezOrder.AccessRoadType"
+                            asp-items="ViewBag.AccessRoadTypes ?? new List<SelectListItem>()"
+                            class="form-select add-option-enabled"
+                            data-controller="AccessRoadTypes">
+                        <option value="">تحت حيازتي</option>
+                
+                        <option value="add">+ إضافة</option>
+                    </select>
+                </div>
+    </div>
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.getElementById('typePieceSelect');
+    const earthSection = document.getElementById('earthBordersSection');
+    const rahaqSection = document.getElementById('rahaqTableSection');
+    const buildingSection = document.getElementById('buildingTableSection');
+
+    select.addEventListener('change', function() {
+        const value = this.value;
+
+        // جدول الرهق
+        rahaqSection.style.display = (value === "رهق" || value === "ارض مع رهق") ? 'block' : 'none';
+
+        // جدول الأرض
+        earthSection.style.display = (value === "رهق") ? 'none' : 'block';
+
+        // جدول المبنى
+        buildingSection.style.display = (value === "مبنى") ? 'block' : 'none';
+
+        // تفعيل الحقول النصية داخل جدول الرهق
+        rahaqSection.querySelectorAll('input[type="text"]').forEach(input => input.disabled = false);
         rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
-    
-            // حدث عند تغيير حالة checkbox
-            checkbox.addEventListener('change', function() {
-                inputField.disabled = this.checked;
-                if (this.checked) inputField.value = ""; // إفراغ القيمة عند التجميد (اختياري)
-            });
+            inputField.disabled = checkbox.checked;
         });
     });
-    </script>
+
+    // التعامل مع checkboxes داخل جدول الرهق
+    rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
+        checkbox.addEventListener('change', function() {
+            inputField.disabled = this.checked;
+            if(this.checked) inputField.value = "";
+        });
+    });
+
+    // إضافة صف جديد لجدول المبنى
+    const addBuildingBtn = document.getElementById('addBuildingRow');
+    addBuildingBtn.addEventListener('click', function() {
+        const tbody = buildingSection.querySelector('tbody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="number" class="form-control" placeholder="أدخل عدد الطوابق" /></td>
+            <td><input type="text" class="form-control" placeholder="أدخل الوصف" /></td>
+            <td><input type="text" class="form-control" placeholder="أدخل المكان" /></td>
+        `;
+        tbody.appendChild(newRow);
+    });
+});
+
+        </script>
+        
     
     
 
@@ -787,19 +827,71 @@
     
         </div>
     
-        <div class="row mb-3">
-            <!-- حقل رفع المرفقات -->
-            <div class="col-md-6">
-                <label for="fileAttach" class="form-label">المرفقات</label>
-                <input type="file" class="form-control" id="fileAttach" name="fileAttach" multiple>
-            </div>
         
-            <!-- حقل الملاحظات -->
-    <div class="col-md-6">
+        
+
+
+
+
+
+
+        <!-- صف الملاحظات -->
+<div class="row mb-3">
+    <div class="col-12">
         <label for="txtNotes" class="form-label">الملاحظات</label>
         <textarea class="form-control" id="txtNotes" name="txtNotes" rows="4" placeholder="أدخل ملاحظاتك"></textarea>
     </div>
+</div>
+
+<!-- صف المرفقات -->
+<div class="row mb-3">
+    <div class="col-12" id="attachmentsWrapper">
+        <label class="form-label">المرفقات</label>
+        
+        <!-- صف المرفق الأول -->
+        <div class="attachment-row mb-2 d-flex align-items-center">
+            <input type="file" class="form-control me-2" name="fileAttach[]" />
+            <button type="button" class="btn btn-outline-danger remove-attachment">&times;</button>
         </div>
+    </div>
+
+    <div class="col-12">
+        <button type="button" class="btn btn-outline-primary" id="addAttachmentBtn">
+            <i class="fas fa-plus me-1"></i> إضافة مرفق جديد
+        </button>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('addAttachmentBtn');
+    const wrapper = document.getElementById('attachmentsWrapper');
+
+    addBtn.addEventListener('click', function() {
+        const newRow = document.createElement('div');
+        newRow.classList.add('attachment-row', 'mb-2', 'd-flex', 'align-items-center');
+        newRow.innerHTML = `
+            <input type="file" class="form-control me-2" name="fileAttach[]" />
+            <button type="button" class="btn btn-outline-danger remove-attachment">&times;</button>
+        `;
+        wrapper.appendChild(newRow);
+
+        // إضافة وظيفة الحذف للزر الجديد
+        newRow.querySelector('.remove-attachment').addEventListener('click', function() {
+            newRow.remove();
+        });
+    });
+
+    // حذف المرفقات الموجودة مسبقًا
+    wrapper.querySelectorAll('.remove-attachment').forEach(btn => {
+        btn.addEventListener('click', function() {
+            btn.closest('.attachment-row').remove();
+        });
+    });
+});
+
+</script>
         
         <!-- التكلفة والفواتير -->
         <div class="section-divider"></div>
