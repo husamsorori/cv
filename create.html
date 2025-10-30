@@ -121,19 +121,27 @@
                         <option value="add">+ إضافة</option>
                     </select>
                 </div>
+
                 <div class="col-md">
                     <h5>نوع القطعة المراد مسحها</h5>
-                    <select asp-for="tanjezOrder.TypePiece"
-                            asp-items="ViewBag.PlaceTypes ?? new List<SelectListItem>()"
-                            class="form-select add-option-enabled"
-                            data-controller="PlaceTypes">
-                        <option value="">-- اختر الغرض --</option>
-                        <option value="add">+ إضافة</option>
+                    <select id="typePieceSelect" class="form-select">
+                        <option value="">-- اختر نوع القطعة --</option>
+                        <option value="ارض">أرض</option>
+                        <option value="رهق">رهق</option>
+                        <option value="ارض مع رهق">أرض مع رهق</option>
+                        <option value="مبنى">مبنى</option>
                     </select>
-    
                 </div>
+                
+                
+              
+                
     
             </div>
+
+
+
+
             <!-- الصف الأول: موقع الأرض (4 أعمدة) -->
             <div class="row mb-3">
                 <div class="col-md">
@@ -234,7 +242,7 @@
                 </select>
             </div>
             <!-- 2️⃣ الحيازة -->
-                <div class="col-md">
+                <div class="col-md">    
                 <div class="input-label-en">الحيازة</div>
                 <select asp-for="tanjezOrder.Alhiaza"
                         asp-items="ViewBag.Ownerships ?? new List<SelectListItem>()"
@@ -325,9 +333,11 @@
 
 <!-- حدود الأرض -->
 <div class="section-divider"></div>
-<div class="form-title mb-2">حدود الأرض</div>
+<!-- العنوان مع ID فريد -->
+<div class="form-title mb-2" id="earthBordersTitleUnique123">حدود الأرض</div>
+
 <div class="input-label-en mb-1">حدود الأرض المذكورة في الوثيقة</div>
-<table class="table table-bordered mb-2" id="earthBordersTable">
+<table class="table table-bordered mb-2" id="earthBordersTitleUnique123">
     <thead>
         <tr>
             <th style="width:40px">#</th>
@@ -488,6 +498,90 @@
 
 
 
+    
+
+<!-- جدول خاص بالرهق مخفي افتراضيًا -->
+<div id="rahaqTableSection" style="display:none; margin-top:20px;">
+    <div class="form-title mb-2">حدود الرهق</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>الوصف</th>
+                <th>لم يذكر  الرهق</th>
+                <th>الحد</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>وصف الرهق</td>
+                <td class="align-middle text-center">
+                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" disabled placeholder="أدخل الحد من الأعلى" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+            <div class="col-md">
+                <div class="input-label-en">نوع الحيازة </div>
+                <select asp-for="tanjezOrder.AccessRoadType"
+                        asp-items="ViewBag.AccessRoadTypes ?? new List<SelectListItem>()"
+                        class="form-select add-option-enabled"
+                        data-controller="AccessRoadTypes">
+                    <option value="">تحت حيازتي</option>
+               
+                    <option value="add">+ إضافة</option>
+                </select>
+            </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('typePieceSelect');
+        const earthTitle = document.getElementById('earthBordersTitleUnique123');
+        const rahaqSection = document.getElementById('rahaqTableSection');
+    
+        // تغيير العنوان الأساسي حسب النوع
+        select.addEventListener('change', function() {
+            const value = this.value;
+            earthTitle.textContent = value ? "حدود " + value : "حدود الأرض";
+    
+            // إظهار أو إخفاء جدول الرهق حسب الخيار
+            rahaqSection.style.display = (value === "رهق" || value === "ارض مع رهق") ? 'block' : 'none';
+    
+            // عند ظهور الجدول لأول مرة، اجعل جميع الحقول النصية نشطة
+            rahaqSection.querySelectorAll('input[type="text"]').forEach(inputField => {
+                inputField.disabled = false;
+            });
+    
+            // إعادة ضبط checkboxes عند تغيير النوع
+            rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
+                if (checkbox.checked) {
+                    inputField.disabled = true;
+                } else {
+                    inputField.disabled = false;
+                }
+            });
+        });
+    
+        // التعامل مع checkboxes داخل جدول الرهق
+        rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
+    
+            // حدث عند تغيير حالة checkbox
+            checkbox.addEventListener('change', function() {
+                inputField.disabled = this.checked;
+                if (this.checked) inputField.value = ""; // إفراغ القيمة عند التجميد (اختياري)
+            });
+        });
+    });
+    </script>
+    
+    
+
 
 
 
@@ -495,12 +589,14 @@
 <!-- HTML -->
 <div id="earthBordersSection">
     <div class="section-divider"></div>
-    <div class="form-title mb-2">حدود الأرض</div>
+    <!-- العنوان مع ID فريد -->
+<div class="form-title mb-2" id="earthBordersTitleUnique123">حدود الأرض</div>
+
     <div class="input-label-en mb-1">
         في حال ذكرت الوثيقة [من اعلى - من اسفل] قم بالضغط على المربع والكتابة في الخانة المخصصة
     </div>
 
-    <table class="table table-bordered mb-2 text-center" id="earthBordersTable2">
+    <table class="table table-bordered mb-2 text-center" id="earthBordersTitleUnique123">
         <thead>
            
         </thead>
@@ -549,7 +645,17 @@
         cursor: not-allowed;
     }
 </style>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('typePieceSelect');
+        const title = document.getElementById('earthBordersTitleUnique123');
+    
+        select.addEventListener('change', function() {
+            const value = this.value;
+            title.textContent = value ? "حدود " + value : "حدود الأرض";
+        });
+    });
+    </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const chkUp = document.getElementById('chkUp');
@@ -654,7 +760,20 @@
     
         </div>
     
-    
+        <div class="row mb-3">
+            <!-- حقل رفع المرفقات -->
+            <div class="col-md-6">
+                <label for="fileAttach" class="form-label">المرفقات</label>
+                <input type="file" class="form-control" id="fileAttach" name="fileAttach" multiple>
+            </div>
+        
+            <!-- حقل الملاحظات -->
+    <div class="col-md-6">
+        <label for="txtNotes" class="form-label">الملاحظات</label>
+        <textarea class="form-control" id="txtNotes" name="txtNotes" rows="4" placeholder="أدخل ملاحظاتك"></textarea>
+    </div>
+        </div>
+        
         <!-- التكلفة والفواتير -->
         <div class="section-divider"></div>
      
