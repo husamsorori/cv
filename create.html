@@ -493,92 +493,83 @@
 
 
 <!-- HTML -->
-<div class="col-md">
-    <div class="form-check">
-        <input type="hidden" id="hiddenAreaDifferent" name="tanjezOrder.AreaDifferent" value="0" />
-        <input type="checkbox" class="form-check-input" id="AreaDifferentCheckbox2" />
-        <label class="form-check-label" for="AreaDifferentCheckbox">[من اعلى - من اسفل]</label>
-    </div>
-</div>
-
-<div id="earthBordersSection" style="display:none; margin-top:10px;">
+<div id="earthBordersSection">
     <div class="section-divider"></div>
     <div class="form-title mb-2">حدود الأرض</div>
     <div class="input-label-en mb-1">
         في حال ذكرت الوثيقة [من اعلى - من اسفل] قم بالضغط على المربع والكتابة في الخانة المخصصة
     </div>
 
-    <table class="table table-bordered mb-2" id="earthBordersTable2">
+    <table class="table table-bordered mb-2 text-center" id="earthBordersTable2">
         <thead>
-            <tr>
-                <th style="width:40px">#</th>
-                <th style="width:150px">من اعلى</th>
-                <th>من اسفل</th>
-                <th style="width:50px">إجراءات</th>
-            </tr>
+           
         </thead>
         <tbody>
             <tr>
-                <td>1</td>
-                <td><input type="text" class="form-control" name="fromup" /></td>
-                <td><input type="text" class="form-control" name="fromdown" /></td>
+                <td>من أعلى</td>
+                <td class="align-middle">
+                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" id="chkUp" />
+                </td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm remove-border">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <input type="text" class="form-control" id="txtUp" name="fromup" disabled placeholder="أدخل الحد من الأعلى" />
+                </td>
+            </tr>
+            <tr>
+                <td>من أسفل</td>
+                <td class="align-middle">
+                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" id="chkDown" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="txtDown" name="fromdown" disabled placeholder="أدخل الحد من الأسفل" />
                 </td>
             </tr>
         </tbody>
     </table>
-
-    <button type="button" class="btn btn-outline-primary add-row-btn mb-3" id="addBorderRow2">
-        <i class="fas fa-plus me-1"></i> إضافة حد جديد
-    </button>
 </div>
+
+<style>
+    /* جعل الـ checkbox أكبر في الحجم ومتمركز */
+    .larger-checkbox {
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        transform: scale(1.3);
+    }
+
+    /* جعل الخلايا في منتصف الجدول */
+    #earthBordersTable2 td,
+    #earthBordersTable2 th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    /* جعل الحقول المعطلة بلون رمادي خفيف */
+    input[disabled] {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const checkbox = document.getElementById('AreaDifferentCheckbox2');
-        const section = document.getElementById('earthBordersSection');
-        const hiddenInput = document.getElementById('hiddenAreaDifferent');
-        const addBtn = document.getElementById('addBorderRow2');
-        const tbody = document.querySelector('#earthBordersTable2 tbody');
-    
-        function refreshRowNumbers() {
-            Array.from(tbody.rows).forEach((row, idx) => {
-                row.cells[0].textContent = idx + 1;
-            });
-        }
-    
-        function syncSectionVisibility() {
-            section.style.display = checkbox.checked ? 'block' : 'none';
-            hiddenInput.value = checkbox.checked ? '1' : '0';
-        }
-    
-        checkbox.addEventListener('change', syncSectionVisibility);
-    
-        addBtn.addEventListener('click', function () {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${tbody.rows.length + 1}</td>
-                <td><input type="text" class="form-control" name="fromup" /></td>
-                <td><input type="text" class="form-control" name="fromdown" /></td>
-                <td><button type="button" class="btn btn-danger btn-sm remove-border"><i class="fas fa-trash"></i></button></td>
-            `;
-            tbody.appendChild(tr);
+        const chkUp = document.getElementById('chkUp');
+        const chkDown = document.getElementById('chkDown');
+        const txtUp = document.getElementById('txtUp');
+        const txtDown = document.getElementById('txtDown');
+
+        // عند تفعيل أو إلغاء التفعيل يتم السماح أو منع الإدخال
+        chkUp.addEventListener('change', function () {
+            txtUp.disabled = !this.checked;
+            if (!this.checked) txtUp.value = '';
         });
-    
-        document.addEventListener('click', function (e) {
-            const btn = e.target.closest('.remove-border');
-            if (btn) {
-                btn.closest('tr').remove();
-                refreshRowNumbers();
-            }
+
+        chkDown.addEventListener('change', function () {
+            txtDown.disabled = !this.checked;
+            if (!this.checked) txtDown.value = '';
         });
-    
-        syncSectionVisibility();
     });
-    </script>
+</script>
+
     
 
 
