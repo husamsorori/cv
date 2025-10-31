@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيرة الذاتية</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f5f6fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+        text-align: right;
+    }
+    .section-header {
+        cursor: pointer;
+        padding: 15px 20px;
+        background-color: #0d6efd;
+        color: #fff;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        transition: background-color 0.3s;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    .section-header:hover { background-color: #0b5ed7; }
+    .section-content {
+        display: none;
+        padding: 15px 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .add-btn { margin-top: 10px; }
+    .item-box {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        position: relative;
+    }
+    .action-btns {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    .action-btns button { margin-left: 5px; }
+
+    /* تصميم عرض السيرة الذاتية */
+    #cv-preview {
+        display: none;
+        background: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    #cv-preview h2 {
+        color: #0d6efd;
+        border-bottom: 2px solid #0d6efd;
+        padding-bottom: 8px;
+        margin-top: 25px;
+    }
+    .info p { margin: 0; line-height: 1.8; }
+    .item-box-preview {
+        background: #f9f9f9;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+    }
+</style>
+</head>
+<body>
+<div class="container my-5">
+    <h2 class="text-center mb-4">إنشاء السيرة الذاتية</h2>
+    <p id="breadcrumb"></p>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const path = decodeURIComponent(params.get("path") || "");
+  document.getElementById("breadcrumb").textContent = path;
+</script>
+
+
+    <form id="tanjezForm" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row mb-3">
+                <!-- القائمة الأولى -->
+               
+        </div>
+    
+    
+    
+    
+        
+        
+
+
+
+
+        
+
+    
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.getElementById('typePieceSelect');
+    const earthSection = document.getElementById('earthBordersSection');
+    const rahaqSection = document.getElementById('rahaqTableSection');
+    const buildingSection = document.getElementById('buildingTableSection');
+
+    select.addEventListener('change', function() {
+        const value = this.value;
+
+        // جدول الرهق
+        rahaqSection.style.display = (value === "رهق" || value === "ارض مع رهق") ? 'block' : 'none';
+
+        // جدول الأرض
+        earthSection.style.display = (value === "رهق") ? 'none' : 'block';
+
+        // جدول المبنى
+        buildingSection.style.display = (value === "مبنى") ? 'block' : 'none';
+
+        // تفعيل الحقول النصية داخل جدول الرهق
+        rahaqSection.querySelectorAll('input[type="text"]').forEach(input => input.disabled = false);
+        rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
+            inputField.disabled = checkbox.checked;
+        });
+    });
+
+    // التعامل مع checkboxes داخل جدول الرهق
+    rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
+        checkbox.addEventListener('change', function() {
+            inputField.disabled = this.checked;
+            if(this.checked) inputField.value = "";
+        });
+    });
+
+    // إضافة صف جديد لجدول المبنى
+    const addBuildingBtn = document.getElementById('addBuildingRow');
+    addBuildingBtn.addEventListener('click', function() {
+        const tbody = buildingSection.querySelector('tbody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="number" class="form-control" placeholder="أدخل عدد الطوابق" /></td>
+            <td><input type="text" class="form-control" placeholder="أدخل الوصف" /></td>
+            <td><input type="text" class="form-control" placeholder="أدخل المكان" /></td>
+        `;
+        tbody.appendChild(newRow);
+    });
+});
+
+        </script>
+        
+    
+    
+
+
+
+
+
+
+<style>
+    /* جعل الـ checkbox أكبر في الحجم ومتمركز */
+    .larger-checkbox {
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        transform: scale(1.3);
+    }
+
+    /* جعل الخلايا في منتصف الجدول */
+    #earthBordersTable2 td,
+    #earthBordersTable2 th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    /* جعل الحقول المعطلة بلون رمادي خفيف */
+    input[disabled] {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('typePieceSelect');
+        const title = document.getElementById('earthBordersTitleUnique123');
+    
+        select.addEventListener('change', function() {
+            const value = this.value;
+            title.textContent = value ? "حدود " + value : "حدود الأرض";
+        });
+    });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const chkUp = document.getElementById('chkUp');
+        const chkDown = document.getElementById('chkDown');
+        const txtUp = document.getElementById('txtUp');
+        const txtDown = document.getElementById('txtDown');
+
+        // عند تفعيل أو إلغاء التفعيل يتم السماح أو منع الإدخال
+        chkUp.addEventListener('change', function () {
+            txtUp.disabled = !this.checked;
+            if (!this.checked) txtUp.value = '';
+        });
+
+        chkDown.addEventListener('change', function () {
+            txtDown.disabled = !this.checked;
+            if (!this.checked) txtDown.value = '';
+        });
+    });
+</script>
+
+    
+
+
+
+
+        
+        
+
+
+
+
+
+
+        <!-- صف الملاحظات -->
+<div class="row mb-3">
+    <div class="col-12">
+        <label for="txtNotes" class="form-label">الملاحظات</label>
+        <textarea class="form-control" id="txtNotes" name="txtNotes" rows="4" placeholder="أدخل ملاحظاتك"></textarea>
+    </div>
+</div>
+
+<!-- صف المرفقات -->
+<div class="row mb-3">
+    <div class="col-12" id="attachmentsWrapper">
+        <label class="form-label">المرفقات</label>
+        
+        <!-- صف المرفق الأول -->
+        <div class="attachment-row mb-2 d-flex align-items-center">
+            <input type="file" class="form-control me-2" name="fileAttach[]" />
+            <button type="button" class="btn btn-outline-danger remove-attachment">&times;</button>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="button" class="btn btn-outline-primary" id="addAttachmentBtn">
+            <i class="fas fa-plus me-1"></i> إضافة مرفق جديد
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<style>
+.custom-input-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.custom-input-container input,
+.custom-input-container textarea,
+.custom-input-container select {
+    width: 100%;
+    padding: 0.75rem 0.5rem 0.25rem 0.5rem;
+    border: 1px solid #ced4da;
+    border-top: none; /* إزالة الخط العلوي */
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 1rem;
+    background: #fff;
+}
+
+.custom-input-container label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: #fff;
+    padding: 0 0.25rem;
+    font-size: 1rem;
+    color: #6c757d;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-input-container input:focus + label,
+.custom-input-container input:not(:placeholder-shown) + label,
+.custom-input-container textarea:focus + label,
+.custom-input-container textarea:not(:placeholder-shown) + label,
+.custom-input-container select:focus + label,
+.custom-input-container select:not([value=""]) + label {
+    top: -0.6rem;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.custom-input-container textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* وضع زر الإضافة داخل نفس حقل الإدخال */
+.input-with-button {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button input {
+    flex: 1;
+    margin-right: 0.5rem;
+}
+
+.input-with-button button {
+    flex-shrink: 0;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function setupNameAdder(txtId, listId, countId, btnId) {
+        const addBtn = document.getElementById(btnId);
+        const txtName = document.getElementById(txtId);
+        const nameList = document.getElementById(listId);
+        const nameCount = document.getElementById(countId);
+
+        let names = [];
+
+        addBtn.addEventListener('click', function() {
+            const name = txtName.value.trim();
+            if(name) {
+                names.push(name);
+                nameList.value = names.join('\n');
+                nameCount.value = names.length;
+                txtName.value = '';
+            }
+        });
+    }
+
+    setupNameAdder('txtName1', 'nameList1', 'nameCount1', 'addNameBtn1');
+    setupNameAdder('txtName2', 'nameList2', 'nameCount2', 'addNameBtn2');
+});
+</script>
+
+
+
+
+
+
+
+   
+        <div class="text-center mt-4">
+            <button type="submit" id="saveRequestBtn" class="btn btn-success px-5">
+                <i class="fas fa-save me-2"></i>حفظ الطلب
+            </button>
+        </div>
+        
+    </form>
+
+</div>
+
+
+
+</body>
+</html>

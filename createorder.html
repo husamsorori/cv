@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيرة الذاتية</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f5f6fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+        text-align: right;
+    }
+    .section-header {
+        cursor: pointer;
+        padding: 15px 20px;
+        background-color: #0d6efd;
+        color: #fff;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        transition: background-color 0.3s;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    .section-header:hover { background-color: #0b5ed7; }
+    .section-content {
+        display: none;
+        padding: 15px 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .add-btn { margin-top: 10px; }
+    .item-box {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        position: relative;
+    }
+    .action-btns {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    .action-btns button { margin-left: 5px; }
+
+    /* تصميم عرض السيرة الذاتية */
+    #cv-preview {
+        display: none;
+        background: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    #cv-preview h2 {
+        color: #0d6efd;
+        border-bottom: 2px solid #0d6efd;
+        padding-bottom: 8px;
+        margin-top: 25px;
+    }
+    .info p { margin: 0; line-height: 1.8; }
+    .item-box-preview {
+        background: #f9f9f9;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+    }
+</style>
+</head>
+<body>
+<div class="container my-5">
+    <h6 id="breadcrumb" class="text-center mb-4">إنشاء السيرة الذاتية</h6>
+    <p id="breadcrumb"></p>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const path = decodeURIComponent(params.get("path") || "");
+      document.getElementById("breadcrumb").textContent = path;
+    </script>
+    
+    <form id="tanjezForm" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row mb-3">
+                <!-- القائمة الأولى -->
+                <input type="hidden" asp-for="tanjezOrder.UserID" value="@Context.Session.GetInt32("UserID")" />
+    
+                <div class="col-12">
+                    <h4 class="fw-bold">موقع الأرض</h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md">
+    
+                    <div class="input-label-en">منشا الطلب </div>
+                    <input asp-for="tanjezOrder.CreateOrderName" type="text" class="form-control" placeholder="منشا الطلب">
+                </div>
+                <div class="col-md">
+                    <h5>صفة منشا الطلب</h5>
+    
+    
+                    <select asp-for="tanjezOrder.DescripPerson" id="descripSelect" class="form-select">
+                        <option value="">   الصفة  </option>
+    
+                        <option value="عن نفسة">  عن نفسة</option>
+    
+                        <option value="وكيل"> وكيل</option>
+                        <option value="وصي"> وصي </option>
+                        <option value=""> اضافة</option>
+                    </select>
+    
+                </div>
+                <div class="col-md">
+                    <h5>الغرض من المسح</h5>
+                    <select asp-for="tanjezOrder.PurposeOrder"
+                            asp-items="ViewBag.Purposes ?? new List<SelectListItem>()"
+                            class="form-select add-option-enabled"
+                            data-controller="PurposeSurvey">
+                        <option value="">-- اختر الغرض --</option>
+                        <option value="add">+ إضافة</option>
+                    </select>
+                </div>
+
+                    <div class="col-md">
+                        <h5>نوع القطعة المراد مسحها</h5>
+                        <select id="typePieceSelect" class="form-select">
+                            <option value="">-- اختر نوع القطعة --</option>
+                            <option value="ارض">أرض</option>
+                            <option value="رهق">رهق</option>
+                            <option value="ارض مع رهق">أرض مع رهق</option>
+                            <option value="مبنى">مبنى</option>
+                        </select>
+                    </div>
+                    
+                
+              
+                
+    
+            </div>
+
+
+
+
+            <!-- الصف الأول: موقع الأرض (4 أعمدة) -->
+            <div class="row mb-3">
+                <div class="col-md">
+                    <h5>الدولة</h5>
+                    <select class="form-select" asp-for="tanjezOrder.Country">
+                        <option value="اليمن">اليمن</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <h5>المحافظة</h5>
+                    <select asp-for="tanjezOrder.City" class="form-select">
+                        <option value="">المحافظة</option>
+                        <option value="صنعاء">صنعاء</option>
+                        <option value="تعز">تعز</option>
+                        <option value="المهرة">المهرة</option>
+                        <option value="الجوف">الجوف</option>
+                        <option value="المحويت">المحويت</option>
+                        <option value="صعدة">صعدة</option>
+                        <option value="الضالع">الضالع</option>
+                        <option value="شبوة">شبوة</option>
+                        <option value="لحج">لحج</option>
+                        <option value="عدن">عدن</option>
+                        <option value="عمران">عمران</option>
+                        <option value="حجة">حجة</option>
+                        <option value="ريمة">ريمة</option>
+                        <option value="ذمار">ذمار</option>
+                        <option value="اب">اب</option>
+                        <option value="مارب">مارب</option>
+                        <option value="حضرموت">حضرموت</option>
+                        <option value="البيضاء">البيضاء</option>
+                        <option value="ابين">ابين</option>
+                        <option value="الحديدة">الحديدة</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <h5>المديرية</h5>
+                    <input type="text" class="form-control" id="documentArea" asp-for="tanjezOrder.Zone" placeholder="المديرية" />
+    
+                </div>
+                <div class="col-md">
+                    <h5>العزلة</h5>
+                    <input type="text" class="form-control" id="documentArea" asp-for="tanjezOrder.Directorate" placeholder="العزلة" />
+    
+                </div>
+                <div class="col-md">
+                    <h5>الحي/القرية</h5>
+                    <input type="text" class="form-control" id="documentArea" name="tanjezOrder.Village" placeholder="القرية او الحي" />
+    
+                </div>
+            </div>
+    
+            <!-- الصف الثاني: الإحداثيات (4 أعمدة، يمكن ترك عمود فارغ لو تريد) -->
+            <div class="row mb-3">
+    
+    
+                <div class="col-md-3">
+                    <h5>احداثيات Y</h5>
+                    <input name="tanjezOrder.CoordinatesY" type="number" class="form-control" placeholder="احداثيات Y">
+                </div>
+                <div class="col-md-3">
+                    <h5>احداثيات X</h5>
+                    <input name="tanjezOrder.CoordinatesX" type="number" class="form-control" placeholder="احداثيات X">
+                </div>
+                <!-- عمود فارغ لو أردت حقل إضافي -->
+                <div class="col-md-3">
+                    <label class="input-label"> اسم الموضع <span class="required-star">*</span></label>
+                    <input type="text" class="form-control" id="requestTitle" name="tanjezOrder.PlaceName" placeholder="أدخل عنوان الطلب" required />
+                </div>
+                <div class="col-md-3">
+                    <label class="input-label">نوع الطلب  </label>
+                    <select class="form-select" id="placeTypeId" name="tanjezOrder.PlaceType">
+    
+                        <option value="حر">حر</option>
+                        <option value="وقف">وقف</option>
+                        <option value="3">+ انشاء جديد</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    
+    
+    
+    
+        <!-- بيانات الوثيقة -->
+        <div class="form-title mb-2">بيانات الوثيقة</div>
+        <hr>
+    
+        <div class="row mb-3">
+            <!-- 3️⃣ نوع الوثيقة -->
+            <div class="col-md">
+                <label class="input-label">نوع الوثيقة</label>
+                <select asp-for="tanjezOrder.DocumentType"
+                        asp-items="ViewBag.DocumentTypes ?? new List<SelectListItem>()"
+                        class="form-select add-option-enabled"
+                        data-controller="DocumentTypes">
+                    <option value="">-- اختر نوع الوثيقة --</option>
+                    <option value="add">+ إضافة</option>
+                </select>
+            </div>
+            <!-- 2️⃣ الحيازة -->
+                <div class="col-md">    
+                <div class="input-label-en">الحيازة</div>
+                <select asp-for="tanjezOrder.Alhiaza"
+                        asp-items="ViewBag.Ownerships ?? new List<SelectListItem>()"
+                        class="form-select add-option-enabled"
+                        data-controller="Ownerships">
+                    <option value="">-- اختر الحيازة --</option>
+                    <option value="add">+ إضافة</option>
+                </select>
+            </div>
+    
+                <div class="col-md">
+                <div class="mb-2">
+                    <label class="input-label fw-bold">المساحة كما في الوثيقة</label>
+    
+                    <!-- الحقل الأول: المساحة بالمتر المربع -->
+                        <div class="col-md">
+                        <small class="text-muted">متر مربع</small>
+                        <input type="number" class="form-control" id="documentArea" name="tanjezOrder.Space" placeholder="0.00" step="0.01" />
+    
+                    </div>
+    
+                    <!-- الحقل الثاني: وحدة القياس -->
+                        <div class="col-md">
+                        <select class="form-select" id="unitSelect" asp-for="tanjezOrder.Unit">
+                            <option value="">اختر وحدة القياس</option>
+                            <option value="قصبة">قصبة</option>
+                            <option value="لبنة">لبنة</option>
+                        </select>
+                    </div>
+    
+                    <!-- الحقل الثالث: عدد الوحدات (يظهر عند الاختيار) -->
+                    <div class="mb-2 d-none" id="unitCountDiv">
+                        <input type="number" class="form-control" id="unitCount" name="tanjezOrder.AcountPiese" placeholder="ادخل العدد" />
+                        <small class="text-muted" id="unitLabel"></small>
+                    </div>
+                </div>
+            </div>
+    
+            <script>
+                document.getElementById("unitSelect").addEventListener("change", function () {
+                    var selectedUnit = this.value;
+                    var unitDiv = document.getElementById("unitCountDiv");
+                    var unitLabel = document.getElementById("unitLabel");
+    
+                    if (selectedUnit) {
+                        unitDiv.classList.remove("d-none");
+                        unitLabel.textContent = "عدد " + selectedUnit;
+                    } else {
+                        unitDiv.classList.add("d-none");
+                        unitLabel.textContent = "";
+                    }
+                });
+            </script>
+    
+            <div class="col-md">
+                <div class="form-check">
+                    <input type="hidden" id="hiddenAreaDifferent" name="tanjezOrder.AreaDifferent" value="0" />
+                    <input type="checkbox" class="form-check-input" id="AreaDifferentCheckbox" />
+                    <label class="form-check-label" for="AreaDifferentCheckbox">المساحة مختلفة عن الواقع</label>
+                </div>
+            </div>
+    
+            <script>
+                const checkbox = document.getElementById('AreaDifferentCheckbox');
+                const hiddenInput = document.getElementById('hiddenAreaDifferent');
+    
+                checkbox.addEventListener('change', function() {
+                    hiddenInput.value = this.checked ? '1' : '0';
+                });
+            </script>
+    
+    
+    
+    
+            <div class="col-md">
+                <div class="input-label-en">صورة الوثيقة</div>
+                <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary" id="attachBtn">إرفاق</button>
+                    <input type="file" class="form-control" id="docImageInput" name="tanjezOrder.DocumentImage" style="display:none;" accept="image/*">
+                </div>
+            </div>
+        </div>
+    
+        
+
+
+<!-- حدود الأرض -->
+<div class="section-divider"></div>
+
+<div id="earthBordersSection">
+    <div class="form-title mb-2">حدود الأرض</div>
+    <div class="input-label-en mb-1">حدود الأرض المذكورة في الوثيقة</div>
+    <table class="table table-bordered mb-2">
+        <thead>
+            <tr>
+                <th style="width:40px">#</th>
+                <th style="width:150px">نوع الحد</th>
+                <th>الحد كما في الوثيقة</th>
+                <th style="width:120px">غير مطابق للواقع</th>
+                <th>الفرق</th>
+                <th style="width:50px">إجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- الصفوف كما هي -->
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">شمال</span>
+                            <select class="form-select border-type" name="earthBorders[0].BorderType" style="display:none;">
+                                <option value="شمال">شمال</option>
+                                <option value="جنوب">جنوب</option>
+                                <option value="شرق">شرق</option>
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[0].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
+    
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[0].Difference" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">جنوب</span>
+                            <select class="form-select border-type" name="earthBorders[1].BorderType" style="display:none;">
+    
+                                <option value="جنوب">جنوب</option>
+                                <option value="شرق">شرق</option>
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[1].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
+    
+    
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[1].Difference" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">شرق</span>
+                            <select class="form-select border-type" name="earthBorders[2].BorderType" style="display:none;">
+    
+                                <option value="شرق">شرق</option>
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[2].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
+    
+    
+                    <td>
+        <input type="text" class="form-control" name="earthBorders[0].Difference" readonly />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>
+                        <div class="border-type-cell" data-index="0">
+                            <span class="selected-border">غرب</span>
+                            <select class="form-select border-type" name="earthBorders[3].BorderType" style="display:none;">
+    
+                                <option value="غرب">غرب</option>
+                                <option value="شمال شرقي">شمال شرقي</option>
+                                <option value="شمال غربي">شمال غربي</option>
+                                <option value="جنوب شرقي">جنوب شرقي</option>
+                                <option value="جنوب غربي">جنوب غربي</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[3].BorderDescription" />
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" name="earthBorders[3].IdenticalOrDifferent" value="0" />
+                        <input type="checkbox" class="form-check-input"
+                            name="earthBorders[3].IdenticalOrDifferent" value="1" />
+                    </td>
+    
+    
+                    <td>
+                        <input type="text" class="form-control" name="earthBorders[3].Difference" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-border">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-primary add-row-btn mb-3" id="addBorderRow">
+        <i class="fas fa-plus me-1"></i> إضافة حد جديد
+    </button>
+</div>
+
+
+
+
+
+<!-- جدول المبنى مخفي افتراضيًا -->
+<div id="buildingTableSection" style="display:none; margin-top:20px;">
+    <div class="form-title mb-2">بيانات المبنى</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>عدد الطوابق</th>
+                <th>الوصف</th>
+                <th>المكان</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="number" class="form-control" placeholder="أدخل عدد الطوابق" /></td>
+                <td><input type="text" class="form-control" placeholder="أدخل الوصف" /></td>
+                <td><input type="text" class="form-control" placeholder="أدخل المكان" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-primary add-row-btn mb-3" id="addBuildingRow">
+        <i class="fas fa-plus me-1"></i> إضافة صف جديد
+    </button>
+</div>
+
+
+
+        
+
+    <!-- جدول خاص بالرهق مخفي افتراضيًا -->
+    <div id="rahaqTableSection" style="display:none; margin-top:20px;">
+        <div class="form-title mb-2">حدود الرهق</div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>الوصف</th>
+                    <th>لم يذكر  الرهق</th>
+                    <th>الحد</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> شمال</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الشمال" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> شرق</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الجنوب" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> غرب</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الغرب" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> جنوب</td>
+                    <td class="align-middle text-center">
+                        <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" disabled placeholder="أدخل الحد من الجنوب" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+                <div class="col-md">
+                    <div class="input-label-en">نوع الحيازة </div>
+                    <select asp-for="tanjezOrder.AccessRoadType"
+                            asp-items="ViewBag.AccessRoadTypes ?? new List<SelectListItem>()"
+                            class="form-select add-option-enabled"
+                            data-controller="AccessRoadTypes">
+                        <option value="">تحت حيازتي</option>
+                
+                        <option value="add">+ إضافة</option>
+                    </select>
+                </div>
+    </div>
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.getElementById('typePieceSelect');
+    const earthSection = document.getElementById('earthBordersSection');
+    const rahaqSection = document.getElementById('rahaqTableSection');
+    const buildingSection = document.getElementById('buildingTableSection');
+
+    select.addEventListener('change', function() {
+        const value = this.value;
+
+        // جدول الرهق
+        rahaqSection.style.display = (value === "رهق" || value === "ارض مع رهق") ? 'block' : 'none';
+
+        // جدول الأرض
+        earthSection.style.display = (value === "رهق") ? 'none' : 'block';
+
+        // جدول المبنى
+        buildingSection.style.display = (value === "مبنى") ? 'block' : 'none';
+
+        // تفعيل الحقول النصية داخل جدول الرهق
+        rahaqSection.querySelectorAll('input[type="text"]').forEach(input => input.disabled = false);
+        rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
+            inputField.disabled = checkbox.checked;
+        });
+    });
+
+    // التعامل مع checkboxes داخل جدول الرهق
+    rahaqSection.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        const inputField = checkbox.closest('tr').querySelector('input[type="text"]');
+        checkbox.addEventListener('change', function() {
+            inputField.disabled = this.checked;
+            if(this.checked) inputField.value = "";
+        });
+    });
+
+    // إضافة صف جديد لجدول المبنى
+    const addBuildingBtn = document.getElementById('addBuildingRow');
+    addBuildingBtn.addEventListener('click', function() {
+        const tbody = buildingSection.querySelector('tbody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="number" class="form-control" placeholder="أدخل عدد الطوابق" /></td>
+            <td><input type="text" class="form-control" placeholder="أدخل الوصف" /></td>
+            <td><input type="text" class="form-control" placeholder="أدخل المكان" /></td>
+        `;
+        tbody.appendChild(newRow);
+    });
+});
+
+        </script>
+        
+    
+    
+
+
+
+
+
+<!-- HTML -->
+<div id="earthBordersSection">
+    <div class="section-divider"></div>
+    <!-- العنوان مع ID فريد -->
+<div class="form-title mb-2" id="earthBordersTitleUnique123">حدود الأرض</div>
+
+    <div class="input-label-en mb-1">
+        في حال ذكرت الوثيقة [من اعلى - من اسفل] قم بالضغط على المربع والكتابة في الخانة المخصصة
+    </div>
+
+    <table class="table table-bordered mb-2 text-center" id="earthBordersTitleUnique123">
+        <thead>
+           
+        </thead>
+        <tbody>
+            <tr>
+                <td>من أعلى</td>
+                <td class="align-middle">
+                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" id="chkUp" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="txtUp" name="fromup" disabled placeholder="أدخل الحد من الأعلى" />
+                </td>
+            </tr>
+            <tr>
+                <td>من أسفل</td>
+                <td class="align-middle">
+                    <input type="checkbox" class="form-check-input border-primary border-2 larger-checkbox" id="chkDown" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="txtDown" name="fromdown" disabled placeholder="أدخل الحد من الأسفل" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* جعل الـ checkbox أكبر في الحجم ومتمركز */
+    .larger-checkbox {
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        transform: scale(1.3);
+    }
+
+    /* جعل الخلايا في منتصف الجدول */
+    #earthBordersTable2 td,
+    #earthBordersTable2 th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    /* جعل الحقول المعطلة بلون رمادي خفيف */
+    input[disabled] {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('typePieceSelect');
+        const title = document.getElementById('earthBordersTitleUnique123');
+    
+        select.addEventListener('change', function() {
+            const value = this.value;
+            title.textContent = value ? "حدود " + value : "حدود الأرض";
+        });
+    });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const chkUp = document.getElementById('chkUp');
+        const chkDown = document.getElementById('chkDown');
+        const txtUp = document.getElementById('txtUp');
+        const txtDown = document.getElementById('txtDown');
+
+        // عند تفعيل أو إلغاء التفعيل يتم السماح أو منع الإدخال
+        chkUp.addEventListener('change', function () {
+            txtUp.disabled = !this.checked;
+            if (!this.checked) txtUp.value = '';
+        });
+
+        chkDown.addEventListener('change', function () {
+            txtDown.disabled = !this.checked;
+            if (!this.checked) txtDown.value = '';
+        });
+    });
+</script>
+
+    
+
+
+
+
+
+        <div class="row mb-3">
+            <div class="section-divider"></div>
+            <div class="form-title mb-2">نوع الحيازة</div>
+    
+    
+            <div class="col-md">
+                <div class="input-label-en">نوع طريق الوصول</div>
+                <select asp-for="tanjezOrder.AccessRoadType"
+                        asp-items="ViewBag.AccessRoadTypes ?? new List<SelectListItem>()"
+                        class="form-select add-option-enabled"
+                        data-controller="AccessRoadTypes">
+                    <option value="">-- اختر طريق الوصول --</option>
+                    <option value="add">+ إضافة</option>
+                </select>
+            </div>
+    
+    
+            <!-- الفترة والعرض -->
+    
+            <div class="col-md">
+                <div class="input-label-en">(فترة تسليم العمل)</div>
+                @* <select asp-for="tanjezOrder.PeriodType" asp-items="ViewBag.accessRoadType" class="form-select"> *@
+    
+                <select class="form-select" id="periodType" name="tanjezOrder.PeriodType">
+                    <option value="طارئ ومستعجل">طارئ ومستعجل</option>
+                    <option value="حسب الاتفاق مع المهندس">حسب الاتفاق مع المهندس</option>
+                    <option value="طويلة">طويلة</option>
+                </select>
+            </div>
+            <div class="col-md">
+                <div class="input-label-en">أقصى مدة</div>
+                <input type="text" class="form-control" id="maximumDuration" name="tanjezOrder.MaximumDuration" placeholder="اختر التاريخ" />
+            </div>
+        </div>
+    
+    
+        <div class="row mb-3">
+    
+    
+            <div class="col-md">
+                <div class="input-label-en">انتقال المهندس الى القطة المراد مسحها</div>
+                <select class="form-select" id="Transportation" name="tanjezOrder.Transportation">
+                    <option value=""></option>
+                    <option value="3"> سأقوم (بنقله وارجاعه) بسيارتي الخاصة</option>
+                    <option value="2">يتكفل المهندس بتنقلاته</option>
+    
+                </select>
+            </div>
+    
+    
+    
+            <!-- العرض -->
+    
+            <div class="col-md">
+                <div class="input-label-en">المبيت</div>
+                <select class="form-select" id="OverNight" name="tanjezOrder.OverNight">
+                    <option value=""></option>
+                    <option value="3"> سوف أوفر مبيت ومكان اقامة للمهندس خلال ايام العمل</option>
+                    <option value="2">︎يتكفل المهندس بمبيته واقامته</option>
+    
+                </select>
+            </div>
+    
+    
+    
+            <div class="col-md">
+                <div class="input-label-en">النثريات (تغذية، قات، ..الخ)</div>
+                <select class="form-select" id="Allowance" name="tanjezOrder.Allowance">
+                    <option value=""></option>
+                    <option value="3"> نثريات المهندس على حسابي الخاص</option>
+                    <option value="2">يتكفل المهندس بجميع نثرياته</option>
+    
+                </select>
+            </div>
+    
+    
+        </div>
+    
+        
+        
+
+
+
+
+
+
+        <!-- صف الملاحظات -->
+<div class="row mb-3">
+    <div class="col-12">
+        <label for="txtNotes" class="form-label">الملاحظات</label>
+        <textarea class="form-control" id="txtNotes" name="txtNotes" rows="4" placeholder="أدخل ملاحظاتك"></textarea>
+    </div>
+</div>
+
+<!-- صف المرفقات -->
+<div class="row mb-3">
+    <div class="col-12" id="attachmentsWrapper">
+        <label class="form-label">المرفقات</label>
+        
+        <!-- صف المرفق الأول -->
+        <div class="attachment-row mb-2 d-flex align-items-center">
+            <input type="file" class="form-control me-2" name="fileAttach[]" />
+            <button type="button" class="btn btn-outline-danger remove-attachment">&times;</button>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="button" class="btn btn-outline-primary" id="addAttachmentBtn">
+            <i class="fas fa-plus me-1"></i> إضافة مرفق جديد
+        </button>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('addAttachmentBtn');
+    const wrapper = document.getElementById('attachmentsWrapper');
+
+    addBtn.addEventListener('click', function() {
+        const newRow = document.createElement('div');
+        newRow.classList.add('attachment-row', 'mb-2', 'd-flex', 'align-items-center');
+        newRow.innerHTML = `
+            <input type="file" class="form-control me-2" name="fileAttach[]" />
+            <button type="button" class="btn btn-outline-danger remove-attachment">&times;</button>
+        `;
+        wrapper.appendChild(newRow);
+
+        // إضافة وظيفة الحذف للزر الجديد
+        newRow.querySelector('.remove-attachment').addEventListener('click', function() {
+            newRow.remove();
+        });
+    });
+
+    // حذف المرفقات الموجودة مسبقًا
+    wrapper.querySelectorAll('.remove-attachment').forEach(btn => {
+        btn.addEventListener('click', function() {
+            btn.closest('.attachment-row').remove();
+        });
+    });
+});
+
+</script>
+        
+        <!-- التكلفة والفواتير -->
+        <div class="section-divider"></div>
+     
+    
+
+
+
+
+
+        <div class="text-center mt-4">
+            <button type="submit" id="saveRequestBtn" class="btn btn-success px-5">
+                <i class="fas fa-save me-2"></i>حفظ الطلب
+            </button>
+        </div>
+        
+    </form>
+
+</div>
+
+
+
+</body>
+</html>
