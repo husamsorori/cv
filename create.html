@@ -1208,6 +1208,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 
+
+
+
+
 <style>
 .custom-input-container {
     position: relative;
@@ -1298,6 +1302,29 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- جدول المبنى مخفي افتراضيًا -->
+<div id="buildingTableSection" style=" margin-top:20px;">
+    <div class="form-title mb-2"> التحقق من ملكيه البائع</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th> المالكون السابقون</th>
+                <th>حصولهم على</th>
+                <th>الوثائق التي يستند عليها</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control" placeholder="  المالكون السابقون" /></td>
+                <td><input type="text" class="form-control" placeholder=" حصولهم على" /></td>
+                <td><input type="text" class="form-control" placeholder=" الوثائق التي يستند عليها" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-primary add-row-btn mb-3" id="addBuildingRow">
+        <i class="fas fa-plus me-1"></i> إضافة صف جديد
+    </button>
+</div>
 
 
 
