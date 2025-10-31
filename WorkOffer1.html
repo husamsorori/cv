@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>شجرة المجالات الهندسية والقانونية والقضاء</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .custom-input-container {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    
+    .custom-input-container input,
+    .custom-input-container select {
+      width: 100%;
+      padding: 12px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      font-size: 15px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .custom-input-container input:focus,
+    .custom-input-container select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0,123,255,0.3);
+      outline: none;
+    }
+    
+    .custom-input-container label {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      color: #777;
+      background: #fff;
+      padding: 0 5px;
+      transition: 0.2s ease all;
+      pointer-events: none;
+    }
+    
+    .custom-input-container input:focus + label,
+    .custom-input-container input:not(:placeholder-shown) + label,
+    .custom-input-container select:focus + label,
+    .custom-input-container select:not([value=""]) + label {
+      top: -10px;
+      right: 10px;
+      font-size: 13px;
+      color: #007bff;
+    }
+    
+    .dropdown-menu {
+      width: 100%;
+    }
+    </style>
+</head>
+
+<body class="p-4">
+
+<div dir="rtl">
+    <form id="tanjezForm" method="post" enctype="multipart/form-data">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="page-title">عرض جديد</h2>
+            <span class="status-label">لم يتم الحفظ</span>
+        </div>
+    <input type="hidden" name="UserID" value="@Context.Session.GetInt32("UserID")" />
+
+    
+
+
+
+ 
+
+    </div>
+    </div>
+
+
+        <!-- جدول التكلفة الاضافية -->
+        
+         <div class="section-title">تكلفة إضافية</div>
+        <div class="table-responsive mb-3">
+        <div class="col-md-6">
+            <label asp-for="AdditionalCostTypeId" class="form-label">قالب التكاليف الاضافية </label>
+            <select asp-for="AdditionalCostTypeId" id="additionalCostSelect" class="form-select">
+                <option value="">-- اختر قالب --</option>
+               
+            </select>
+       
+            <div id="additionalCostContainer">
+                <table class="table table-bordered align-middle text-center offer-table">
+                    <tbody>
+                        <tr><td colspan="6" class="text-center">اختر قالب لعرض البيانات</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        <button type="button" class="btn btn-outline-primary"
+                onclick="showFormDialog('AdditionalCostModel')">
+            <i class="bi bi-plus-lg me-1"></i> إضافة تكلفة
+        </button>
+        </div>
+        </div>
+        
+       
+    
+
+        <!-- زر الحفظ في نهاية الصفحة -->
+        <button type="submit" class="btn btn-dark save-btn mt-4" >حفظ</button>
+    </form>
+    </div>
+
+
+</body>
+</html>
