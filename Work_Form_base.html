@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>شجرة المجالات الهندسية والقانونية والقضاء</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .custom-input-container {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    
+    .custom-input-container input,
+    .custom-input-container select {
+      width: 100%;
+      padding: 12px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      font-size: 15px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .custom-input-container input:focus,
+    .custom-input-container select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0,123,255,0.3);
+      outline: none;
+    }
+    
+    .custom-input-container label {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      color: #777;
+      background: #fff;
+      padding: 0 5px;
+      transition: 0.2s ease all;
+      pointer-events: none;
+    }
+    
+    .custom-input-container input:focus + label,
+    .custom-input-container input:not(:placeholder-shown) + label,
+    .custom-input-container select:focus + label,
+    .custom-input-container select:not([value=""]) + label {
+      top: -10px;
+      right: 10px;
+      font-size: 13px;
+      color: #007bff;
+    }
+    
+    .dropdown-menu {
+      width: 100%;
+    }
+    </style>
+</head>
+
+<body class="p-4">
+
+    <div class="main-card">
+        <form>
+            <!-- الجزء الأول: الحقول على عمودين -->
+          
+            <div class="row g-3 mb-4 mt-3">
+
+                <div class="col-md-4">
+                  <div class="custom-input-container">
+                    <select class="form-select">
+                      <option>-- اختر --</option>
+                      <option>طلب جديد</option>
+                      <option>تعديل</option>
+                    </select>
+                    <label>نوع الطلب</label>
+                  </div>
+                </div>
+              
+                <div class="col-md-4">
+                  <div class="custom-input-container">
+                    <input type="text" value="9990020503" readonly>
+                    <label>رقم التقديم</label>
+                  </div>
+                </div>
+              
+                <div class="col-md-4">
+                  <div class="custom-input-container">
+                    <input type="text" placeholder=" ">
+                    <label>الرقم المزيد لموضوع الكلي/الشامل</label>
+                  </div>
+                </div>
+              
+                <div class="col-md-4">
+                  <div class="custom-input-container">
+                    <input type="text" placeholder=" ">
+                    <label>رقم التكليف</label>
+                  </div>
+                </div>
+              
+                <div class="col-md-4">
+                  <div class="custom-input-container">
+                    <select class="form-select">
+                      <option>عادل محمد صالح عايش-77088864</option>
+                      <option>+ إنشاء عدل الروية جديد</option>
+                    </select>
+                    <label>وكلاء أوقاف في القرى</label>
+                  </div>
+                </div>
+              
+                <div class="col-md-4">
+                  <div class="custom-input-container dropdown">
+                    <input type="text" class="form-control" id="eastBoundaryType" readonly style="cursor:pointer; background:#fff;" data-bs-toggle="dropdown" placeholder=" ">
+                    <label>عدول التروية</label>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">وكلاء أوقاف في القرى = عادل محمد صالح عايش-77088864</a></li>
+                      <li><a class="dropdown-item" href="#">+ إنشاء عدل الروية جديد</a></li>
+                      <li><a class="dropdown-item" href="#">🔍 البحث المتقدم</a></li>
+                    </ul>
+                  </div>
+                </div>
+              
+              </div>
+              
+              
+            <!-- الجزء الثاني: الوضع القائم -->
+            <div class="section-title">الوضع القائم للموضع الكلي/الشامل</div>
+            <div class="card-table mb-4">
+                <table class="table table-bordered mb-0">
+                    <thead>
+                        <tr>
+                            <th>الفئة</th>
+                            <th>تصنيف الفئة</th>
+                            <th>ملاحظات</th>
+                            <th>المساحة</th>
+                            <th style="width: 50px">
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="addTableRow()">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    
+                            <td>
+                                <select name="Governorate" class="form-select form-select-sm">
+                                 
+                                    <option value="">1- لا يوجد</option>
+           
+                                    <option value="">    2-الاراضي      </option>
+                                    <option value="">     3- المعمورات    </option>
+                                    <option value="">        4- دور العبادة       </option>
+                                    <option value="">     5- المقابر    </option>
+                                    <option value="">      6- الاسواق    </option>
+                                    <option value="">    7- الطرقات      </option>
+                                    <option value="">     8- رهق\\مسقئ    </option>
+                                    <option value="">      9- اخرى تذكر   </option>
+    
+                                </select>
+                            </td>
+                            <td>
+                                <select name="Governorate" class="form-select form-select-sm">
+                                 
+                                    <option value=""> لا يوجد</option>
+    
+                                    <option value="">    الاراضي      </option>
+                                    <option value="">      زراعية    </option>
+                                    <option value="">         بيضاء       </option>
+                                    <option value="">      صلب    </option>
+                                    <option value="">      متروكة    </option>
+                                    <option value="">     اخرى تذكر      </option>
+                                 
+                            
+    
+                                </select>
+                            </td>
+                            <td>
+                                <input  type="number" class="form-control form-control-sm" placeholder="ملاحضة افتراضية" >
+                            </td>
+                            <td>
+                                <input  type="number" class="form-control form-control-sm" placeholder="المساحة">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeTableRow(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="add-row-btn mt-2">+ أضف سطر</button>
+            </div>
+    
+      
+    
+    
+    
+        
+    
+            <table class="table table-bordered text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="min-width:150px;">الصفة</th>
+                <th>الحد الشمالي</th>
+                <th>الحد الجنوبي</th>
+                <th>الحد الشرقي</th>
+                <th>الحد الغربي</th>
+                    </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>وصف الحد حسب الطبيعه </td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+            </tr>
+            <tr>
+                <td> طول الحد</td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+                <td><input type="text" class="form-control form-control-sm"></td>
+            </tr>
+            <tr>
+                <td>فئة الحد</td>
+                        <td>
+                            <select name="Governorate" class="form-select form-select-sm">
+                                <option value="">1- لا يوجد</option>
+                                <option value="lands">2- الاراضي</option>
+                                <option value="">     3- المعمورات    </option>
+                                <option value="">        4- دور العبادة       </option>
+                                <option value="">     5- المقابر    </option>
+                                <option value="">      6- الاسواق    </option>
+                                <option value="">    7- الطرقات      </option>
+                                <option value="">     8- رهق\\مسقئ    </option>
+                                <option value="">      9- اخرى تذكر   </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="Governorate" class="form-select form-select-sm">
+                                <option value="">1- لا يوجد</option>
+                                <option value="lands">2- الاراضي</option>
+                                <option value="">     3- المعمورات    </option>
+                                <option value="">        4- دور العبادة       </option>
+                                <option value="">     5- المقابر    </option>
+                                <option value="">      6- الاسواق    </option>
+                                <option value="">    7- الطرقات      </option>
+                                <option value="">     8- رهق\\مسقئ    </option>
+                                <option value="">      9- اخرى تذكر   </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="GovernorateSelect" class="form-select form-select-sm">
+                                <option value="">1- لا يوجد</option>
+                                <option value="lands">2- الاراضي</option>
+                                <option value="">     3- المعمورات    </option>
+                                <option value="">        4- دور العبادة       </option>
+                                <option value="">     5- المقابر    </option>
+                                <option value="">      6- الاسواق    </option>
+                                <option value="">    7- الطرقات      </option>
+                                <option value="">     8- رهق\\مسقئ    </option>
+                                <option value="">      9- اخرى تذكر   </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="GovernorateSelect" class="form-select form-select-sm">
+                                <option value="">1- لا يوجد</option>
+                                <option value="lands">2- الاراضي</option>
+                                <option value="">     3- المعمورات    </option>
+                                <option value="">        4- دور العبادة       </option>
+                                <option value="">     5- المقابر    </option>
+                                <option value="">      6- الاسواق    </option>
+                                <option value="">    7- الطرقات      </option>
+                                <option value="">     8- رهق\\مسقئ    </option>
+                                <option value="">      9- اخرى تذكر   </option>
+                            </select>
+                        </td>
+                
+                
+            </tr>
+                    <!-- المودال -->
+                    <div class="modal fade" id="GovernorateModal" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content" id="GovernorateContent">
+                                <!-- هنا يجي البارتشل -->
+                            </div>
+                        </div>
+                    </div>
+             <tr>
+                <td>تصنيف الفئة </td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+             <tr>
+                <td>جار الحد</td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+             <tr>
+                <td>نوع الفاصل مع الجار</td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+             <tr>
+                <td>عدد الانكسارات </td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+             <tr>
+                <td>طول الانكسارات </td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+             <tr>
+                <td>الشطفة </td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+             <tr>
+                <td>اقل ارتداد </td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+             <tr>
+                <td>اقصئ بروز</td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+                <td><input type="number" class="form-control form-control-sm"></td>
+            </tr>
+    
+        </tbody>
+    </table>
+    
+    
+           
+    
+      <!-- جدول الأنواع -->
+                <div class="section-title">بيانات الاراضي</div>
+                <div class="table-responsive mb-3">
+                    <table class="table table-bordered align-middle text-center offer-table">
+                        <thead>
+                            <tr>
+                                <th style="width:40px">#</th>
+                                <th style="min-width:120px">رقم القطعة</th>
+                                <th style="width:70px">استخدام القطعة</th>
+                                <th class="table-actions">مساحة القطعة</th>
+                                <th class="table-actions"> رقم الهوية العقارية</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <input type="text" class="form-control" 
+                                           placeholder="" />
+                                </td>
+                                <td>
+                                <input type="text" class="form-control" />
+                                </td>
+                                <td>
+                                <input type="text" class="form-control" />
+                                </td>
+                                <td>
+                                <input type="text" class="form-control" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  
+                </div>
+    
+    
+    
+                  <!-- الا الأنواع -->
+      <div class="section-title">الاحداثيات</div>
+      <div class="table-responsive mb-3">
+          <table class="table table-bordered align-middle text-center offer-table">
+              <thead>
+                  <tr>
+                      <th style="width:40px">#</th>
+                      <th style="min-width:120px">الشماليات</th>
+                      <th style="width:70px">الشرقيات</th>
+                    
+                  </tr>
+              </thead>
+              <tbody >
+                  <tr>
+                      <td>1</td>
+                      <td>
+                          <input type="text" class="form-control" 
+                                 placeholder="" />
+                      </td>
+                      <td>
+                                <input type="text" class="form-control" />
+                      </td>
+                    
+                  </tr>
+              </tbody>
+          </table>
+       
+      </div>
+    
+    
+    
+    
+      <div class="row g-3 mb-4 mt-3">
+
+       
+      
+       
+      
+        <div class="col-md-3">
+          <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label> المساحة المدونة في الوثيقة</label>
+          </div>
+        </div>
+        <div class="col-md-3">
+            <div class="custom-input-container">
+              <input type="text" placeholder=" ">
+              <label> ذكر اختلاف ان وجد</label>
+            </div>
+          </div>
+        
+      
+        <div class="col-md-3">
+          <div class="custom-input-container dropdown">
+            <input type="text" class="form-control" id="eastBoundaryType" readonly style="cursor:pointer; background:#fff;" data-bs-toggle="dropdown" placeholder=" ">
+            <label> الرهق</label>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">لم يتم ذكرة في الوثيقة</a></li>
+              <li><a class="dropdown-item" href="#">تذكره بشكل صريح</a></li>
+              <li><a class="dropdown-item" href="#">تم الاشارة الية</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+            <div class="custom-input-container dropdown">
+              <input type="text" class="form-control" id="eastBoundaryType" readonly style="cursor:pointer; background:#fff;" data-bs-toggle="dropdown" placeholder=" ">
+              <label> تحليل ادعاء الطرف</label>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">ملكية الرهق</a></li>
+                <li><a class="dropdown-item" href="#"> طلبعة الانتفاع فية </a></li>
+                <li><a class="dropdown-item" href="#">  هل تم استخدام اي حواجز او عوائق</a></li>
+                <li><a class="dropdown-item" href="#">هل يتفق الطرفان على المسار التاريخي للماء</a></li>
+              </ul>
+            </div>
+          </div>
+      
+      </div>
+    
+    
+            <!-- أزرار الحفظ -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary me-2" onclick="saveData(event)">حفظ البيانات</button>
+                    <button type="button" class="btn btn-info me-2" onclick="sendReportToClient()"> حفظ وإرسال التقرير للعميل</button>
+    
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Modal لإدخال بيانات العميل -->
+    <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientModalLabel">بيانات العميل</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="clientForm">
+                        <div class="mb-3">
+                            <label for="clientName" class="form-label">اسم العميل</label>
+                            <input type="text" class="form-control" id="clientName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientEmail" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="clientEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientPhone" class="form-label">رقم الهاتف</label>
+                            <input type="tel" class="form-control" id="clientPhone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportNotes" class="form-label">ملاحظات إضافية</label>
+                            <textarea class="form-control" id="reportNotes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary" onclick="sendReport()">إرسال التقرير</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal لإدخال بيانات عدل التروية -->
+    <div class="modal fade" id="adoulModal" tabindex="-1" aria-labelledby="adoulModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adoulModalLabel">إدخال بيانات عدل التروية</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adoulForm">
+                        <div class="mb-3">
+                            <label class="form-label">اسم العدل</label>
+                            <input type="text" class="form-control" name="adoulName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">رقم الجوال</label>
+                            <input type="text" class="form-control" name="adoulPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ملاحظات</label>
+                            <textarea class="form-control" name="adoulNotes"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary" form="adoulForm">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="~/assets/js/modalFormHandler.js"></script>
+   
+    <!-- مودال -->
+    
+    
+    <script>
+        document.getElementById("GovernorateSelect").addEventListener("change", function () {
+            if (this.value === "lands") {
+                // استدعاء الأكشن Create في AdditionalCostController مثلاً
+                fetch('/Work_Form/Create1')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("GovernorateContent").innerHTML = html;
+                        var myModal = new bootstrap.Modal(document.getElementById("GovernorateModal"));
+                        myModal.show();
+                    });
+            }
+            else if (this.value === "buildings") {
+                // استدعاء الأكشن Create في BuildingsController مثلاً
+                fetch('/Buildings/Create')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("GovernorateContent").innerHTML = html;
+                        var myModal = new bootstrap.Modal(document.getElementById("GovernorateModal"));
+                        myModal.show();
+                    });
+            }
+        });
+    </script>
+
+
+
+</body>
+</html>
