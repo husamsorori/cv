@@ -446,11 +446,49 @@ $("#btn-requests").click(() => {
     window.location.href = `createspece.html?path=${encodedPath}`;
   }
 });
+   // ------------------ أزرار الطلبات واستعراض المستندات ------------------
+   $("#btn-work-form").click(() => {
+  let path = `${selectedMain}\\${selectedSpec}\\${selectedBranch}\\${selectedDetail}`;
+  let encodedPath = encodeURIComponent(path);
 
+  // التوجيه حسب خيار المستخدم
+  if (selectedDetail === "مسح التصرفات (بيع، شراء، تأجير)") {
+    window.location.href = `Work_Form.html?path=${encodedPath}`;
+  } 
+  else {
+    window.location.href = `Work_Form1.html?path=${encodedPath}`;
+  }
+});
+
+$("#btn-work-contract").click(() => {
+  let path = `${selectedMain}\\${selectedSpec}\\${selectedBranch}\\${selectedDetail}`;
+  let encodedPath = encodeURIComponent(path);
+
+  // التوجيه حسب خيار المستخدم
+  if (selectedDetail === "مسح التصرفات (بيع، شراء، تأجير)") {
+    window.location.href = `ContractTemplate.html?path=${encodedPath}`;
+  } 
+  else {
+    window.location.href = `ContractTemplate1.html?path=${encodedPath}`;
+  }
+});
+
+$("#btn-work-wofer").click(() => {
+  let path = `${selectedMain}\\${selectedSpec}\\${selectedBranch}\\${selectedDetail}`;
+  let encodedPath = encodeURIComponent(path);
+
+  // التوجيه حسب خيار المستخدم
+  if (selectedDetail === "مسح التصرفات (بيع، شراء، تأجير)") {
+    window.location.href = `WorkOffer.html?path=${encodedPath}`;
+  } 
+  else {
+    window.location.href = `WorkOffer1.html?path=${encodedPath}`;
+  }
+});
 // الصفحات الأخرى تبقى كما هي
-$("#btn-work-form").click(() => window.location.href = "Work_Form1.html");
-$("#btn-work-contract").click(() => window.location.href = "ContractTemplate1.html");
-$("#btn-work-wofer").click(() => window.location.href = "WorkOffer1.html");
+
+
+//$("#btn-work-wofer").click(() => window.location.href = "WorkOffer1.html");
 
 
     // ------------------ استعادة الحالة عند تحميل الصفحة ------------------
