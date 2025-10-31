@@ -402,7 +402,22 @@
         <!-- التكلفة والفواتير -->
         <div class="section-divider"></div>
      
-    
+        
+  <h1>الصفحة الرئيسية</h1>
+  <div id="include"></div>
+
+  <script>
+    // هنا نضع محتوى صفحة devid.html كنص JavaScript
+    const devidPage = `
+      <div class="box">
+        <h2>صفحة Devid</h2>
+        <p>هذا المحتوى تم تضمينه بنجاح بدون fetch وبدون iframe!</p>
+      </div>
+    `;
+
+    // إدراج المحتوى داخل div
+    document.getElementById("include").innerHTML = devidPage;
+  </script>
     
         <div class="text-center mt-4">
             <button type="submit" id="saveRequestBtn" class="btn btn-success px-5">

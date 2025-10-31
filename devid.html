@@ -1,0 +1,416 @@
+
+    
+<!-- بيانات الوثيقة -->
+<div class="form-title mb-2">طلب تقديم شكوى نزاع</div>
+<hr>
+
+<!-- الصف الأول: معلومات أساسية -->
+<div class="row mb-3">
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>رقم القضية</label>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>رقم الشكوى</label>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="date" placeholder=" ">
+            <label>تاريخ التقديم</label>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="custom-input-container">
+            <select>
+                <option value="">افراد</option>
+                <option value="جهات">جهات</option>
+            </select>
+            <label>الجهة الشاكية</label>
+        </div>
+    </div>
+</div>
+
+<!-- الصف الثاني: إضافة أسماء -->
+<div class="form-title mb-2">الجهة الشاكية</div>
+<hr>
+<div class="row mb-3">
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" id="nameCount1" placeholder=" " readonly>
+            <label>العدد</label>
+        </div>
+    </div>
+
+    <div class="col-md">
+        <div class="custom-input-container input-with-button">
+            <input type="text" id="txtName1" placeholder=" ">
+            <label>الأسماء</label>
+            <button type="button" class="btn btn-outline-primary" id="addNameBtn1">
+                <i class="fas fa-plus me-1"></i> إضافة
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md">
+        <div class="custom-input-container">
+            <textarea id="nameList1" placeholder=" " readonly></textarea>
+            <label>الأسماء المضافة</label>
+        </div>
+    </div>
+</div>
+
+<!-- الصف الثالث: الجهة المشكو بها -->
+<div class="form-title mb-2">الجهة المشكو بها</div>
+<hr>
+<div class="row mb-3">
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" id="nameCount2" placeholder=" " readonly>
+            <label>العدد</label>
+        </div>
+    </div>
+
+    <div class="col-md">
+        <div class="custom-input-container input-with-button">
+            <input type="text" id="txtName2" placeholder=" ">
+            <label>الأسماء</label>
+            <button type="button" class="btn btn-outline-primary" id="addNameBtn2">
+                <i class="fas fa-plus me-1"></i> إضافة
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md">
+        <div class="custom-input-container">
+            <textarea id="nameList2" placeholder=" " readonly></textarea>
+            <label>الأسماء المضافة</label>
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-12">
+        <label for="txtNotes" class="form-label">موضوع الشوى</label>
+        <textarea class="form-control" id="txtNotes" name="txtNotes" rows="4" placeholder=" موضوع الشكوى"></textarea>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-12">
+        <label for="txtNotes" class="form-label"> ملخص الشكوى</label>
+        <textarea class="form-control" id="txtNotes" name="txtNotes" rows="4" placeholder=" ملخص الشكوى"></textarea>
+    </div>
+</div>
+
+
+
+<div class="row mb-3">
+    
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" id="" placeholder=" " readonly>
+            <label>موضع الخلاف </label>
+        </div>
+      
+    </div>
+    
+        
+        <div class="col-md">
+            <h5>   </h5>
+            <select id="typePieceSelect1" class="form-select">
+                <option value="">-- طبيعه منطقة الخلاف --</option>
+            
+            </select>
+        </div>
+  
+    
+
+</div>
+
+<div class="row mb-3">
+    
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" id="" placeholder=" " readonly>
+            <label> الادعاءات (من وجهة نضر الطرف الاول) </label>
+        </div>
+      
+    </div>
+  
+</div>
+<div class="row mb-3">
+    
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" id="" placeholder=" " readonly>
+            <label>  رد المدعي عليه </label>
+        </div>
+      
+    </div>
+  
+</div>
+
+
+
+
+<!-- حدود الأرض -->
+<div class="section-divider"></div>
+
+<div id="">
+    
+    <table class="table table-bordered mb-2">
+        <thead>
+            <tr>
+                <th style="width:40px">#</th>
+                <th style="width:150px"> الادعاء</th>
+                <th style="width:200px">   المشتكي نفسة او من ينوبة</th>
+                <th >  رد المشكوبة</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <!-- الصفوف كما هي -->
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                     
+                            <span class="selected-border">طبيعة الادعاء</span>
+                           
+                    </td>
+                    <td>
+                        <div class="col-md">
+                            <h5>   </h5>
+                            <select id="typePieceSelect1" class="form-select">
+                                
+                                <option value="جنوب">1- ملكية كامله\ جزئية</option>
+                                <option value="شرق">2- تصحيح حدود</option>
+                                <option value="غرب">3- اثبات</option>
+                                <option value="غرب">4- نزاع على جهه ماء</option>
+                               
+                            </select>
+                        </div>
+                     
+                    </td>
+                    <td class="text-center">
+                        <input type="text" class="form-control" name="" />
+                    </td>
+    
+                   
+                </tr>
+               
+                <tr>
+                    <td>2</td>
+                    <td>
+                     
+                            <span class="selected-border"> الوثيقة التي يستند عليها الادعاء</span>
+                           
+                    </td>
+                    <td>
+                        <div class="col-md">
+                            <h5>   </h5>
+                            <select id="typePieceSelect1" class="form-select">
+                                
+                                <option value="جنوب">لا يمتلك وثيقه - عرف</option>
+                                <option value="شرق">2-بصيرة شراء</option>
+                                <option value="غرب">3- فص اقسام</option>
+                                <option value="غرب">4-عقد</option>
+                               
+                            </select>
+                        </div>
+
+                       
+                    </td>
+                    <td class="text-center">
+                        <input type="text" class="form-control" name="" />
+                    </td>
+    
+                   
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>
+                     
+                            <span class="selected-border">     طريقه الحصول على الحق</span>
+                           
+                    </td>
+                    <td>
+
+                        <div class="col-md">
+                            <h5>   </h5>
+                            <select id="typePieceSelect1" class="form-select">
+                                
+                                <option value="جنوب">تصرف شراء()</option>
+                                <option value="شرق">2- ورث وقسمتها</option>
+                                <option value="غرب">3- هبة نذر </option>
+                               
+                            </select>
+                        </div>
+                      
+                    </td>
+                    <td class="text-center">
+                        <input type="text" class="form-control" name="" />
+                    </td>
+    
+                   
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>
+                     
+                            <span class="selected-border">  تاريخ الحيازة</span>
+                           
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" name="datt" />
+                    </td>
+                    <td class="text-center">
+                        <input type="text" class="form-control" name="" />
+                    </td>
+    
+                   
+                </tr>
+
+
+                <tr>
+                    <td>5</td>
+                    <td>
+                     
+                            <span class="selected-border">   اسباب النزاع</span>
+                           
+                    </td>
+                    <td>
+                        <div class="col-md">
+                            <h5>   </h5>
+                            <select id="typePieceSelect1" class="form-select">
+                                
+                                <option value="جنوب">تزوير وثائق</option>
+                                <option value="شرق">2-  عدم تقسيم الورث</option>
+                                <option value="غرب">3-  تداخل املاك </option>
+                                <option value="غرب">3-   تغير معالم </option>
+                               
+                            </select>
+                        </div>
+
+                      
+                    </td>
+                    <td class="text-center">
+                        <input type="text" class="form-control" name="" />
+                    </td>
+    
+                   
+                </tr>
+            </tbody>
+        </tbody>
+    </table>
+  
+</div>
+
+
+<style>
+.custom-input-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.custom-input-container input,
+.custom-input-container textarea,
+.custom-input-container select {
+    width: 100%;
+    padding: 0.75rem 0.5rem 0.25rem 0.5rem;
+    border: 1px solid #ced4da;
+    border-top: none; /* إزالة الخط العلوي */
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 1rem;
+    background: #fff;
+}
+
+.custom-input-container label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: #fff;
+    padding: 0 0.25rem;
+    font-size: 1rem;
+    color: #6c757d;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-input-container input:focus + label,
+.custom-input-container input:not(:placeholder-shown) + label,
+.custom-input-container textarea:focus + label,
+.custom-input-container textarea:not(:placeholder-shown) + label,
+.custom-input-container select:focus + label,
+.custom-input-container select:not([value=""]) + label {
+    top: -0.6rem;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.custom-input-container textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* وضع زر الإضافة داخل نفس حقل الإدخال */
+.input-with-button {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button input {
+    flex: 1;
+    margin-right: 0.5rem;
+}
+
+.input-with-button button {
+    flex-shrink: 0;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function setupNameAdder(txtId, listId, countId, btnId) {
+        const addBtn = document.getElementById(btnId);
+        const txtName = document.getElementById(txtId);
+        const nameList = document.getElementById(listId);
+        const nameCount = document.getElementById(countId);
+
+        let names = [];
+
+        addBtn.addEventListener('click', function() {
+            const name = txtName.value.trim();
+            if(name) {
+                names.push(name);
+                nameList.value = names.join('\n');
+                nameCount.value = names.length;
+                txtName.value = '';
+            }
+        });
+    }
+
+    setupNameAdder('txtName1', 'nameList1', 'nameCount1', 'addNameBtn1');
+    setupNameAdder('txtName2', 'nameList2', 'nameCount2', 'addNameBtn2');
+});
+</script>
+
+
+
+
+
+
+        
+    
+      
+      
+
+
+
+

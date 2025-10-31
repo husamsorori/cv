@@ -897,7 +897,12 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="section-divider"></div>
      
     
-<!-- بيانات الوثيقة -->
+
+
+
+
+
+<!--  فض النزاعات -->
 <div class="form-title mb-2">طلب تقديم شكوى نزاع</div>
 <hr>
 
@@ -1013,22 +1018,10 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       
     </div>
-    <div class="col-md">
-        <div class="custom-input-container">
-            <input type="text" id="" placeholder=" " readonly>
-            <label> المديرية </label>
-        </div>
-      
-    </div>
+   
     
     
-        <div class="col-md">
-            <h5>   </h5>
-            <select id="typePieceSelect1" class="form-select">
-                <option value="">-- اختر نوع الحيازة --</option>
-            
-            </select>
-        </div>
+       
         
         <div class="col-md">
             <h5>   </h5>
@@ -1038,32 +1031,24 @@ document.addEventListener('DOMContentLoaded', function() {
             </select>
         </div>
   
-    
-
-</div>
-
-<div class="row mb-3">
-    
-    <div class="col-md">
-        <div class="custom-input-container">
-            <input type="text" id="" placeholder=" " readonly>
-            <label> الادعاءات (من وجهة نضر الطرف الاول) </label>
+        <div class="col-md">
+            <div class="custom-input-container">
+                <input type="text" id="" placeholder=" " readonly>
+                <label> الادعاءات (من وجهة نضر الطرف الاول) </label>
+            </div>
+          
         </div>
-      
-    </div>
-  
-</div>
-<div class="row mb-3">
-    
-    <div class="col-md">
-        <div class="custom-input-container">
-            <input type="text" id="" placeholder=" " readonly>
-            <label>  رد المدعي عليه </label>
+
+
+        <div class="col-md">
+            <div class="custom-input-container">
+                <input type="text" id="" placeholder=" " readonly>
+                <label>  رد المدعي عليه </label>
+            </div>
+          
         </div>
-      
-    </div>
-  
 </div>
+
 
 
 
@@ -1316,10 +1301,231 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+<!--  بيانات واجهة الطلب 
+تقسيم بين ورثة -->
 
 
-        
+<div class="form-title mb-2"> تقسيم بين ورثة   </div>
+<hr>
+
+<div class="row mb-3">
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>اسم المحكمة</label>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>رقم القضية</label>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="custom-input-container">
+            <input type="date" placeholder=" ">
+            <label>تاريخ التقديم</label>
+        </div>
+    </div>
+</div>
+
+<!-- صف جديد للحقول المطلوبة -->
+
+
+
+<div class="row mb-3">
+    <!-- الصف الأول: 3 حقول -->
+    <div class="col-12">
+        <h5 class="mb-3">  بيانات المتوفى</h5>
+    </div>
     
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الاسم الكامل</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" value="يمني" readonly>
+            <label>الجنسية</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>رقم الهوية</label>
+        </div>
+    </div>
+
+    <!-- الصف الثاني: 3 حقول -->
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="date" placeholder=" ">
+            <label>تاريخ الوفاة</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>مكان الوفاة</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" value="الإسلام" readonly>
+            <label>الديانة</label>
+        </div>
+    </div>
+
+    <!-- الصف الثالث: حقل واحد بعرض كامل -->
+    <div class="col-md-12">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الحالة الاجتماعية</label>
+        </div>
+    </div>
+</div>
+
+<!-- بيانات الورثة الشرعيين -->
+<!-- بيانات الورثة الشرعيين -->
+<div class="row mb-3">
+    <div class="col-12">
+        <h5 class="mb-3">بيانات الورثة الشرعيين</h5>
+    </div>
+    
+    <!-- الصف الأول: 3 حقول -->
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الاسم الكامل</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>صلة القرابة</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الجنس</label>
+        </div>
+    </div>
+
+    <!-- الصف الثاني: 3 حقول -->
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="date" placeholder=" ">
+            <label>تاريخ الميلاد</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>رقم الهوية</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الحالة الاجتماعية</label>
+        </div>
+    </div>
+
+    <!-- الصف الثالث: حقل واحد بعرض كامل -->
+    <div class="col-md-12">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>عدد الأسهم الشرعية</label>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+        <!-- إقرار مقدم الطلب -->
+<!-- ثالثاً: إقرار مقدم الطلب -->
+<div class="row mb-3 mt-4">
+    <div class="col-12">
+        <h5 class="mb-3">إقرار مقدم الطلب</h5>
+        <p>أنا الموقع أدناه:</p>
+    </div>
+
+    <!-- الصف الأول: 3 حقول -->
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الاسم</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الصفة (أحد الورثة / وكيل شرعي)</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>رقم الهوية</label>
+        </div>
+    </div>
+
+    <!-- الحقل الأخير: نص طويل -->
+    <!-- الحقل الأخير: مربع اختيار -->  
+    <div class="col-12">
+        <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" id="acknowledgement">
+            <label class="form-check-label" for="acknowledgement">
+                أقر بأن المعلومات الواردة أعلاه صحيحة، وأطلب إصدار حكم حصر الوراثة وفقاً للقانون اليمني والشريعة الإسلامية.
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<!-- رابعاً: شهادة الشهود -->
+<div class="row mb-3 mt-4">
+    <div class="col-12">
+        <h5 class="mb-3">شهادة الشهود</h5>
+    </div>
+
+    <!-- صف الشهود: 3 حقول -->
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>الاسم الكامل</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>رقم الهوية</label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="custom-input-container">
+            <input type="text" placeholder=" ">
+            <label>التوقيع</label>
+        </div>
+    </div>
+</div>
         <div class="text-center mt-4">
             <button type="submit" id="saveRequestBtn" class="btn btn-success px-5">
                 <i class="fas fa-save me-2"></i>حفظ الطلب
