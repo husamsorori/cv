@@ -566,13 +566,21 @@
                 <th> الشهود</th>
 
                 <th> الاختام</th>
-                <th> مسمية</th>
+                <th> مسجلة عقاريا</th>
                 <th> التاريخ</th>
                     </tr>
         </thead>
         <tbody>
             <tr>
-              <td><input type="text" class="form-control form-control-sm"></td>
+              <td>
+                <select asp-for="tanjezOrder.Alhiaza"
+                        asp-items="ViewBag.Ownerships ?? new List<SelectListItem>()"
+                        class="form-select add-option-enabled"
+                        data-controller="Ownerships">
+                    <option value="">-- اختر الحيازة --</option>
+                    <option value="add">+ إضافة</option>
+                </select>
+              </td>
                 <td><input type="text" class="form-control form-control-sm"></td>
                 <td><input type="text" class="form-control form-control-sm"></td>
                 <td><input type="text" class="form-control form-control-sm"></td>
