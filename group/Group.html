@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إدارة ألمكاتب</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root { --primary-color:#007bff; --secondary-color:#0056b3; }
+body { direction: rtl; font-family: Arial, sans-serif; }
+
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); cursor:pointer; }
+.img-radius { border-radius: 50%; }
+.wid-40 { width:40px; height:40px; }
+.members-count, .tasks-count { display:flex; align-items:center; font-size:0.85rem; color:#6c757d; }
+.members-count i, .tasks-count i { margin-left:5px; }
+
+.chat-container, .members-container { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:1050; flex-direction:column; }
+.chat-header, .members-header { padding:1rem; background:var(--primary-color); color:white; display:flex; justify-content:space-between; align-items:center; }
+.chat-messages, .members-list { flex:1; padding:1rem; overflow-y:auto; background:#f8f9fa; }
+.message { margin-bottom:1rem; display:flex; align-items:flex-start; }
+.message.sent { justify-content:flex-end; }
+.message-content { max-width:70%; padding:0.75rem 1rem; border-radius:18px; background:white; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+.message.sent .message-content { background:var(--primary-color); color:white; }
+.chat-input { padding:1rem; border-top:1px solid #dee2e6; display:flex; }
+.chat-input input { flex:1; border-radius:20px; padding:0.5rem 1rem; border:1px solid #ced4da; }
+.chat-input button { margin-right:10px; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; }
+
+.modal-content { border-radius:12px; border:none; }
+.modal-header { border-bottom:1px solid rgba(0,0,0,0.05); padding:1rem 1.5rem; }
+.modal-body { padding:1.5rem; }
+.back-btn, .close-btn { background:none; border:none; color:white; display:flex; align-items:center; }
+
+</style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>ألمكاتب</h3>
+        <button class="btn btn-primary" onclick="openAddGroupModal()">إنشاء مكتب جديدة</button>
+    </div>
+    <div class="row" id="groupsContainer"></div>
+</div>
+
+<!-- نافذة الدردشة -->
+<div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+        <button class="back-btn" onclick="closeChat()"><i class="material-icons">arrow_back</i></button>
+        <h5 class="mb-0" id="chatTitle">دردشة المكتب</h5>
+        <div></div>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا...">
+        <button class="btn btn-primary" onclick="sendMessage()"><i class="material-icons">send</i></button>
+    </div>
+</div>
+
+<!-- نافذة الأعضاء -->
+<div class="members-container" id="membersContainer">
+    <div class="members-header">
+        <button class="back-btn" onclick="closeMembers()"><i class="material-icons">arrow_back</i></button>
+        <h5 class="mb-0" id="membersTitle">أعضاء المكتب</h5>
+        <div></div>
+    </div>
+    <div class="members-list" id="membersList"></div>
+</div>
+
+<!-- نافذة إضافة / بحث عضو -->
+<div class="modal fade" id="addMemberModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">إضافة عضو جديد</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <div id="searchSection">
+          <input type="text" id="searchMember" class="form-control" placeholder="ابحث عن عضو...">
+          <div id="searchResult" class="mt-2"></div>
+        </div>
+        <div id="addSection" style="display:none;">
+          <form id="addMemberForm" class="mt-3">
+            <input type="text" id="memberName" class="form-control mb-2" placeholder="اسم العضو" required>
+            <input type="email" id="memberEmail" class="form-control mb-2" placeholder="البريد الإلكتروني" required>
+            <select id="memberRole" class="form-select mb-2">
+              <option value="member">عضو</option>
+              <option value="admin">مدير</option>
+              <option value="moderator">مشرف</option>
+            </select>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+        <button class="btn btn-primary" id="addMemberBtn" style="display:none;" onclick="addMember()">إضافة العضو</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- نافذة إنشاء مكتب -->
+<div class="modal fade" id="addGroupModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">إنشاء مكتب جديدة</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <form id="addGroupForm">
+          <input type="text" id="groupName" class="form-control mb-2" placeholder="اسم المكتب" required>
+          <textarea id="groupDescription" class="form-control mb-2" placeholder="الوصف" required></textarea>
+          <input type="text" id="groupField" class="form-control mb-2" placeholder="المجال" required>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+        <button class="btn btn-primary" onclick="addGroup()">إنشاء المكتب</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- نافذة إضافة مهمة -->
+<div class="modal fade" id="addTaskModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">إضافة مهمة</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <form id="addTaskForm">
+          <input type="text" id="taskTitle" class="form-control mb-2" placeholder="عنوان المهمة" required>
+          <textarea id="taskDescription" class="form-control mb-2" placeholder="الوصف" required></textarea>
+          <select id="taskPriority" class="form-select mb-2">
+            <option value="عادي">عادي</option>
+            <option value="متوسط">متوسط</option>
+            <option value="مستعجل">مستعجل</option>
+          </select>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+        <button class="btn btn-primary" onclick="addTask()">إضافة المهمة</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let groups = [];
+let members = [];
+let selectedGroup = null;
+let selectedMemberId = null;
+
+// --- إدارة ألمكاتب ---
+function openAddGroupModal(){new bootstrap.Modal(document.getElementById('addGroupModal')).show();}
+function addGroup(){
+    const name=document.getElementById('groupName').value;
+    const desc=document.getElementById('groupDescription').value;
+    const field=document.getElementById('groupField').value;
+    if(name && desc && field){
+        const newGroup={id:groups.length+1,name,desc,field,members:[],tasks:[]};
+        groups.push(newGroup);
+        bootstrap.Modal.getInstance(document.getElementById('addGroupModal')).hide();
+        renderGroups();
+    } else alert('يرجى ملء جميع الحقول');
+}
+function renderGroups(){
+    const container=document.getElementById('groupsContainer'); container.innerHTML='';
+    groups.forEach(g=>{
+        const div=document.createElement('div'); div.className='col-lg-3 col-md-4 col-sm-6 mb-4';
+        div.innerHTML=`
+        <div class="card" onclick="openChat('${g.name}')">
+            <div class="card-body p-3">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="mx-2">
+                        <h5 class="mb-1 text-truncate">${g.name}</h5>
+                        <h6 class="text-truncate text-muted mb-0">${g.field}</h6>
+                    </div>
+                    <div class="dropdown ms-auto">
+                        <a class="dropdown-toggle text-primary opacity-50 arrow-none" href="#" data-bs-toggle="dropdown" onclick="event.stopPropagation()">
+                            <i class="fas fa-ellipsis-v f-16"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#" onclick="event.stopPropagation()">المفضلة</a>
+                            <a class="dropdown-item" href="#" onclick="openMembers(event,${g.id})">الأعضاء</a>
+                            <a class="dropdown-item" href="#" onclick="event.stopPropagation()">طلب الانضمام</a>
+                            <a class="dropdown-item" href="#" onclick="openAddMemberModal(event,${g.id})">إضافة عضو</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="members-count"><i class="fas fa-users"></i><span>${g.members.length} أعضاء</span></div>
+                    <div class="tasks-count"><i class="fas fa-tasks"></i><span>${g.tasks.length} مهام</span></div>
+                </div>
+            </div>
+        </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// --- الدردشة ---
+const messages = [];
+function openChat(title){
+    document.getElementById('chatContainer').style.display='flex';
+    document.getElementById('chatTitle').textContent=title;
+}
+function closeChat(){document.getElementById('chatContainer').style.display='none';}
+function sendMessage(){
+    const input=document.getElementById('messageInput'); const text=input.value.trim();
+    if(text){messages.push({id:messages.length+1,sender:'أنت',content:text,isSent:true}); input.value=''; loadMessages();}
+}
+function loadMessages(){
+    const chatMessages=document.getElementById('chatMessages'); chatMessages.innerHTML='';
+    messages.forEach(m=>{
+        const div=document.createElement('div'); div.className=`message ${m.isSent?'sent':''}`;
+        div.innerHTML=`<div class="message-content"><div>${m.sender}</div><div>${m.content}</div></div>`;
+        chatMessages.appendChild(div);
+    });
+    chatMessages.scrollTop=chatMessages.scrollHeight;
+}
+document.getElementById('messageInput').addEventListener('keypress',function(e){if(e.key==='Enter'){sendMessage();}});
+
+// --- إدارة الأعضاء ---
+function openMembers(event,groupId){
+    event.stopPropagation(); document.getElementById('membersContainer').style.display='flex';
+    selectedGroup = groups.find(g=>g.id===groupId);
+    document.getElementById('membersTitle').textContent=`أعضاء ${selectedGroup.name}`;
+    renderMembers();
+}
+
+function closeMembers(){document.getElementById('membersContainer').style.display='none';}
+
+function renderMembers(){
+    const list=document.getElementById('membersList'); list.innerHTML='';
+    selectedGroup.members.forEach(m=>{
+        const div=document.createElement('div'); div.className='d-flex align-items-center justify-content-between mb-2 p-2 border-bottom';
+        div.innerHTML=`
+            <div class="d-flex align-items-center">
+                <img src="${m.avatar}" class="img-radius wid-40 me-2">
+                <div class="flex-grow-1"><strong>${m.name}</strong><br><small>${m.email}</small></div>
+                <span class="badge bg-primary">${m.role}</span>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-sm btn-warning" onclick="openAddTaskModal(${m.id})">تعيين مهمة</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteMember(${m.id})">حذف</button>
+            </div>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function deleteMember(id){
+    if(confirm('هل تريد حذف هذا العضو؟')){
+        selectedGroup.members = selectedGroup.members.filter(m=>m.id!==id);
+        renderMembers();
+    }
+}
+
+// --- إضافة مهمة ---
+function openAddTaskModal(memberId){
+    selectedMemberId = memberId;
+    document.getElementById('addTaskForm').reset();
+    new bootstrap.Modal(document.getElementById('addTaskModal')).show();
+}
+function addTask(){
+    const title = document.getElementById('taskTitle').value;
+    const desc = document.getElementById('taskDescription').value;
+    const priority = document.getElementById('taskPriority').value;
+    if(title && desc){
+        const member = selectedGroup.members.find(m=>m.id===selectedMemberId);
+        if(!member.tasks) member.tasks=[];
+        member.tasks.push({title,desc,priority});
+        bootstrap.Modal.getInstance(document.getElementById('addTaskModal')).hide();
+        alert('تم إضافة المهمة للعضو');
+    } else alert('يرجى ملء جميع الحقول');
+}
+
+// --- إضافة عضو ---
+function openAddMemberModal(event,groupId){
+    event.stopPropagation(); selectedGroup = groups.find(g=>g.id===groupId);
+    document.getElementById('searchMember').value=''; document.getElementById('searchResult').innerHTML='';
+    document.getElementById('addSection').style.display='none'; document.getElementById('addMemberBtn').style.display='none';
+    new bootstrap.Modal(document.getElementById('addMemberModal')).show();
+}
+
+document.getElementById('searchMember').addEventListener('input',function(){
+    const query=this.value.toLowerCase();
+    const resultDiv=document.getElementById('searchResult');
+    const found=selectedGroup.members.filter(m=>m.name.toLowerCase().includes(query));
+    if(query.length===0){resultDiv.innerHTML=''; document.getElementById('addSection').style.display='none'; document.getElementById('addMemberBtn').style.display='none'; return;}
+    if(found.length>0){
+        resultDiv.innerHTML=`<ul class="list-group">${found.map(m=>`<li class="list-group-item">${m.name} - ${m.email}</li>`).join('')}</ul>`;
+        document.getElementById('addSection').style.display='none'; document.getElementById('addMemberBtn').style.display='none';
+    } else {
+        resultDiv.innerHTML='<div class="text-danger">العضو غير موجود، الرجاء إضافة جديد</div>';
+        document.getElementById('addSection').style.display='block'; document.getElementById('addMemberBtn').style.display='inline-block';
+    }
+});
+
+function addMember(){
+    const name=document.getElementById('memberName').value;
+    const email=document.getElementById('memberEmail').value;
+    const role=document.getElementById('memberRole').value;
+    if(name && email){
+        selectedGroup.members.push({id:Date.now(),name,email,role,avatar:"https://via.placeholder.com/40",tasks:[]});
+        bootstrap.Modal.getInstance(document.getElementById('addMemberModal')).hide();
+        renderMembers();
+    } else alert('يرجى ملء جميع الحقول');
+}
+</script>
+
+</body>
+</html>

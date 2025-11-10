@@ -14,42 +14,74 @@
         direction: rtl;
         text-align: right;
     }
-    .section-header {
-        cursor: pointer;
-        padding: 15px 20px;
-        background-color: #0d6efd;
-        color: #fff;
-        border-radius: 8px;
-        margin-bottom: 5px;
-        transition: background-color 0.3s;
-        font-size: 1.3rem;
-        font-weight: bold;
-    }
-    .section-header:hover { background-color: #0b5ed7; }
-    .section-content {
-        display: none;
-        padding: 15px 20px;
-        background-color: #ffffff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .add-btn { margin-top: 10px; }
-    .item-box {
-        background: #f8f9fa;
-        border-radius: 8px;
-        padding: 10px 15px;
-        margin-top: 10px;
-        border: 1px solid #ddd;
-        position: relative;
-    }
-    .action-btns {
-        position: absolute;
-        left: 10px;
-        top: 10px;
-    }
-    .action-btns button { margin-left: 5px; }
+   
+    
+    .custom-input-container {
+      position: relative;
+      margin-bottom: 1rem;
+  }
+
+      .custom-input-container input,
+      .custom-input-container select {
+          width: 100%;
+          padding: 12px 10px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          background-color: #fff;
+          font-size: 15px;
+          transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+          .custom-input-container input:focus,
+          .custom-input-container select:focus {
+              border-color: #007bff;
+              box-shadow: 0 0 5px rgba(0,123,255,0.3);
+              outline: none;
+          }
+
+      .custom-input-container label {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          color: #777;
+          background: #fff;
+          padding: 0 5px;
+          transition: 0.2s ease all;
+          pointer-events: none;
+      }
+
+      .custom-input-container input:focus + label,
+      .custom-input-container input:not(:placeholder-shown) + label,
+      .custom-input-container select:focus + label,
+      .custom-input-container select:not([value=""]) + label {
+          top: -10px;
+          right: 10px;
+          font-size: 13px;
+          color: #007bff;
+      }
+
+  .dropdown-menu {
+      width: 100%;
+  }
+
+ 
+
+
+
+/* وضع زر الإضافة داخل نفس حقل الإدخال */
+.input-with-button {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button input {  
+    flex: 1;
+    margin-right: 0.5rem;
+}
+
+.input-with-button button {
+    flex-shrink: 0;
+}
 
     /* تصميم عرض السيرة الذاتية */
     #cv-preview {
@@ -98,127 +130,146 @@
                     <hr>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-md">
-    
-                    <div class="input-label-en">منشا الطلب </div>
-                    <input asp-for="tanjezOrder.CreateOrderName" type="text" class="form-control" placeholder="منشا الطلب">
+            <div class="row g-3 mb-4 mt-3">
+
+                <!-- منشأ الطلب -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
+                    <input asp-for="tanjezOrder.CreateOrderName" type="text" placeholder=" ">
+                    <label>منشأ الطلب</label>
+                  </div>
                 </div>
-                <div class="col-md">
-                    <h5>صفة منشا الطلب</h5>
-    
-    
+              
+                <!-- صفة منشأ الطلب -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
                     <select asp-for="tanjezOrder.DescripPerson" id="descripSelect" class="form-select">
-                        <option value="">   الصفة  </option>
-    
-                        <option value="عن نفسة">  عن نفسة</option>
-    
-                        <option value="وكيل"> وكيل</option>
-                        <option value="وصي"> وصي </option>
-                        <option value=""> اضافة</option>
+                      <option value="">الصفة</option>
+                      <option value="عن نفسة">عن نفسه</option>
+                      <option value="وكيل">وكيل</option>
+                      <option value="وصي">وصي</option>
+                      <option value="">إضافة</option>
                     </select>
-    
+                    <label>صفة منشأ الطلب</label>
+                  </div>
                 </div>
               
-
-                    <div class="col-md">
-                        <h5>   طبيعة منطقة الخلاف                        </h5>
-                        <select id="typePieceSelect" class="form-select">
-                            <option value="">-- اختر نوع القطعة --</option>
-                            <option value="ارض">أرض</option>
-                            <option value="رهق">رهق</option>
-                            <option value="ارض مع رهق">أرض مع رهق</option>
-                            <option value="مبنى">مبنى</option>
-                        </select>
-                    </div>
-                    
-                
-              
-                
-    
-            </div>
-
-
-
-
-            <!-- الصف الأول: موقع الأرض (4 أعمدة) -->
-            <div class="row mb-3">
-                <div class="col-md">
-                    <h5>الدولة</h5>
-                    <select class="form-select" asp-for="tanjezOrder.Country">
-                        <option value="اليمن">اليمن</option>
+                <!-- طبيعة منطقة الخلاف -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
+                    <select id="typePieceSelect" class="form-select">
+                      <option value="">-- اختر نوع القطعة --</option>
+                      <option value="ارض">أرض</option>
+                      <option value="رهق">رهق</option>
+                      <option value="ارض مع رهق">أرض مع رهق</option>
+                      <option value="مبنى">مبنى</option>
                     </select>
+                    <label>طبيعة منطقة الخلاف</label>
+                  </div>
                 </div>
-                <div class="col-md">
-                    <h5>المحافظة</h5>
+              
+                <!-- الدولة -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
+                    <select asp-for="tanjezOrder.Country" class="form-select">
+                      <option value="اليمن">اليمن</option>
+                    </select>
+                    <label>الدولة</label>
+                  </div>
+                </div>
+              
+                <!-- المحافظة -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
                     <select asp-for="tanjezOrder.City" class="form-select">
-                        <option value="">المحافظة</option>
-                        <option value="صنعاء">صنعاء</option>
-                        <option value="تعز">تعز</option>
-                        <option value="المهرة">المهرة</option>
-                        <option value="الجوف">الجوف</option>
-                        <option value="المحويت">المحويت</option>
-                        <option value="صعدة">صعدة</option>
-                        <option value="الضالع">الضالع</option>
-                        <option value="شبوة">شبوة</option>
-                        <option value="لحج">لحج</option>
-                        <option value="عدن">عدن</option>
-                        <option value="عمران">عمران</option>
-                        <option value="حجة">حجة</option>
-                        <option value="ريمة">ريمة</option>
-                        <option value="ذمار">ذمار</option>
-                        <option value="اب">اب</option>
-                        <option value="مارب">مارب</option>
-                        <option value="حضرموت">حضرموت</option>
-                        <option value="البيضاء">البيضاء</option>
-                        <option value="ابين">ابين</option>
-                        <option value="الحديدة">الحديدة</option>
+                      <option value="">المحافظة</option>
+                      <option value="صنعاء">صنعاء</option>
+                      <option value="تعز">تعز</option>
+                      <option value="المهرة">المهرة</option>
+                      <option value="الجوف">الجوف</option>
+                      <option value="المحويت">المحويت</option>
+                      <option value="صعدة">صعدة</option>
+                      <option value="الضالع">الضالع</option>
+                      <option value="شبوة">شبوة</option>
+                      <option value="لحج">لحج</option>
+                      <option value="عدن">عدن</option>
+                      <option value="عمران">عمران</option>
+                      <option value="حجة">حجة</option>
+                      <option value="ريمة">ريمة</option>
+                      <option value="ذمار">ذمار</option>
+                      <option value="اب">إب</option>
+                      <option value="مارب">مأرب</option>
+                      <option value="حضرموت">حضرموت</option>
+                      <option value="البيضاء">البيضاء</option>
+                      <option value="ابين">أبين</option>
+                      <option value="الحديدة">الحديدة</option>
                     </select>
+                    <label>المحافظة</label>
+                  </div>
                 </div>
-                <div class="col-md">
-                    <h5>المديرية</h5>
-                    <input type="text" class="form-control" id="documentArea" asp-for="tanjezOrder.Zone" placeholder="المديرية" />
-    
-                </div>
-                <div class="col-md">
-                    <h5>العزلة</h5>
-                    <input type="text" class="form-control" id="documentArea" asp-for="tanjezOrder.Directorate" placeholder="العزلة" />
-    
-                </div>
-                <div class="col-md">
-                    <h5>الحي/القرية</h5>
-                    <input type="text" class="form-control" id="documentArea" name="tanjezOrder.Village" placeholder="القرية او الحي" />
-    
-                </div>
-            </div>
-    
-            <!-- الصف الثاني: الإحداثيات (4 أعمدة، يمكن ترك عمود فارغ لو تريد) -->
-            <div class="row mb-3">
-    
-    
+              
+                <!-- المديرية -->
                 <div class="col-md-3">
-                    <h5>احداثيات Y</h5>
-                    <input name="tanjezOrder.CoordinatesY" type="number" class="form-control" placeholder="احداثيات Y">
+                  <div class="custom-input-container">
+                    <input type="text" asp-for="tanjezOrder.Zone" placeholder=" ">
+                    <label>المديرية</label>
+                  </div>
                 </div>
+              
+                <!-- العزلة -->
                 <div class="col-md-3">
-                    <h5>احداثيات X</h5>
-                    <input name="tanjezOrder.CoordinatesX" type="number" class="form-control" placeholder="احداثيات X">
+                  <div class="custom-input-container">
+                    <input type="text" asp-for="tanjezOrder.Directorate" placeholder=" ">
+                    <label>العزلة</label>
+                  </div>
                 </div>
-                <!-- عمود فارغ لو أردت حقل إضافي -->
+              
+                <!-- الحي / القرية -->
                 <div class="col-md-3">
-                    <label class="input-label"> اسم الموضع <span class="required-star">*</span></label>
-                    <input type="text" class="form-control" id="requestTitle" name="tanjezOrder.PlaceName" placeholder="أدخل عنوان الطلب" required />
+                  <div class="custom-input-container">
+                    <input type="text" name="tanjezOrder.Village" placeholder=" ">
+                    <label>الحي / القرية</label>
+                  </div>
                 </div>
+              
+                <!-- احداثيات Y -->
                 <div class="col-md-3">
-                    <label class="input-label">نوع الطلب  </label>
-                    <select class="form-select" id="placeTypeId" name="tanjezOrder.PlaceType">
-    
-                        <option value="حر">حر</option>
-                        <option value="وقف">وقف</option>
-                        <option value="3">+ انشاء جديد</option>
+                  <div class="custom-input-container">
+                    <input name="tanjezOrder.CoordinatesY" type="number" placeholder=" ">
+                    <label>إحداثيات Y</label>
+                  </div>
+                </div>
+              
+                <!-- احداثيات X -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
+                    <input name="tanjezOrder.CoordinatesX" type="number" placeholder=" ">
+                    <label>إحداثيات X</label>
+                  </div>
+                </div>
+              
+                <!-- اسم الموضع -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
+                    <input type="text" id="requestTitle" name="tanjezOrder.PlaceName" placeholder=" " required>
+                    <label>اسم الموضع</label>
+                  </div>
+                </div>
+              
+                <!-- نوع الطلب -->
+                <div class="col-md-3">
+                  <div class="custom-input-container">
+                    <select id="placeTypeId" name="tanjezOrder.PlaceType" class="form-select">
+                      <option value="حر">حر</option>
+                      <option value="وقف">وقف</option>
+                      <option value="3">+ إنشاء جديد</option>
                     </select>
+                    <label>نوع الطلب</label>
+                  </div>
                 </div>
-            </div>
+              
+              </div>
+              
         </div>
     
     
@@ -1211,69 +1262,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<style>
-.custom-input-container {
-    position: relative;
-    margin-bottom: 1rem;
-}
 
-.custom-input-container input,
-.custom-input-container textarea,
-.custom-input-container select {
-    width: 100%;
-    padding: 0.75rem 0.5rem 0.25rem 0.5rem;
-    border: 1px solid #ced4da;
-    border-top: none; /* إزالة الخط العلوي */
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-    outline: none;
-    font-size: 1rem;
-    background: #fff;
-}
-
-.custom-input-container label {
-    position: absolute;
-    top: 0.5rem;
-    left: 0.5rem;
-    background: #fff;
-    padding: 0 0.25rem;
-    font-size: 1rem;
-    color: #6c757d;
-    pointer-events: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.custom-input-container input:focus + label,
-.custom-input-container input:not(:placeholder-shown) + label,
-.custom-input-container textarea:focus + label,
-.custom-input-container textarea:not(:placeholder-shown) + label,
-.custom-input-container select:focus + label,
-.custom-input-container select:not([value=""]) + label {
-    top: -0.6rem;
-    font-size: 0.85rem;
-    color: #495057;
-}
-
-.custom-input-container textarea {
-    resize: vertical;
-    min-height: 60px;
-}
-
-/* وضع زر الإضافة داخل نفس حقل الإدخال */
-.input-with-button {
-    display: flex;
-    align-items: center;
-}
-
-.input-with-button input {
-    flex: 1;
-    margin-right: 0.5rem;
-}
-
-.input-with-button button {
-    flex-shrink: 0;
-}
-</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
