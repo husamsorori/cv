@@ -79,6 +79,13 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
 .days-warning { background-color: #fff3cd; color: #856404; }
 .days-danger { background-color: #f8d7da; color: #721c24; }
 .days-success { background-color: #d1edff; color: #0c5460; }
+
+/* تنسيقات أزرار الفلترة النشطة */
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
 </style>
 </head>
 <body>
@@ -175,11 +182,11 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">مهام الأعضاء</h5>
-                        <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-primary" onclick="filterTasks('all')">الكل</button>
-                            <button class="btn btn-sm btn-outline-success" onclick="filterTasks('completed')">المكتملة</button>
-                            <button class="btn btn-sm btn-outline-warning" onclick="filterTasks('inprogress')">قيد التنفيذ</button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="filterTasks('delayed')">المتأخرة</button>
+                        <div class="btn-group" id="filterButtons">
+                            <button class="btn btn-sm btn-outline-primary filter-btn active" onclick="filterTasks('all')">الكل</button>
+                            <button class="btn btn-sm btn-outline-success filter-btn" onclick="filterTasks('completed')">المكتملة</button>
+                            <button class="btn btn-sm btn-outline-warning filter-btn" onclick="filterTasks('inprogress')">قيد التنفيذ</button>
+                            <button class="btn btn-sm btn-outline-danger filter-btn" onclick="filterTasks('delayed')">المتأخرة</button>
                         </div>
                     </div>
                     <div class="card-body" id="tasksListContainer">
@@ -203,6 +210,7 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
     </div>
 </div>
 
+<!-- باقي النماذج تبقى كما هي -->
 <!-- نافذة إنشاء مكتب -->
 <div class="modal fade" id="addGroupModal" tabindex="-1">
   <div class="modal-dialog">
@@ -305,7 +313,7 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
   </div>
 </div>
 
-<!-- نافذة إضافة عضو -->
+<!-- نافذة  إضافة عضو -->
 <div class="modal fade" id="addMemberModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -381,7 +389,7 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
             </select>
           </div>
           
-          <!-- حقل تاريخ الاستحقاق -->
+          <!-- أضف هذا الحقل الجديد -->
           <div class="mb-3">
             <label for="taskDueDate" class="form-label">تاريخ الاستحقاق</label>
             <input type="date" id="taskDueDate" class="form-control" required>
@@ -394,8 +402,7 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
       </div>
     </div>
   </div>
-</div>
-
+</div> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 // البيانات الأساسية
@@ -403,6 +410,7 @@ let groups = JSON.parse(localStorage.getItem('officeGroups')) || [];
 let selectedGroup = null;
 let selectedMemberId = null;
 let selectedMemberDetailsId = null;
+let currentFilter = 'all'; // الفلتر الحالي
 
 // --- البيانات الأولية ---
 function initializeSampleData() {
@@ -546,6 +554,23 @@ function formatDaysRemaining(days) {
   if (days === 0) return 'ينتهي اليوم';
   if (days === 1) return 'يوم واحد متبقي';
   return `${days} أيام متبقية`;
+}
+
+// --- فلترة المهام ---
+function filterTasks(filterType) {
+  currentFilter = filterType;
+  
+  // تحديث حالة الأزرار
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // تفعيل الزر المحدد
+  event.target.classList.add('active');
+  
+  // إعادة عرض المهام مع التصفية
+  renderTasksList();
 }
 
 // --- إدارة ألمكاتب ---
@@ -843,9 +868,23 @@ function renderTasksList() {
     
     container.innerHTML = '';
     
+    let hasFilteredTasks = false;
+    
     selectedGroup.members.forEach(member => {
         if (member.tasks && member.tasks.length > 0) {
             member.tasks.forEach(task => {
+                // تطبيق الفلتر
+                if (currentFilter !== 'all') {
+                    if (currentFilter === 'completed' && task.status !== 'مكتملة') return;
+                    if (currentFilter === 'inprogress' && task.status !== 'قيد التنفيذ') return;
+                    if (currentFilter === 'delayed') {
+                        const daysRemaining = calculateDaysRemaining(task.dueDate);
+                        if (daysRemaining >= 0 || task.status === 'مكتملة') return;
+                    }
+                }
+                
+                hasFilteredTasks = true;
+                
                 const daysRemaining = calculateDaysRemaining(task.dueDate);
                 const daysClass = getDaysRemainingClass(daysRemaining);
                 const daysText = formatDaysRemaining(daysRemaining);
@@ -903,6 +942,16 @@ function renderTasksList() {
             });
         }
     });
+    
+    if (!hasFilteredTasks) {
+        container.innerHTML = `
+            <div class="text-center py-4">
+                <i class="fas fa-search fa-2x text-muted mb-3"></i>
+                <h5 class="text-muted">لا توجد مهام تطابق الفلتر المحدد</h5>
+                <p class="text-muted">جرب فلترًا مختلفًا أو أضف مهام جديدة</p>
+            </div>
+        `;
+    }
 }
 
 function formatDate(dateString) {
@@ -986,11 +1035,6 @@ function deleteTask(memberId, taskTitle) {
     }
 }
 
-function filterTasks(status) {
-    // في تطبيق حقيقي، هنا سيتم تصفية المهام حسب الحالة
-    alert(`سيتم تصفية المهام حسب الحالة: ${status}`);
-}
-
 function exportTasksReport(format) {
     alert(`سيتم تصدير التقرير بصيغة ${format.toUpperCase()}. هذه الميزة قيد التطوير.`);
 }
@@ -1007,6 +1051,7 @@ function openMemberDetails(memberId) {
 }
 
 // --- إضافة مهمة ---
+// --- إضافة مهمة ---
 function openAddTaskModal(memberId){
     selectedMemberId = memberId;
     document.getElementById('addTaskForm').reset();
@@ -1014,16 +1059,21 @@ function openAddTaskModal(memberId){
     // تعيين تاريخ افتراضي (بعد أسبوع من اليوم)
     const nextWeek = new Date();
     nextWeek.setDate(nextWeek.getDate() + 7);
-    document.getElementById('taskDueDate').value = nextWeek.toISOString().split('T')[0];
+    const dueDateInput = document.getElementById('taskDueDate');
+    
+    // تحقق من وجود العنصر قبل تعيين القيمة
+    if (dueDateInput) {
+        dueDateInput.value = nextWeek.toISOString().split('T')[0];
+    }
     
     new bootstrap.Modal(document.getElementById('addTaskModal')).show();
 }
-
 function addTask(){
     const title = document.getElementById('taskTitle').value;
     const desc = document.getElementById('taskDescription').value;
     const priority = document.getElementById('taskPriority').value;
-    const dueDate = document.getElementById('taskDueDate').value;
+    const dueDateInput = document.getElementById('taskDueDate');
+    const dueDate = dueDateInput ? dueDateInput.value : getFutureDate(7); // استخدام افتراضي إذا لم يوجد الحقل
     
     if(title && desc && dueDate){
         const member = selectedGroup.members.find(m => m.id === selectedMemberId);
@@ -1059,7 +1109,6 @@ function addTask(){
         showAlert('يرجى ملء جميع الحقول', 'danger');
     }
 }
-
 // --- إضافة عضو ---
 function openAddMemberModal(event, groupId){
     event.stopPropagation(); 
