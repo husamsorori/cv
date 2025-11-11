@@ -108,14 +108,51 @@ body { direction: rtl; font-family: Arial, sans-serif; }
 <div class="modal fade" id="addGroupModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">إنشاء مكتب جديدة</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-header">
+        <h5 class="modal-title">إنشاء مكتب جديدة</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
       <div class="modal-body">
+        <div class="alert alert-warning mb-3" role="alert" style="font-size: 0.9rem;">
+          ⚠️ يُرجى إدخال البيانات تمامًا كما هي في <strong>السجل التجاري</strong>، حيث سيتم مطابقة المعلومات قبل إنشاء المكتب.
+        </div>
+      
         <form id="addGroupForm">
-          <input type="text" id="groupName" class="form-control mb-2" placeholder="اسم المكتب" required>
+          <!-- الحقول الأساسية -->
+          <input type="text" id="groupName" class="form-control mb-2" placeholder="الاسم التجاري" required>
           <textarea id="groupDescription" class="form-control mb-2" placeholder="الوصف" required></textarea>
           <input type="text" id="groupField" class="form-control mb-2" placeholder="المجال" required>
+
+          <!-- اختيار الصفة -->
+          <select id="groupRole" class="form-select mb-3" onchange="toggleOwnerFields()">
+            <option value="">-- اختر الصفة --</option>
+            <option value="المالك">المالك</option>
+            <option value="مدير مكتب المالك">مدير مكتب المالك</option>
+          </select>
+
+          <!-- حقول المالك -->
+          <div id="ownerFields" style="display:none;">
+            <input type="text" id="ownerFullName" class="form-control mb-2" placeholder="الاسم الكامل">
+            <label class="form-label fw-bold">صورة الهوية (الوجه الأمامي)</label>
+            <input type="file" id="ownerIDFront" class="form-control mb-2" accept="image/*">
+
+            <label class="form-label fw-bold">صورة الهوية (الوجه الخلفي)</label>
+            <input type="file" id="ownerIDBack" class="form-control mb-2" accept="image/*">
+            <input type="text" id="ownerPhone" class="form-control mb-2" placeholder="رقم الجوال">
+          </div>
+
+          <!-- حقول مدير مكتب المالك -->
+          <div id="managerFields" style="display:none;">
+            <input type="text" id="ownerName" class="form-control mb-2" placeholder="اسم المالك">
+            <input type="text" id="managerName" class="form-control mb-2" placeholder="اسم المدير">
+            <input type="file" id="managerIDImage" class="form-control mb-2" accept="image/*">
+            <input type="text" id="managerPhone" class="form-control mb-2" placeholder="جوال المدير">
+            <input type="text" id="ownerPhoneForManager" class="form-control mb-2" placeholder="جوال المالك">
+          </div>
         </form>
       </div>
+      
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
         <button class="btn btn-primary" onclick="addGroup()">إنشاء المكتب</button>
@@ -133,7 +170,7 @@ body { direction: rtl; font-family: Arial, sans-serif; }
         <form id="addTaskForm">
           <input type="text" id="taskTitle" class="form-control mb-2" placeholder="عنوان المهمة" required>
           <textarea id="taskDescription" class="form-control mb-2" placeholder="الوصف" required></textarea>
-          <select id="taskPriority" class="form-select mb-2">
+          <select id="taskPriority" class="form-select mb-2" >
             <option value="عادي">عادي</option>
             <option value="متوسط">متوسط</option>
             <option value="مستعجل">مستعجل</option>
@@ -168,6 +205,24 @@ function addGroup(){
         renderGroups();
     } else alert('يرجى ملء جميع الحقول');
 }
+
+function toggleOwnerFields() {
+  const role = document.getElementById("groupRole").value;
+  const ownerFields = document.getElementById("ownerFields");
+  const managerFields = document.getElementById("managerFields");
+
+  if (role === "المالك") {
+    ownerFields.style.display = "block";
+    managerFields.style.display = "none";
+  } else if (role === "مدير مكتب المالك") {
+    ownerFields.style.display = "none";
+    managerFields.style.display = "block";
+  } else {
+    ownerFields.style.display = "none";
+    managerFields.style.display = "none";
+  }
+}
+
 function renderGroups(){
     const container=document.getElementById('groupsContainer'); container.innerHTML='';
     groups.forEach(g=>{

@@ -67,6 +67,18 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
     margin-bottom: 1rem;
     color: #dee2e6;
 }
+
+/* تنسيقات جديدة لتاريخ المهام */
+.days-remaining {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+.days-normal { background-color: #e9ecef; color: #495057; }
+.days-warning { background-color: #fff3cd; color: #856404; }
+.days-danger { background-color: #f8d7da; color: #721c24; }
+.days-success { background-color: #d1edff; color: #0c5460; }
 </style>
 </head>
 <body>
@@ -87,7 +99,7 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
 <!-- نافذة الدردشة -->
 <div class="chat-container" id="chatContainer">
     <div class="chat-header">
-        <button class="back-btn" onclick="closeChat()"><i class="material-icons">arrow_back</i></button>
+        <button class="back-btn" onclick="closeChat()"><i class="material-icons">رجوع</i></button>
         <h5 class="mb-0" id="chatTitle">دردشة المكتب</h5>
         <div></div>
     </div>
@@ -101,7 +113,7 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
 <!-- نافذة الأعضاء -->
 <div class="members-container" id="membersContainer">
     <div class="members-header">
-        <button class="back-btn" onclick="closeMembers()"><i class="material-icons">arrow_back</i></button>
+        <button class="back-btn" onclick="closeMembers()"><i class="material-icons">رجوع</i></button>
         <h5 class="mb-0" id="membersTitle">أعضاء المكتب</h5>
         <div></div>
     </div>
@@ -111,7 +123,7 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
 <!-- لوحة متابعة المهام -->
 <div class="tasks-dashboard-container" id="tasksDashboardContainer">
     <div class="tasks-dashboard-header">
-        <button class="back-btn" onclick="closeTasksDashboard()"><i class="material-icons">arrow_back</i></button>
+        <button class="back-btn" onclick="closeTasksDashboard()"><i class="material-icons">رجوع</i></button>
         <h5 class="mb-0" id="tasksDashboardTitle">لوحة متابعة المهام</h5>
         <div>
             <button class="btn btn-light btn-sm me-2" onclick="exportTasksReport('pdf')">
@@ -368,6 +380,12 @@ body { direction: rtl; font-family: Arial, sans-serif; background-color: #f5f7fb
               <option value="مستعجل">مستعجل</option>
             </select>
           </div>
+          
+          <!-- حقل تاريخ الاستحقاق -->
+          <div class="mb-3">
+            <label for="taskDueDate" class="form-label">تاريخ الاستحقاق</label>
+            <input type="date" id="taskDueDate" class="form-control" required>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -411,7 +429,7 @@ function initializeSampleData() {
                 status: "قيد التنفيذ",
                 progress: 75,
                 creationDate: "2023-10-10",
-                dueDate: "2023-11-15"
+                dueDate: getFutureDate(7) // بعد 7 أيام من اليوم
               },
               {
                 title: "تحسين تجربة المستخدم للشاشات الصغيرة",
@@ -419,8 +437,8 @@ function initializeSampleData() {
                 priority: "متوسط",
                 status: "جديدة",
                 progress: 0,
-                creationDate: "2023-10-20",
-                dueDate: "2023-11-30"
+                creationDate: "2025-11-20",
+                dueDate: getFutureDate(14) // بعد 14 يوم من اليوم
               }
             ]
           },
@@ -438,7 +456,7 @@ function initializeSampleData() {
                 status: "قيد التنفيذ",
                 progress: 60,
                 creationDate: "2023-10-05",
-                dueDate: "2023-11-10"
+                dueDate: getFutureDate(3) // بعد 3 أيام من اليوم
               },
               {
                 title: "تحسين أداء الخوادم",
@@ -447,7 +465,7 @@ function initializeSampleData() {
                 status: "جديدة",
                 progress: 0,
                 creationDate: "2023-10-18",
-                dueDate: "2023-12-01"
+                dueDate: getFutureDate(21) // بعد 21 يوم من اليوم
               }
             ]
           },
@@ -465,7 +483,7 @@ function initializeSampleData() {
                 status: "مكتملة",
                 progress: 100,
                 creationDate: "2023-09-25",
-                dueDate: "2023-10-25"
+                dueDate: getPastDate(5) // قبل 5 أيام من اليوم
               },
               {
                 title: "تنفيذ إجراءات التخزين المحسنة",
@@ -474,7 +492,7 @@ function initializeSampleData() {
                 status: "قيد التنفيذ",
                 progress: 40,
                 creationDate: "2023-10-15",
-                dueDate: "2023-11-20"
+                dueDate: getFutureDate(10) // بعد 10 أيام من اليوم
               },
               {
                 title: "نسخ احتياطي لقاعدة البيانات",
@@ -482,8 +500,8 @@ function initializeSampleData() {
                 priority: "عادي",
                 status: "جديدة",
                 progress: 0,
-                creationDate: "2023-10-22",
-                dueDate: "2023-12-05"
+                creationDate: "2025-11-11",
+                dueDate: getFutureDate(30) // بعد 30 يوم من اليوم
               }
             ]
           }
@@ -493,6 +511,41 @@ function initializeSampleData() {
     saveGroupsToStorage();
   }
   renderGroups();
+}
+
+// --- دوال مساعدة للتواريخ ---
+function getFutureDate(days) {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().split('T')[0];
+}
+
+function getPastDate(days) {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+  return date.toISOString().split('T')[0];
+}
+
+function calculateDaysRemaining(dueDate) {
+  const today = new Date();
+  const due = new Date(dueDate);
+  const diffTime = due - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
+
+function getDaysRemainingClass(days) {
+  if (days < 0) return 'days-danger'; // متأخرة
+  if (days <= 2) return 'days-warning'; // قريبة
+  if (days <= 7) return 'days-success'; // خلال أسبوع
+  return 'days-normal'; // وقت كافي
+}
+
+function formatDaysRemaining(days) {
+  if (days < 0) return `متأخرة ${Math.abs(days)} يوم`;
+  if (days === 0) return 'ينتهي اليوم';
+  if (days === 1) return 'يوم واحد متبقي';
+  return `${days} أيام متبقية`;
 }
 
 // --- إدارة ألمكاتب ---
@@ -793,13 +846,20 @@ function renderTasksList() {
     selectedGroup.members.forEach(member => {
         if (member.tasks && member.tasks.length > 0) {
             member.tasks.forEach(task => {
+                const daysRemaining = calculateDaysRemaining(task.dueDate);
+                const daysClass = getDaysRemainingClass(daysRemaining);
+                const daysText = formatDaysRemaining(daysRemaining);
+                
                 const taskCard = document.createElement('div');
                 taskCard.className = `card task-card mb-3 task-${getTaskStatusClass(task.status || 'جديدة')}`;
                 taskCard.innerHTML = `
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <h6 class="card-title">${task.title}</h6>
-                            <span class="badge bg-${getTaskStatusBadgeColor(task.status || 'جديدة')}">${task.status || 'جديدة'}</span>
+                            <div>
+                                <span class="badge bg-${getTaskStatusBadgeColor(task.status || 'جديدة')} me-1">${task.status || 'جديدة'}</span>
+                                <span class="days-remaining ${daysClass}">${daysText}</span>
+                            </div>
                         </div>
                         <p class="card-text small text-muted">${task.description}</p>
                         <div class="d-flex justify-content-between align-items-center">
@@ -831,11 +891,26 @@ function renderTasksList() {
                             </div>
                         </div>
                         ` : ''}
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                <i class="far fa-calendar me-1"></i>
+                                تاريخ الاستحقاق: ${formatDate(task.dueDate)}
+                            </small>
+                        </div>
                     </div>
                 `;
                 container.appendChild(taskCard);
             });
         }
+    });
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ar-EG', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
 }
 
@@ -854,6 +929,12 @@ function renderMembersPerformance() {
             const completedTasks = member.tasks.filter(t => t.status === 'مكتملة').length;
             const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
             
+            // حساب المهام المتأخرة
+            const overdueTasks = member.tasks.filter(t => {
+                const daysRemaining = calculateDaysRemaining(t.dueDate);
+                return daysRemaining < 0 && t.status !== 'مكتملة';
+            }).length;
+            
             const performanceCard = document.createElement('div');
             performanceCard.className = 'member-performance-card card mb-2';
             performanceCard.innerHTML = `
@@ -863,6 +944,7 @@ function renderMembersPerformance() {
                         <div class="flex-grow-1">
                             <h6 class="mb-0">${member.name}</h6>
                             <small class="text-muted">${completedTasks}/${totalTasks} مكتملة</small>
+                            ${overdueTasks > 0 ? `<br><small class="text-danger">${overdueTasks} متأخرة</small>` : ''}
                         </div>
                         <div class="text-end">
                             <span class="badge bg-${getPerformanceBadgeColor(completionRate)}">${completionRate}%</span>
@@ -928,6 +1010,12 @@ function openMemberDetails(memberId) {
 function openAddTaskModal(memberId){
     selectedMemberId = memberId;
     document.getElementById('addTaskForm').reset();
+    
+    // تعيين تاريخ افتراضي (بعد أسبوع من اليوم)
+    const nextWeek = new Date();
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    document.getElementById('taskDueDate').value = nextWeek.toISOString().split('T')[0];
+    
     new bootstrap.Modal(document.getElementById('addTaskModal')).show();
 }
 
@@ -935,8 +1023,9 @@ function addTask(){
     const title = document.getElementById('taskTitle').value;
     const desc = document.getElementById('taskDescription').value;
     const priority = document.getElementById('taskPriority').value;
+    const dueDate = document.getElementById('taskDueDate').value;
     
-    if(title && desc){
+    if(title && desc && dueDate){
         const member = selectedGroup.members.find(m => m.id === selectedMemberId);
         if(!member.tasks) member.tasks = [];
         
@@ -949,6 +1038,7 @@ function addTask(){
             priority, 
             status: 'جديدة',
             creationDate,
+            dueDate: dueDate,
             progress: 0
         });
         
