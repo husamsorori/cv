@@ -700,7 +700,7 @@
 </head>
 <body>
     <!-- صفحة تسجيل الدخول -->
-    <div id="login-page" class="login-container">   
+    <div id="login-page" class="login-container" style="display: none;">   
         <div class="login-card">
             <div class="login-logo">
                 <div class="logo">K</div>
@@ -737,8 +737,68 @@
         </div>
     </div>
 
+
+<script>
+    document.getElementById("login-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const username = document.querySelector('input[type="text"]').value;
+    const password = document.querySelector('input[type="password"]').value;
+
+    const clientId = "my-app";
+    const clientSecret = "X3uIau6Nt2ZmWXKyzIYNCyxOdUFhoO3Z";
+    const realm = "master";
+    const keycloakUrl = "http://localhost:8080";
+
+    try {
+        const response = await fetch(
+            `${keycloakUrl}/realms/${realm}/protocol/openid-connect/token`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    client_id: clientId,
+                    client_secret: clientSecret,
+                    grant_type: "password",
+                    username: username,
+                    password: password
+                })
+            }
+        );
+
+        const data = await response.json();
+        console.log("KEYCLOAK RESPONSE:", data);
+
+        if (data.access_token) {
+            localStorage.setItem("access_token", data.access_token);
+            localStorage.setItem("refresh_token", data.refresh_token);
+            window.location.href = "/dashboard.html";
+        }
+         else {
+            alert("خطأ في تسجيل الدخول: " + (data.error_description || data.error));
+        }
+
+    } catch (err) {
+        alert("فشل الاتصال بـ Keycloak");
+        console.error(err);
+    }
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- التطبيق الرئيسي (مخفي في البداية) -->
-    <div id="app" class="app-container" style="display: none;">
+    <div id="app" class="app-container" style="display: flex;">
         <!-- طبقة التعتيم للجوال -->
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
         

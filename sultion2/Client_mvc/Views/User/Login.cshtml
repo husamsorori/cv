@@ -1,0 +1,42 @@
+﻿@model Client_mvc.Models.UserLogin
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site1.css">
+
+</head>
+<body>
+    <div class="login-container">
+        <img src="/images/MainIcon.png" alt="Logo" />
+        <h2> صناع الذكاء الرقمي</h2>
+
+
+        <form asp-action="Login" method="post">
+            <div class="from-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger">   </span>
+            </div>
+            <div class="from-group">
+                <label asp-for="pass" class="control-label"></label>
+                <input asp-for="pass" type="Pass" class="form-control" />
+                <span asp-validation-for="pass" class="text-danger">   </span>
+            </div>
+            <div class="from-group">
+
+                <input type="submit" class="btn btn-primary" />
+
+            </div>
+        </form>
+        <a href="/signin-google">تسجيل الدخول باستخدام Google</a>
+    </div>
+</body>
+</html>
+

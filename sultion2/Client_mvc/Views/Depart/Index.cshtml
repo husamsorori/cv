@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Client_mvc.Models.Depart>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+   
+</p>
+<table class="table table-striped table-info text-center">
+    @if(ViewBag.error != null)
+    {
+        <div class="bg-danger">
+            @ViewBag.error
+        </div>
+    }
+
+    @if (TempData["sms"] != null)
+    {
+        <div class="bg-danger">
+            @TempData["sms"]
+        </div>
+    }
+    <thead>
+        <tr>
+        
+            <th>
+                الاسم 
+                
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locatin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adderss)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Employid)
+            </th>
+         
+            <th> <a asp-action="Create" class="btn btn-primary">اضافة قسم </a></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Locatin)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adderss)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employid)
+                </td>
+              
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
+                    @Html.ActionLink("Delete1", "Delete1", new { id = item.Id })
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

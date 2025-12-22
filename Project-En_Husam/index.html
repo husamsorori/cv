@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>لوحة التحكم - الفرزة</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <i class="fa-solid fa-bus"></i>
+                </div>
+                <h3 class="brand-name">ALFRZH<br><span class="arabic-brand">الفرزة</span></h3>
+                <!-- زر القائمة للهواتف -->
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul id="sidebar-list">
+                    <li><a href="#" data-page="dashboard"><i class="fas fa-tachometer-alt"></i>لوحة التحكم</a></li>
+                    <li><a href="#" data-page="users" class="active"><i class="fas fa-users"></i>ادارة المستخدمين</a></li>
+                    <li><a href="#" data-page="buses"><i class="fas fa-bus-alt"></i>ادارة الباصات</a></li>
+                    <li><a href="#" data-page="routes"><i class="fas fa-route"></i>ادارة المسارات</a></li>
+                    <li><a href="#" data-page="stations"><i class="fas fa-map-marker-alt"></i>ادارة المحطات</a></li>
+                    <li><a href="#" data-page="trips"><i class="fas fa-plane-departure"></i>ادارة الرحلات</a></li>
+                    <li><a href="#" data-page="booking"><i class="fas fa-calendar-check"></i>قسم الحجز</a></li>
+                    <li><a href="#" data-page="payments"><i class="fas fa-credit-card"></i>قسم الدفع</a></li>
+                    <li><a href="#" data-page="support"><i class="fas fa-headset"></i>الدعم الفني</a></li>
+                    <li><a href="#" data-page="notifications"><i class="fas fa-bell"></i>الاشعارات</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- صفحة إدارة المستخدمين (الصفحة الافتراضية) -->
+            <div class="page-content active" id="users-page">
+                <!-- Top Stats -->
+               <!-- بدلاً من القسم الحالي للبطاقات الإحصائية في صفحة إدارة المستخدمين -->
+<!-- Top Stats -->
+<div class="stats-grid" id="stats-grid">
+    <!-- الصف الأول -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-number">150</div>
+            <div class="stat-label">إجمالي المستخدمين</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">120</div>
+            <div class="stat-label">مستخدمين نشطين</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">25</div>
+            <div class="stat-label">مشرفين</div>
+        </div>
+    </div>
+    <!-- الصف الثاني -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">مديرين</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">30</div>
+            <div class="stat-label">مستخدمين جدد</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">15</div>
+            <div class="stat-label">محظورين</div>
+        </div>
+    </div>
+</div>
+                <div class="content-divider"></div>
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h2 class="page-title">ادارة المستخدمين</h2>
+                    <div class="header-tools">
+                        <button class="tool-btn"><i class="fa-solid fa-user-plus"></i></button>
+                        <button class="tool-btn"><i class="fa-solid fa-print"></i></button>
+                        <button class="tool-btn"><i class="fa-solid fa-chart-simple"></i></button>
+                        <button class="tool-btn"><i class="fa-solid fa-filter"></i></button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>معرف المستخدم</th>
+                                <th>الاسم</th>
+                                <th>رقم الهاتف</th>
+                               
+                                <th>نوع المستخدم</th>
+                               
+                                <th class="actions-header">خيارات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <tr>
+                                <td>#U001</td>
+                                <td>أحمد محمد</td>
+                                <td>+966 50 123 4567</td>
+                               
+                                <td><span class="user-type admin">مشرف</span></td>
+                           
+                                <td class="actions-cell">
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i> تعديل</button>
+                                    <button class="action-btn details"><i class="fas fa-eye"></i> تفاصيل</button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i> حذف</button>
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- صفحة الدعم الفني -->
+            <div class="page-content" id="support-page">
+                <!-- Top Stats -->
+                <div class="stats-grid" id="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">التقييمات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">المفقودات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">الشكاوي</div>
+                    </div>
+                </div>
+
+                <div class="content-divider"></div>
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h2 class="page-title">الدعم الفني</h2>
+                    <div class="header-tools">
+                        <button class="tool-btn"><i class="fa-solid fa-print"></i></button>
+                        <button class="tool-btn"><i class="fa-solid fa-chart-simple"></i></button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>معرف الطلب</th>
+                                <th>معرف الراكب</th>
+                                <th>معرف الرحلة</th>
+                                <th>نوع الطلب</th>
+                                <th>الحالة</th>
+                                <th>تاريخ الانشاء</th>
+                                <th>تاريخ الاستجابة</th>
+                                <th class="actions-header">خيارات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <tr>
+                                <td>#001</td>
+                                <td>#101</td>
+                                <td>#T001</td>
+                                <td>شكوى</td>
+                                <td>معلق</td>
+                                <td>2024-03-15</td>
+                                <td>-</td>
+                                <td class="actions-cell">
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i> تعديل</button>
+                                    <button class="action-btn details"><i class="fas fa-eye"></i> تفاصيل</button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i> حذف</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- صفحة لوحة التحكم (مثال) -->
+            <div class="page-content" id="dashboard-page">
+                <div class="page-header">
+                    <h2 class="page-title">لوحة التحكم</h2>
+                </div>
+                <div class="content-divider"></div>
+                <div class="dashboard-welcome">
+                    <h3>مرحباً بك في نظام إدارة الفرزة</h3>
+                    <p>استخدم القائمة الجانبية للتنقل بين الأقسام المختلفة</p>
+                </div>
+            </div>
+
+            <!-- صفحات أخرى يمكن إضافتها بنفس الطريقة -->
+        </main>
+    </div>
+<!-- أضف هذا قبل إغلاق body -->
+<!-- نموذج إضافة مستخدم -->
+<div id="userModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">إضافة مستخدم جديد</h3>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="userName">اسم المستخدم</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPhone">رقم الهاتف</label>
+                    <input type="tel" id="userPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="userType">نوع المستخدم</label>
+                    <select id="userType" required>
+                        <option value="user">مستخدم عادي</option>
+                        <option value="admin">مشرف</option>
+                        <option value="manager">مدير</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="userStatus">الحالة</label>
+                    <select id="userStatus" required>
+                        <option value="active">نشط</option>
+                        <option value="inactive">غير نشط</option>
+                        <option value="banned">محظور</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">حفظ</button>
+            </form>
+        </div>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+
+</html>
